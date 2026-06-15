@@ -1,0 +1,292 @@
+{%- comment -%}
+  Humble Hearted — Collections Landing Page
+  Matches the exact design system of hh-earrings-collection.liquid.
+  Assign this section to the list-collections.hh template.
+{%- endcomment -%}
+
+{%- style -%}
+  .hhc *,.hhc *::before,.hhc *::after{margin:0;padding:0;box-sizing:border-box;}
+  .hhc{background:#080808;color:#f2ede1;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+  .hhc a{color:inherit;text-decoration:none;}
+  @keyframes hh-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .hhc-ann{background:#C4A843;overflow:hidden;height:36px;display:flex;align-items:center;}
+  .hhc-ann-track{display:flex;animation:hh-marquee 36s linear infinite;white-space:nowrap;will-change:transform;}
+  .hhc-ann-track span{font-size:10px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;}
+  .hhc-nav{background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;}
+  .hhc-hn{max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;}
+  .hhc-link{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#f2ede1;}
+  .hhc-link.active{color:#C4A843;font-weight:700;}
+  .hhc-l{display:flex;gap:24px;align-items:center;}
+  .hhc-r{display:flex;gap:18px;align-items:center;}
+  .hhc-logo{justify-self:center;line-height:0;}
+  .hhc-logo img{height:62px;width:auto;display:block;}
+  .hhc-logo span{font-family:'Playfair Display',serif;font-size:26px;color:#f2ede1;letter-spacing:0.15em;}
+  .hhc-ic{display:flex;gap:14px;align-items:center;border-left:1px solid #1f1a14;padding-left:16px;margin-left:2px;}
+  .hhc-hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
+  .hhc-hbg span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
+
+  /* Hero */
+  .hhc-hero{height:280px;position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#100a14 0,#100a14 18px,#180f1e 18px,#180f1e 36px);}
+  .hhc-hero-inner{position:absolute;inset:0;background:rgba(8,8,8,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
+  .hhc-hero-eyebrow{font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
+  .hhc-hero-title{font-family:'Playfair Display',serif;font-size:56px;color:#f2ede1;font-weight:400;margin-bottom:12px;}
+  .hhc-hero-sub{font-size:12px;color:rgba(242,237,225,0.45);font-weight:300;letter-spacing:0.08em;}
+
+  /* Collections grid */
+  .hhc-cl-grid{display:grid;grid-template-columns:repeat(2,1fr);max-width:1440px;margin:0 auto;padding:48px 48px 16px;gap:28px;}
+  .hhc-cl-card{display:block;position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;}
+  .hhc-cl-card-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);}
+  .hhc-cl-card:hover .hhc-cl-card-bg{transform:scale(1.05);}
+  .hhc-cl-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.88) 0%,rgba(8,8,8,0.28) 50%,rgba(8,8,8,0.04) 100%);}
+  .hhc-cl-body{position:absolute;bottom:0;left:0;right:0;padding:32px 28px;}
+  .hhc-cl-eyebrow{font-size:9px;letter-spacing:0.25em;color:#C4A843;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+  .hhc-cl-name{font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;line-height:1.1;margin-bottom:10px;}
+  .hhc-cl-count{font-size:10px;color:rgba(242,237,225,0.45);letter-spacing:0.1em;font-weight:300;margin-bottom:18px;}
+  .hhc-cl-cta{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:#f2ede1;border-bottom:1px solid rgba(196,168,67,0.5);padding-bottom:3px;transition:color 0.3s,border-color 0.3s;}
+  .hhc-cl-card:hover .hhc-cl-cta{color:#C4A843;border-color:#C4A843;}
+  .hhc-cl-arrow{transition:transform 0.3s;}
+  .hhc-cl-card:hover .hhc-cl-arrow{transform:translateX(4px);}
+
+  /* Promise strip */
+  .hhc-promise{border-top:1px solid #1a1510;border-bottom:1px solid #1a1510;margin:16px 0;}
+  .hhc-promise-inner{max-width:1440px;margin:0 auto;padding:24px 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .hhc-promise-item{display:flex;align-items:center;gap:12px;}
+  .hhc-promise-icon{width:32px;height:32px;flex-shrink:0;color:#C4A843;}
+  .hhc-promise-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(242,237,225,0.55);font-weight:600;line-height:1.4;}
+
+  /* Footer */
+  .hhc-ft{background:#080808;padding:48px 48px 28px;border-top:1px solid #1a1510;}
+  .hhc-ft-inner{max-width:1440px;margin:0 auto;}
+  .hhc-ft-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid #1a1510;}
+  .hhc-ft-tag{font-size:11px;color:rgba(242,237,225,0.35);line-height:1.8;max-width:220px;font-weight:300;}
+  .hhc-ft-h{font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:14px;}
+  .hhc-ft-list{display:flex;flex-direction:column;gap:9px;}
+  .hhc-ft-list a{font-size:12px;color:rgba(242,237,225,0.4);font-weight:300;}
+  .hhc-ft-logo{height:52px;width:auto;display:block;margin-bottom:12px;}
+  .hhc-ft-logo span{font-family:'Playfair Display',serif;font-size:22px;color:#f2ede1;letter-spacing:0.15em;}
+  .hhc-ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .hhc-ft-copy{font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;}
+  .hhc-ft-pay{font-size:10px;color:rgba(242,237,225,0.2);}
+
+  /* Responsive */
+  @media(max-width:1024px){
+    .hhc-cl-grid{grid-template-columns:repeat(2,1fr);padding:32px 28px 12px;}
+    .hhc-ft-cols{grid-template-columns:repeat(3,1fr);}
+    .hhc-promise-inner{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:768px){
+    .hhc-hbg{display:flex!important;}
+    .hhc-l,.hhc-r,.hhc-ic{display:none!important;}
+    .hhc-hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}
+    .hhc-logo img{height:46px!important;}
+    .hhc-hero-title{font-size:40px;}
+    .hhc-cl-grid{grid-template-columns:1fr;gap:18px;padding:24px 18px 8px;}
+    .hhc-cl-name{font-size:28px;}
+    .hhc-ft-cols{grid-template-columns:repeat(2,1fr);}
+    .hhc-promise-inner{grid-template-columns:repeat(2,1fr);padding:20px 18px;}
+  }
+{%- endstyle -%}
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+{%- assign logo_url = 'hh-logo.png' | asset_url -%}
+{%- assign bgs = 'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 11px,#1c1610 11px,#1c1610 22px)|repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px)|repeating-linear-gradient(135deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px)|repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px)' | split: '|' -%}
+
+{%- assign cl_necklaces = collections['necklaces'] -%}
+{%- assign cl_rings = collections['rings'] -%}
+{%- assign cl_bracelets = collections['bracelets'] -%}
+{%- assign cl_earrings = collections['earrings'] -%}
+
+{%- assign collection_list = cl_necklaces, cl_rings, cl_bracelets, cl_earrings -%}
+
+<div class="hhc">
+
+  <!-- Announcement Bar -->
+  <div class="hhc-ann">
+    <div class="hhc-ann-track">
+      <span>Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="hhc-nav">
+    <div class="hhc-hn">
+      <button class="hhc-hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="hhc-l">
+        <a class="hhc-link" href="/collections/necklaces">Necklaces</a>
+        <a class="hhc-link" href="/collections/rings">Rings</a>
+        <a class="hhc-link" href="/collections/bracelets">Bracelets</a>
+        <a class="hhc-link" href="/collections/earrings">Earrings</a>
+      </div>
+      <a class="hhc-logo" href="/">
+        {%- if settings.logo != blank -%}
+          <img src="{{ settings.logo | image_url: height: 124 }}" alt="{{ shop.name }}">
+        {%- else -%}
+          <img src="{{ logo_url }}" alt="{{ shop.name }}" onerror="this.outerHTML='<span>HH</span>'">
+        {%- endif -%}
+      </a>
+      <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end;">
+        <div class="hhc-r">
+          <a class="hhc-link" href="/collections/pendants">Pendants</a>
+          <a class="hhc-link" href="/collections/all?sort_by=created-descending">New</a>
+          <a class="hhc-link" href="/collections/gifts">Gifts</a>
+        </div>
+        <div class="hhc-ic">
+          <a href="/search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></a>
+          <a href="/account" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+          <a href="/cart" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hhc-hero">
+    <div class="hhc-hero-inner">
+      <p class="hhc-hero-eyebrow">Humble Hearted</p>
+      <h1 class="hhc-hero-title">Our Collections</h1>
+      <p class="hhc-hero-sub">Curated Jewelry &middot; 18k Gold Vermeil &middot; Sterling Silver</p>
+    </div>
+  </section>
+
+  <!-- Collections Grid -->
+  <div class="hhc-cl-grid">
+
+    {%- comment -%} Necklaces {%- endcomment -%}
+    {%- assign bg0 = bgs[0] -%}
+    <a class="hhc-cl-card" href="/collections/necklaces">
+      <div class="hhc-cl-card-bg" style="{% if cl_necklaces.image %}background-image:url('{{ cl_necklaces.image | image_url: width: 900 }}');{% else %}background:{{ bg0 }};{% endif %}"></div>
+      <div class="hhc-cl-overlay"></div>
+      <div class="hhc-cl-body">
+        <p class="hhc-cl-eyebrow">Shop the Collection</p>
+        <h2 class="hhc-cl-name">Necklaces</h2>
+        <p class="hhc-cl-count">
+          {%- if cl_necklaces != blank -%}{{ cl_necklaces.products_count }} Pieces{%- else -%}Explore the Collection{%- endif -%}
+        </p>
+        <span class="hhc-cl-cta">Shop Now <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    {%- comment -%} Rings {%- endcomment -%}
+    {%- assign bg1 = bgs[1] -%}
+    <a class="hhc-cl-card" href="/collections/rings">
+      <div class="hhc-cl-card-bg" style="{% if cl_rings.image %}background-image:url('{{ cl_rings.image | image_url: width: 900 }}');{% else %}background:{{ bg1 }};{% endif %}"></div>
+      <div class="hhc-cl-overlay"></div>
+      <div class="hhc-cl-body">
+        <p class="hhc-cl-eyebrow">Shop the Collection</p>
+        <h2 class="hhc-cl-name">Rings</h2>
+        <p class="hhc-cl-count">
+          {%- if cl_rings != blank -%}{{ cl_rings.products_count }} Pieces{%- else -%}Explore the Collection{%- endif -%}
+        </p>
+        <span class="hhc-cl-cta">Shop Now <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    {%- comment -%} Bracelets {%- endcomment -%}
+    {%- assign bg2 = bgs[2] -%}
+    <a class="hhc-cl-card" href="/collections/bracelets">
+      <div class="hhc-cl-card-bg" style="{% if cl_bracelets.image %}background-image:url('{{ cl_bracelets.image | image_url: width: 900 }}');{% else %}background:{{ bg2 }};{% endif %}"></div>
+      <div class="hhc-cl-overlay"></div>
+      <div class="hhc-cl-body">
+        <p class="hhc-cl-eyebrow">Shop the Collection</p>
+        <h2 class="hhc-cl-name">Bracelets</h2>
+        <p class="hhc-cl-count">
+          {%- if cl_bracelets != blank -%}{{ cl_bracelets.products_count }} Pieces{%- else -%}Explore the Collection{%- endif -%}
+        </p>
+        <span class="hhc-cl-cta">Shop Now <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    {%- comment -%} Earrings {%- endcomment -%}
+    {%- assign bg3 = bgs[3] -%}
+    <a class="hhc-cl-card" href="/collections/earrings">
+      <div class="hhc-cl-card-bg" style="{% if cl_earrings.image %}background-image:url('{{ cl_earrings.image | image_url: width: 900 }}');{% else %}background:{{ bg3 }};{% endif %}"></div>
+      <div class="hhc-cl-overlay"></div>
+      <div class="hhc-cl-body">
+        <p class="hhc-cl-eyebrow">Shop the Collection</p>
+        <h2 class="hhc-cl-name">Earrings</h2>
+        <p class="hhc-cl-count">
+          {%- if cl_earrings != blank -%}{{ cl_earrings.products_count }} Pieces{%- else -%}Explore the Collection{%- endif -%}
+        </p>
+        <span class="hhc-cl-cta">Shop Now <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Promise Strip -->
+  <div class="hhc-promise">
+    <div class="hhc-promise-inner">
+      <div class="hhc-promise-item">
+        <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        <span class="hhc-promise-label">Free Shipping<br>On Orders $75+</span>
+      </div>
+      <div class="hhc-promise-item">
+        <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span class="hhc-promise-label">Verified Quality<br>18k Gold Vermeil</span>
+      </div>
+      <div class="hhc-promise-item">
+        <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="hhc-promise-label">60-Day Returns<br>Hassle Free</span>
+      </div>
+      <div class="hhc-promise-item">
+        <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="hhc-promise-label">Sign Up & Save<br>10% Off First Order</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="hhc-ft">
+    <div class="hhc-ft-inner">
+      <div class="hhc-ft-cols">
+        <div>
+          {%- if settings.logo != blank -%}
+            <img class="hhc-ft-logo" src="{{ settings.logo | image_url: height: 104 }}" alt="{{ shop.name }}">
+          {%- else -%}
+            <div class="hhc-ft-logo"><span>HH</span></div>
+          {%- endif -%}
+          <p class="hhc-ft-tag">Luxury for the real. Crafted for people with beautiful hearts.</p>
+        </div>
+        <div>
+          <h5 class="hhc-ft-h">Shop</h5>
+          <div class="hhc-ft-list">
+            <a href="/collections/necklaces">Necklaces</a>
+            <a href="/collections/rings">Rings</a>
+            <a href="/collections/bracelets">Bracelets</a>
+            <a href="/collections/earrings">Earrings</a>
+            <a href="/collections/pendants">Pendants</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="hhc-ft-h">Help</h5>
+          <div class="hhc-ft-list">
+            <a href="/pages/faqs">FAQs</a>
+            <a href="/pages/shipping">Shipping</a>
+            <a href="/pages/returns">Returns</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="hhc-ft-h">About</h5>
+          <div class="hhc-ft-list">
+            <a href="/pages/our-story">Our Story</a>
+            <a href="/pages/sustainability">Sustainability</a>
+          </div>
+        </div>
+      </div>
+      <div class="hhc-ft-bottom">
+        <p class="hhc-ft-copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.</p>
+        <span class="hhc-ft-pay">Visa &middot; Mastercard &middot; Shop Pay &middot; Apple Pay</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+{% schema %}
+{
+  "name": "HH Collections",
+  "settings": [],
+  "presets": [{ "name": "HH Collections" }]
+}
+{% endschema %}
