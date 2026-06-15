@@ -1,10 +1,1 @@
-{
-  "layout": "theme",
-  "sections": {
-    "main": {
-      "type": "hh-cart",
-      "settings": {}
-    }
-  },
-  "order": ["main"]
-}
+{"layout":"theme","sections":{"main":{"type":"hh-cart","settings":{}}},"order":["main"]}
