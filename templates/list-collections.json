@@ -1,0 +1,10 @@
+{
+  "layout": "hh-standalone",
+  "sections": {
+    "main": {
+      "type": "hh-collections-list",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
