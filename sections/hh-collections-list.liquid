@@ -1,0 +1,298 @@
+{%- comment -%}
+  Humble Hearted — Collections landing page
+  Rebuilt to exactly match the individual collection page design (hh-earrings-collection.liquid).
+  Shows the four core categories as large portrait cards: Necklaces, Rings, Bracelets, Earrings.
+  Template: list-collections.hh.liquid
+{%- endcomment -%}
+
+{%- style -%}
+  .hhl *,.hhl *::before,.hhl *::after{margin:0;padding:0;box-sizing:border-box;}
+  .hhl{background:#080808;color:#f2ede1;font-family:'Montserrat',sans-serif;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;}
+  .hhl a{color:inherit;text-decoration:none;}
+
+  /* ── Announcement bar ── */
+  @keyframes hhl-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .hhl-ann{background:#C4A843;overflow:hidden;height:36px;display:flex;align-items:center;}
+  .hhl-ann-track{display:flex;animation:hhl-marquee 36s linear infinite;white-space:nowrap;will-change:transform;}
+  .hhl-ann-track span{font-size:10px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;}
+
+  /* ── Nav ── */
+  .hhl-nav{background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;}
+  .hhl-hn{max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;}
+  .hhl-link{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#f2ede1;}
+  .hhl-link.active{color:#C4A843;font-weight:700;}
+  .hhl-l{display:flex;gap:24px;align-items:center;}
+  .hhl-r{display:flex;gap:18px;align-items:center;}
+  .hhl-logo{justify-self:center;line-height:0;}
+  .hhl-logo img{height:62px;width:auto;display:block;}
+  .hhl-logo span{font-family:'Playfair Display',serif;font-size:26px;color:#f2ede1;letter-spacing:0.15em;}
+  .hhl-ic{display:flex;gap:14px;align-items:center;border-left:1px solid #1f1a14;padding-left:16px;margin-left:2px;}
+  .hhl-hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
+  .hhl-hbg span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
+
+  /* ── Hero banner ── */
+  .hhl-hero{height:280px;position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#100a14 0,#100a14 18px,#180f1e 18px,#180f1e 36px);}
+  .hhl-hero-inner{position:absolute;inset:0;background:rgba(8,8,8,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
+  .hhl-eyebrow{font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
+  .hhl-h1{font-family:'Playfair Display',serif;font-size:56px;color:#f2ede1;font-weight:400;margin-bottom:12px;}
+  .hhl-sub{font-size:12px;color:rgba(242,237,225,0.45);font-weight:300;letter-spacing:0.08em;}
+
+  /* ── Collections grid ── */
+  .hhl-body{flex:1;max-width:1440px;margin:0 auto;width:100%;padding:48px 48px 80px;}
+  .hhl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+
+  /* ── Category card ── */
+  .hhl-card{position:relative;aspect-ratio:3/4;overflow:hidden;display:block;background:#0e0c0a;}
+  .hhl-card-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.5s ease;}
+  .hhl-card:hover .hhl-card-bg{transform:scale(1.04);}
+  .hhl-card-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.92) 0%,rgba(8,8,8,0.15) 55%,rgba(8,8,8,0.35) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:32px;}
+  .hhl-count{font-size:9px;letter-spacing:0.2em;color:#C4A843;font-weight:700;text-transform:uppercase;margin-bottom:8px;}
+  .hhl-title{font-family:'Playfair Display',serif;font-size:32px;color:#f2ede1;font-weight:400;line-height:1.1;margin-bottom:12px;}
+  .hhl-cta{font-size:10px;letter-spacing:0.22em;color:#f2ede1;text-transform:uppercase;font-weight:700;display:inline-flex;align-items:center;gap:6px;}
+  .hhl-cta::after{content:'→';transition:transform 0.3s ease;}
+  .hhl-card:hover .hhl-cta::after{transform:translateX(4px);}
+  .hhl-cta-line{display:block;height:1px;background:rgba(242,237,225,0.5);margin-top:5px;transform-origin:left;transition:transform 0.3s ease;transform:scaleX(1);}
+  .hhl-card:hover .hhl-cta-line{transform:scaleX(1.08);}
+
+  /* ── Promise strip ── */
+  .hhl-promise{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #1a1510;border-bottom:1px solid #1a1510;}
+  .hhl-promise-item{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;text-align:center;border-right:1px solid #1a1510;}
+  .hhl-promise-item:last-child{border-right:none;}
+  .hhl-promise-label{font-size:10px;letter-spacing:0.18em;color:#C4A843;font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+  .hhl-promise-sub{font-size:11px;color:rgba(242,237,225,0.4);font-weight:300;}
+
+  /* ── Footer ── */
+  .hhl-ft{background:#080808;padding:48px 48px 28px;border-top:1px solid #1a1510;}
+  .hhl-ft-inner{max-width:1440px;margin:0 auto;}
+  .hhl-ft-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid #1a1510;}
+  .hhl-ft-tag{font-size:11px;color:rgba(242,237,225,0.35);line-height:1.8;max-width:220px;font-weight:300;}
+  .hhl-ft-h{font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:14px;}
+  .hhl-ft-list{display:flex;flex-direction:column;gap:9px;}
+  .hhl-ft-list a{font-size:12px;color:rgba(242,237,225,0.4);font-weight:300;}
+  .hhl-ft-logo{height:52px;width:auto;display:block;margin-bottom:12px;}
+  .hhl-ft-logo span{font-family:'Playfair Display',serif;font-size:22px;color:#f2ede1;letter-spacing:0.15em;}
+  .hhl-ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .hhl-ft-copy{font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;}
+  .hhl-ft-pay{font-size:10px;color:rgba(242,237,225,0.2);}
+
+  /* ── Mobile menu ── */
+  .hhl-mob-menu{position:fixed;inset:0;z-index:999;background:#080808;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease;padding:40px 24px;}
+  .hhl-mob-menu.open{opacity:1;pointer-events:auto;}
+  .hhl-mob-close{position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;color:#f2ede1;font-size:32px;line-height:1;}
+  .hhl-mob-link{font-family:'Playfair Display',serif;font-size:26px;color:#f2ede1;margin-bottom:18px;}
+  .hhl-mob-link-sm{font-size:13px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:12px;}
+
+  /* ── Responsive ── */
+  @media(max-width:1024px){
+    .hhl-ft-cols{grid-template-columns:repeat(2,1fr);}
+    .hhl-promise{grid-template-columns:repeat(2,1fr);}
+    .hhl-promise-item:nth-child(2){border-right:none;}
+    .hhl-promise-item:nth-child(3){border-top:1px solid #1a1510;border-right:1px solid #1a1510;}
+    .hhl-promise-item:nth-child(4){border-top:1px solid #1a1510;}
+  }
+  @media(max-width:768px){
+    .hhl-hbg{display:flex!important;}
+    .hhl-l,.hhl-r,.hhl-ic{display:none!important;}
+    .hhl-hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}
+    .hhl-logo img{height:46px!important;}
+    .hhl-h1{font-size:40px;}
+    .hhl-body{padding:24px 18px 60px;}
+    .hhl-grid{grid-template-columns:1fr 1fr;gap:12px;}
+    .hhl-card-ov{padding:18px;}
+    .hhl-title{font-size:22px;}
+    .hhl-ft-cols{grid-template-columns:repeat(2,1fr);}
+    .hhl-promise{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:480px){
+    .hhl-grid{grid-template-columns:1fr;}
+  }
+{%- endstyle -%}
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+{%- assign logo_url = 'hh-logo.png' | asset_url -%}
+{%- assign bgs = 'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 13px,#1c1610 13px,#1c1610 26px)|repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 13px,#0f121a 13px,#0f121a 26px)|repeating-linear-gradient(135deg,#110e07 0,#110e07 13px,#19140a 13px,#19140a 26px)|repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 13px,#160f1a 13px,#160f1a 26px)' | split: '|' -%}
+
+{%- assign cat_handles = 'necklaces,rings,bracelets,earrings' | split: ',' -%}
+{%- assign cat_labels  = 'Necklaces,Rings,Bracelets,Earrings'   | split: ',' -%}
+
+<div class="hhl">
+
+  <!-- Announcement Bar -->
+  <div class="hhl-ann">
+    <div class="hhl-ann-track">
+      <span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="hhl-nav">
+    <div class="hhl-hn">
+      <button class="hhl-hbg" aria-label="Menu" onclick="document.getElementById('hhlMobMenu').classList.add('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="hhl-l">
+        <a class="hhl-link" href="/collections/necklaces">Necklaces</a>
+        <a class="hhl-link" href="/collections/rings">Rings</a>
+        <a class="hhl-link" href="/collections/bracelets">Bracelets</a>
+        <a class="hhl-link" href="/collections/earrings">Earrings</a>
+      </div>
+      <a class="hhl-logo" href="/">
+        {%- if settings.logo != blank -%}
+          <img src="{{ settings.logo | image_url: height: 124 }}" alt="{{ shop.name }}">
+        {%- else -%}
+          <img src="{{ logo_url }}" alt="{{ shop.name }}" onerror="this.outerHTML='<span>HH</span>'">
+        {%- endif -%}
+      </a>
+      <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end;">
+        <div class="hhl-r">
+          <a class="hhl-link active" href="/collections">Collections</a>
+          <a class="hhl-link" href="/collections/all?sort_by=created-descending">New</a>
+          <a class="hhl-link" href="/collections/gifts">Gifts</a>
+        </div>
+        <div class="hhl-ic">
+          <a href="/search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></a>
+          <a href="/account" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+          <a href="/cart" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="hhl-hero" style="{% if section.settings.hero_image != blank %}background-image:url('{{ section.settings.hero_image | image_url: width: 1600 }}');background-size:cover;background-position:center;{% endif %}">
+    <div class="hhl-hero-inner">
+      <p class="hhl-eyebrow">{{ section.settings.hero_eyebrow | default: 'Explore' }}</p>
+      <h1 class="hhl-h1">{{ section.settings.hero_heading | default: 'Collections' }}</h1>
+      <p class="hhl-sub">{{ section.settings.hero_sub | default: 'Shop every Humble Hearted collection' }}</p>
+    </div>
+  </section>
+
+  <!-- 2×2 Collections Grid -->
+  <div class="hhl-body">
+    <div class="hhl-grid">
+      {%- for i in (0..3) -%}
+        {%- assign handle = cat_handles[i] -%}
+        {%- assign label  = cat_labels[i] -%}
+        {%- assign col    = collections[handle] -%}
+        {%- assign bi     = i | modulo: 4 -%}
+
+        <a href="/collections/{{ handle }}" class="hhl-card">
+          <div class="hhl-card-bg" style="
+            {%- if col.image -%}
+              background-image:url('{{ col.image | image_url: width: 800 }}');
+            {%- elsif col.products.first.featured_image -%}
+              background-image:url('{{ col.products.first.featured_image | image_url: width: 800 }}');
+            {%- else -%}
+              background:{{ bgs[bi] }};
+            {%- endif -%}
+          "></div>
+          <div class="hhl-card-ov">
+            <p class="hhl-count">
+              {%- if col.products_count > 0 -%}
+                {{ col.products_count }} Piece{% if col.products_count != 1 %}s{% endif %}
+              {%- else -%}
+                Shop the Collection
+              {%- endif -%}
+            </p>
+            <p class="hhl-title">{{ label }}</p>
+            <span class="hhl-cta">Shop Now</span>
+            <span class="hhl-cta-line"></span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <!-- Promise Strip -->
+  <div class="hhl-promise">
+    <div class="hhl-promise-item">
+      <p class="hhl-promise-label">Free Shipping</p>
+      <p class="hhl-promise-sub">On orders $75+</p>
+    </div>
+    <div class="hhl-promise-item">
+      <p class="hhl-promise-label">Quality</p>
+      <p class="hhl-promise-sub">18k Gold Vermeil</p>
+    </div>
+    <div class="hhl-promise-item">
+      <p class="hhl-promise-label">Returns</p>
+      <p class="hhl-promise-sub">60-Day Policy</p>
+    </div>
+    <div class="hhl-promise-item">
+      <p class="hhl-promise-label">10% Off</p>
+      <p class="hhl-promise-sub">Sign up for savings</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="hhl-ft">
+    <div class="hhl-ft-inner">
+      <div class="hhl-ft-cols">
+        <div>
+          {%- if settings.logo != blank -%}
+            <img class="hhl-ft-logo" src="{{ settings.logo | image_url: height: 104 }}" alt="{{ shop.name }}">
+          {%- else -%}
+            <div class="hhl-ft-logo"><span>HH</span></div>
+          {%- endif -%}
+          <p class="hhl-ft-tag">Luxury for the real. Crafted for people with beautiful hearts.</p>
+        </div>
+        <div>
+          <h5 class="hhl-ft-h">Shop</h5>
+          <div class="hhl-ft-list">
+            <a href="/collections/necklaces">Necklaces</a>
+            <a href="/collections/rings">Rings</a>
+            <a href="/collections/bracelets">Bracelets</a>
+            <a href="/collections/earrings">Earrings</a>
+            <a href="/collections/pendants">Pendants</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="hhl-ft-h">Help</h5>
+          <div class="hhl-ft-list">
+            <a href="/pages/faqs">FAQs</a>
+            <a href="/pages/shipping">Shipping</a>
+            <a href="/pages/returns">Returns</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="hhl-ft-h">About</h5>
+          <div class="hhl-ft-list">
+            <a href="/pages/our-story">Our Story</a>
+            <a href="/pages/sustainability">Sustainability</a>
+          </div>
+        </div>
+      </div>
+      <div class="hhl-ft-bottom">
+        <p class="hhl-ft-copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
+        <span class="hhl-ft-pay">Visa &middot; Mastercard &middot; Shop Pay &middot; Apple Pay</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Mobile Menu Overlay -->
+<div id="hhlMobMenu" class="hhl-mob-menu">
+  <button class="hhl-mob-close" onclick="document.getElementById('hhlMobMenu').classList.remove('open')" aria-label="Close menu">&times;</button>
+  <a class="hhl-mob-link" href="/collections/necklaces">Necklaces</a>
+  <a class="hhl-mob-link" href="/collections/rings">Rings</a>
+  <a class="hhl-mob-link" href="/collections/bracelets">Bracelets</a>
+  <a class="hhl-mob-link" href="/collections/earrings">Earrings</a>
+  <a class="hhl-mob-link-sm" style="color:#C4A843;" href="/collections">Collections</a>
+  <a class="hhl-mob-link-sm" style="color:#f2ede1;" href="/collections/all?sort_by=created-descending">New</a>
+  <a class="hhl-mob-link-sm" style="color:#f2ede1;" href="/collections/gifts">Gifts</a>
+</div>
+
+{% schema %}
+{
+  "name": "HH Collections List",
+  "settings": [
+    { "type": "header", "content": "Announcement Bar" },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns" },
+    { "type": "header", "content": "Page Header" },
+    { "type": "image_picker", "id": "hero_image", "label": "Header background image", "info": "Optional. Falls back to the dark stripe pattern." },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Explore" },
+    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "Collections" },
+    { "type": "text", "id": "hero_sub", "label": "Subheading", "default": "Shop every Humble Hearted collection" }
+  ]
+}
+{% endschema %}
