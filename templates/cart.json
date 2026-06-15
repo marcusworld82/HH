@@ -1,0 +1,10 @@
+{
+  "layout": "hh-standalone",
+  "sections": {
+    "main": {
+      "type": "hh-cart",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
