@@ -64,7 +64,7 @@
 {%- if settings.logo != blank -%}{%- assign logo_src = settings.logo | image_url: height: 124 -%}{%- else -%}{%- assign logo_src = 'hh-logo.png' | asset_url -%}{%- endif -%}
 
 <div class="hhx">
-  <div class="hhx-ann"><div><span>Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; 2-Year Warranty &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp;</span></div></div>
+  <div class="hhx-ann"><div><span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span></div></div>
   <nav class="hhx-nav"><div class="hhx-hn">
     <button class="hbg" aria-label="Menu" onclick="document.getElementById('hhxMenu').style.cssText='opacity:1;pointer-events:auto'"><span></span><span></span><span></span></button>
     <div class="hhx-l">
@@ -153,5 +153,11 @@
 </div>
 
 {% schema %}
-{ "name": "HH Cart" }
+{
+  "name": "HH Cart",
+  "settings": [
+    { "type": "header", "content": "Announcement Bar" },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ 60-Day Returns ✦ 2-Year Warranty" }
+  ]
+}
 {% endschema %}

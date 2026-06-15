@@ -94,7 +94,7 @@
 <!-- ANNOUNCEMENT BAR -->
 <div style="background:#C4A843;overflow:hidden;height:38px;display:flex;align-items:center;">
   <div style="display:flex;animation:marquee 36s linear infinite;white-space:nowrap;will-change:transform;">
-    <span style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;">Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; Handcrafted With Love &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; Handcrafted With Love &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp;</span>
+    <span style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;">{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
   </div>
 </div>
 
@@ -128,14 +128,14 @@
 
 <!-- HERO -->
 <section class="hh-hero" style="display:grid;grid-template-columns:1fr 1fr;height:680px;position:relative;overflow:hidden;">
-  <div style="position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#120e09 0px,#120e09 14px,#1d1710 14px,#1d1710 28px);"><div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,0.2) 0%,transparent 80%);"></div></div>
-  <div class="hh-hero-right-panel" style="position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#0c0f14 0px,#0c0f14 14px,#111520 14px,#111520 28px);"><div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(8,8,8,0.2) 0%,transparent 80%);"></div></div>
+  <div style="position:relative;overflow:hidden;{% if section.settings.hero_image_left != blank %}background-image:url('{{ section.settings.hero_image_left | image_url: width: 1100 }}');background-size:cover;background-position:center;{% else %}background:repeating-linear-gradient(135deg,#120e09 0px,#120e09 14px,#1d1710 14px,#1d1710 28px);{% endif %}"><div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,0.2) 0%,transparent 80%);"></div></div>
+  <div class="hh-hero-right-panel" style="position:relative;overflow:hidden;{% if section.settings.hero_image_right != blank %}background-image:url('{{ section.settings.hero_image_right | image_url: width: 1100 }}');background-size:cover;background-position:center;{% else %}background:repeating-linear-gradient(45deg,#0c0f14 0px,#0c0f14 14px,#111520 14px,#111520 28px);{% endif %}"><div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(8,8,8,0.2) 0%,transparent 80%);"></div></div>
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(8,8,8,0.5) 0%,transparent 70%);pointer-events:none;"></div>
   <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:0 24px;">
     <div style="text-align:center;width:100%;max-width:700px;">
-      <p class="hh-hero-label" style="font-size:10px;letter-spacing:0.35em;color:#C4A843;margin-bottom:18px;font-weight:700;text-transform:uppercase;">Summer 2026 — New Collection</p>
-      <h1 class="hh-hero-h1" style="font-family:'Playfair Display',serif;font-size:76px;line-height:1.0;color:#f2ede1;margin-bottom:16px;font-weight:500;text-shadow:0 4px 32px rgba(0,0,0,0.8);">The Summer<br><em>Heart</em> Guide</h1>
-      <p class="hh-hero-sub" style="font-size:14px;letter-spacing:0.06em;color:rgba(242,237,225,0.7);margin-bottom:36px;font-weight:300;">Wear what your heart already knows.</p>
+      <p class="hh-hero-label" style="font-size:10px;letter-spacing:0.35em;color:#C4A843;margin-bottom:18px;font-weight:700;text-transform:uppercase;">{{ section.settings.hero_eyebrow }}</p>
+      <h1 class="hh-hero-h1" style="font-family:'Playfair Display',serif;font-size:76px;line-height:1.0;color:#f2ede1;margin-bottom:16px;font-weight:500;text-shadow:0 4px 32px rgba(0,0,0,0.8);">{{ section.settings.hero_line1 }}<br><em>{{ section.settings.hero_line2 }}</em> {{ section.settings.hero_line3 }}</h1>
+      <p class="hh-hero-sub" style="font-size:14px;letter-spacing:0.06em;color:rgba(242,237,225,0.7);margin-bottom:36px;font-weight:300;">{{ section.settings.hero_sub }}</p>
       <div class="hh-hero-btns" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;">
         <a href="/collections/necklaces" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Necklaces</a>
         <a href="/collections/rings" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Rings</a>
@@ -143,29 +143,24 @@
         <a href="/collections/earrings" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Earrings</a>
         <a href="/collections/all" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Best Sellers</a>
       </div>
-      <a class="hh-hero-cta" href="/collections/earrings" style="display:inline-block;padding:16px 52px;background:#C4A843;color:#080808;font-size:11px;letter-spacing:0.22em;font-weight:800;text-decoration:none;text-transform:uppercase;">Shop The Collection</a>
+      <a class="hh-hero-cta" href="{{ section.settings.hero_cta_link | default: '/collections/all' }}" style="display:inline-block;padding:16px 52px;background:#C4A843;color:#080808;font-size:11px;letter-spacing:0.22em;font-weight:800;text-decoration:none;text-transform:uppercase;">{{ section.settings.hero_cta_text }}</a>
     </div>
   </div>
 </section>
 
 <!-- SHOP THE LOOK -->
 <section class="hh-look-grid" style="display:grid;grid-template-columns:repeat(3,1fr);">
-  {%- assign look_titles = 'The Layered Look|Heart Pendants|Stacked Rings' | split: '|' -%}
-  {%- assign look_base = 'repeating-linear-gradient(135deg,#130f0a 0px,#130f0a 14px,#1d1811 14px,#1d1811 28px)|repeating-linear-gradient(135deg,#0b0e14 0px,#0b0e14 14px,#101420 14px,#101420 28px)|repeating-linear-gradient(135deg,#120e08 0px,#120e08 14px,#1c1710 14px,#1c1710 28px)' | split: '|' -%}
-  {%- assign look_hover = 'repeating-linear-gradient(45deg,#0f1318 0px,#0f1318 14px,#141a22 14px,#141a22 28px)|repeating-linear-gradient(45deg,#140f0a 0px,#140f0a 14px,#1e1710 14px,#1e1710 28px)|repeating-linear-gradient(45deg,#0a0c10 0px,#0a0c10 14px,#0f1118 14px,#0f1118 28px)' | split: '|' -%}
-  {%- for i in (0..2) -%}
-    <div class="hh-look-card" onclick="this.classList.toggle('flip')" style="position:relative;height:540px;overflow:hidden;cursor:pointer;">
-      <div class="layer layer-base" style="background:{{ look_base[i] }};"></div>
-      <div class="layer layer-hover" style="background:{{ look_hover[i] }};"></div>
+  {%- assign look_grad = 'repeating-linear-gradient(135deg,#130f0a 0px,#130f0a 14px,#1d1811 14px,#1d1811 28px)|repeating-linear-gradient(135deg,#0b0e14 0px,#0b0e14 14px,#101420 14px,#101420 28px)|repeating-linear-gradient(135deg,#120e08 0px,#120e08 14px,#1c1710 14px,#1c1710 28px)' | split: '|' -%}
+  {%- for i in (1..3) -%}
+    {%- capture ik -%}look{{ i }}_image{%- endcapture -%}{%- capture tk -%}look{{ i }}_title{%- endcapture -%}{%- capture lk -%}look{{ i }}_link{%- endcapture -%}
+    {%- assign limg = section.settings[ik] -%}
+    <a class="hh-look-card" href="{{ section.settings[lk] | default: '#' }}" style="position:relative;height:540px;overflow:hidden;cursor:pointer;display:block;text-decoration:none;{% if limg != blank %}background-image:url('{{ limg | image_url: width: 700 }}');background-size:cover;background-position:center;{% else %}background:{{ look_grad[forloop.index0] }};{% endif %}">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.85) 0%,transparent 55%);pointer-events:none;"></div>
-      <div style="position:absolute;bottom:28px;left:28px;right:28px;display:flex;justify-content:space-between;align-items:flex-end;">
-        <div>
-          <p style="font-family:'Playfair Display',serif;font-size:20px;color:#f2ede1;margin-bottom:6px;font-weight:400;line-height:1.2;">{{ look_titles[i] }}</p>
-          <span style="font-size:9px;letter-spacing:0.22em;color:#C4A843;font-weight:700;text-transform:uppercase;">&#10022; Shop The Look</span>
-        </div>
-        <div class="newview" style="background:rgba(196,168,67,0.15);border:1px solid rgba(196,168,67,0.4);padding:5px 10px;font-size:9px;letter-spacing:0.14em;color:#C4A843;font-weight:700;text-transform:uppercase;transition:opacity 0.3s ease;">New View</div>
+      <div style="position:absolute;bottom:28px;left:28px;right:28px;">
+        <p style="font-family:'Playfair Display',serif;font-size:20px;color:#f2ede1;margin-bottom:6px;font-weight:400;line-height:1.2;">{{ section.settings[tk] }}</p>
+        <span style="font-size:9px;letter-spacing:0.22em;color:#C4A843;font-weight:700;text-transform:uppercase;">&#10022; Shop The Look</span>
       </div>
-    </div>
+    </a>
   {%- endfor -%}
 </section>
 
@@ -173,14 +168,13 @@
 <section>
   <div class="hh-brand-grid" style="padding:96px 48px;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
     <div>
-      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:20px;font-weight:700;text-transform:uppercase;">Our Philosophy</p>
-      <h2 class="hh-brand-h2" style="font-family:'Playfair Display',serif;font-size:48px;line-height:1.15;color:#f2ede1;font-weight:400;">Jewelry You<br>Can <em>Live In</em></h2>
+      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:20px;font-weight:700;text-transform:uppercase;">{{ section.settings.brand_eyebrow }}</p>
+      <h2 class="hh-brand-h2" style="font-family:'Playfair Display',serif;font-size:48px;line-height:1.15;color:#f2ede1;font-weight:400;">{{ section.settings.brand_heading }}</h2>
       <div style="width:48px;height:1px;background:#C4A843;margin-top:28px;"></div>
     </div>
     <div>
-      <p style="font-size:14px;line-height:2.0;color:rgba(242,237,225,0.65);margin-bottom:22px;font-weight:300;">For too long, fine jewelry was something you reached for. Something locked away in velvet boxes. Humble Hearted set out to change that.</p>
-      <p style="font-size:14px;line-height:2.0;color:rgba(242,237,225,0.65);margin-bottom:36px;font-weight:300;">We believe jewelry isn't for hiding. It's for living. For marking milestones. For owning your everyday. For celebrating yourself — because you deserve the daily diamond.</p>
-      <a href="/pages/our-story" style="display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.2em;font-weight:700;color:#C4A843;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #C4A843;padding-bottom:5px;">About Us</a>
+      <div style="font-size:14px;line-height:2.0;color:rgba(242,237,225,0.65);margin-bottom:36px;font-weight:300;">{{ section.settings.brand_body }}</div>
+      <a href="{{ section.settings.brand_link | default: '#' }}" style="display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.2em;font-weight:700;color:#C4A843;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #C4A843;padding-bottom:5px;">{{ section.settings.brand_link_text }}</a>
     </div>
   </div>
 </section>
@@ -195,13 +189,13 @@
     <a href="/collections" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:#C4A843;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #C4A843;padding-bottom:4px;">View All &rarr;</a>
   </div>
   <div class="hh-cat-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
-    {%- assign cat_names = 'Necklaces|Rings|Bracelets|Earrings' | split: '|' -%}
-    {%- assign cat_handles = 'necklaces|rings|bracelets|earrings' | split: '|' -%}
     {%- assign cat_bg = 'repeating-linear-gradient(135deg,#120e09 0px,#120e09 13px,#1c1710 13px,#1c1710 26px)|repeating-linear-gradient(45deg,#0a0d12 0px,#0a0d12 13px,#0f121a 13px,#0f121a 26px)|repeating-linear-gradient(135deg,#110e07 0px,#110e07 13px,#19140a 13px,#19140a 26px)|repeating-linear-gradient(45deg,#0f0a12 0px,#0f0a12 13px,#160f1a 13px,#160f1a 26px)' | split: '|' -%}
-    {%- for i in (0..3) -%}
-      <a class="hh-cat-card" href="/collections/{{ cat_handles[i] }}" style="position:relative;aspect-ratio:2/3;overflow:hidden;cursor:pointer;display:block;text-decoration:none;background:{{ cat_bg[i] }};">
+    {%- for i in (1..4) -%}
+      {%- capture ik -%}cat{{ i }}_image{%- endcapture -%}{%- capture tk -%}cat{{ i }}_title{%- endcapture -%}{%- capture lk -%}cat{{ i }}_link{%- endcapture -%}
+      {%- assign cimg = section.settings[ik] -%}
+      <a class="hh-cat-card" href="{{ section.settings[lk] | default: '/collections/all' }}" style="position:relative;aspect-ratio:2/3;overflow:hidden;cursor:pointer;display:block;text-decoration:none;{% if cimg != blank %}background-image:url('{{ cimg | image_url: width: 600 }}');background-size:cover;background-position:center;{% else %}background:{{ cat_bg[forloop.index0] }};{% endif %}">
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.88) 0%,rgba(8,8,8,0.08) 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;">
-          <p style="font-family:'Playfair Display',serif;font-size:22px;color:#f2ede1;margin-bottom:7px;position:relative;z-index:1;line-height:1.1;">{{ cat_names[i] }}</p>
+          <p style="font-family:'Playfair Display',serif;font-size:22px;color:#f2ede1;margin-bottom:7px;position:relative;z-index:1;line-height:1.1;">{{ section.settings[tk] }}</p>
           <span style="font-size:9px;letter-spacing:0.2em;color:#C4A843;text-transform:uppercase;font-weight:700;position:relative;z-index:1;">Shop Now &rarr;</span>
         </div>
       </a>
@@ -211,22 +205,20 @@
 
 <!-- FEATURE BANNERS -->
 <section class="hh-feat-grid" style="display:grid;grid-template-columns:1fr 1fr;height:540px;">
-  <a class="hh-feat-panel" href="/collections/all" style="position:relative;overflow:hidden;cursor:pointer;text-decoration:none;background:repeating-linear-gradient(160deg,#0e0b07 0px,#0e0b07 16px,#161209 16px,#161209 32px);">
-    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,8,8,0.65) 0%,rgba(8,8,8,0.1) 80%);"></div>
-    <div style="position:absolute;bottom:44px;left:44px;">
-      <p style="font-size:10px;letter-spacing:0.28em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Summer Edit</p>
-      <h3 class="hh-feat-h3" style="font-family:'Playfair Display',serif;font-size:40px;color:#f2ede1;margin-bottom:18px;font-weight:400;line-height:1.05;">Just Add Gold</h3>
-      <span style="display:inline-block;font-size:10px;letter-spacing:0.2em;color:#f2ede1;text-transform:uppercase;font-weight:700;border-bottom:1px solid rgba(242,237,225,0.5);padding-bottom:3px;">Shop Solid Gold &rarr;</span>
-    </div>
-  </a>
-  <a class="hh-feat-panel" href="/collections/all" style="position:relative;overflow:hidden;cursor:pointer;text-decoration:none;background:repeating-linear-gradient(20deg,#0a0810 0px,#0a0810 16px,#0f0c16 16px,#0f0c16 32px);">
-    <div style="position:absolute;inset:0;background:linear-gradient(225deg,rgba(8,8,8,0.65) 0%,rgba(8,8,8,0.1) 80%);"></div>
-    <div style="position:absolute;bottom:44px;left:44px;">
-      <p style="font-size:10px;letter-spacing:0.28em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Signature Collection</p>
-      <h3 class="hh-feat-h3" style="font-family:'Playfair Display',serif;font-size:40px;color:#f2ede1;margin-bottom:18px;font-weight:400;line-height:1.05;">Hearts &amp; Charms</h3>
-      <span style="display:inline-block;font-size:10px;letter-spacing:0.2em;color:#f2ede1;text-transform:uppercase;font-weight:700;border-bottom:1px solid rgba(242,237,225,0.5);padding-bottom:3px;">Shop Now &rarr;</span>
-    </div>
-  </a>
+  {%- assign feat_grad = 'repeating-linear-gradient(160deg,#0e0b07 0px,#0e0b07 16px,#161209 16px,#161209 32px)|repeating-linear-gradient(20deg,#0a0810 0px,#0a0810 16px,#0f0c16 16px,#0f0c16 32px)' | split: '|' -%}
+  {%- assign feat_ov = 'linear-gradient(135deg,rgba(8,8,8,0.65) 0%,rgba(8,8,8,0.1) 80%)|linear-gradient(225deg,rgba(8,8,8,0.65) 0%,rgba(8,8,8,0.1) 80%)' | split: '|' -%}
+  {%- for i in (1..2) -%}
+    {%- capture ik -%}feat{{ i }}_image{%- endcapture -%}{%- capture ek -%}feat{{ i }}_eyebrow{%- endcapture -%}{%- capture hk -%}feat{{ i }}_title{%- endcapture -%}{%- capture ck -%}feat{{ i }}_cta{%- endcapture -%}{%- capture lk -%}feat{{ i }}_link{%- endcapture -%}
+    {%- assign fimg = section.settings[ik] -%}
+    <a class="hh-feat-panel" href="{{ section.settings[lk] | default: '/collections/all' }}" style="position:relative;overflow:hidden;cursor:pointer;text-decoration:none;{% if fimg != blank %}background-image:url('{{ fimg | image_url: width: 900 }}');background-size:cover;background-position:center;{% else %}background:{{ feat_grad[forloop.index0] }};{% endif %}">
+      <div style="position:absolute;inset:0;background:{{ feat_ov[forloop.index0] }};"></div>
+      <div style="position:absolute;bottom:44px;left:44px;">
+        <p style="font-size:10px;letter-spacing:0.28em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">{{ section.settings[ek] }}</p>
+        <h3 class="hh-feat-h3" style="font-family:'Playfair Display',serif;font-size:40px;color:#f2ede1;margin-bottom:18px;font-weight:400;line-height:1.05;">{{ section.settings[hk] }}</h3>
+        <span style="display:inline-block;font-size:10px;letter-spacing:0.2em;color:#f2ede1;text-transform:uppercase;font-weight:700;border-bottom:1px solid rgba(242,237,225,0.5);padding-bottom:3px;">{{ section.settings[ck] }} &rarr;</span>
+      </div>
+    </a>
+  {%- endfor -%}
 </section>
 
 <!-- BEST SELLERS -->
@@ -234,8 +226,8 @@
   <div style="max-width:1440px;margin:0 auto;">
     <div class="hh-bs-header" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;">
       <div>
-        <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Most Loved</p>
-        <h2 style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;">Best Sellers</h2>
+        <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">{{ section.settings.bs_eyebrow }}</p>
+        <h2 style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;">{{ section.settings.bs_heading }}</h2>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <a href="/collections/all" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:rgba(242,237,225,0.4);text-decoration:none;text-transform:uppercase;margin-right:12px;">View All &rarr;</a>
@@ -244,7 +236,7 @@
       </div>
     </div>
     <div class="hh-products-row hide-scroll" id="hhBsRow">
-      {%- assign bs = collections.earrings.products -%}
+      {%- if section.settings.bs_collection != blank -%}{%- assign bs = section.settings.bs_collection.products -%}{%- else -%}{%- assign bs = collections.earrings.products -%}{%- endif -%}
       {%- assign bs_bg = 'repeating-linear-gradient(135deg,#111 0px,#111 11px,#171717 11px,#171717 22px)|repeating-linear-gradient(45deg,#0e0e0e 0px,#0e0e0e 11px,#141414 11px,#141414 22px)|repeating-linear-gradient(135deg,#121008 0px,#121008 11px,#181410 11px,#181410 22px)|repeating-linear-gradient(45deg,#0e1014 0px,#0e1014 11px,#12151a 11px,#12151a 22px)' | split: '|' -%}
       {%- if bs.size > 0 -%}
         {%- for product in bs limit: 8 -%}
@@ -287,30 +279,32 @@
 <section class="hh-video-section" style="padding:80px 0 88px;background:#0a0a0a;overflow:hidden;">
   <div class="hh-video-header" style="max-width:1440px;margin:0 auto;padding:0 48px;margin-bottom:40px;display:flex;justify-content:space-between;align-items:flex-end;">
     <div>
-      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">As Seen On</p>
-      <h2 class="hh-video-h2" style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;line-height:1.1;">@HumbleHeartedJewelry</h2>
+      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">{{ section.settings.video_eyebrow }}</p>
+      <h2 class="hh-video-h2" style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;line-height:1.1;">{{ section.settings.video_heading }}</h2>
     </div>
     <a href="#" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:#C4A843;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #C4A843;padding-bottom:4px;white-space:nowrap;">Follow Us &rarr;</a>
   </div>
   <div class="hide-scroll" style="display:flex;gap:14px;padding:0 48px;overflow-x:auto;">
-    {%- assign vid_label = 'Layered Chains · 18k Gold Vermeil|Heart Pendant · Gold Vermeil|Chandelier Hoop Earrings|Stacked Ring Set|Pearl Drop Earrings' | split: '|' -%}
-    {%- assign vid_handle = '@olivia_hh|@lucia.styles|@zoeysfan|@emmaluxe|@annajewels' | split: '|' -%}
-    {%- for i in (0..4) -%}
-      <div onclick="this.classList.toggle('playing')" style="flex:0 0 216px;height:400px;position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#0d0d0d 0px,#0d0d0d 10px,#111 10px,#111 20px);cursor:pointer;border-radius:2px;">
-        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:rgba(196,168,67,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid #080808;margin-left:4px;"></div></div>
+    {%- for i in (1..5) -%}
+      {%- capture ik -%}vid{{ i }}_image{%- endcapture -%}{%- capture lbk -%}vid{{ i }}_label{%- endcapture -%}{%- capture hk -%}vid{{ i }}_handle{%- endcapture -%}{%- capture lk -%}vid{{ i }}_link{%- endcapture -%}
+      {%- assign vimg = section.settings[ik] -%}
+      {%- assign vlbl = section.settings[lbk] -%}
+      {%- if vimg != blank or vlbl != blank -%}
+      <a href="{{ section.settings[lk] | default: '#' }}" style="flex:0 0 216px;height:400px;position:relative;overflow:hidden;display:block;text-decoration:none;{% if vimg != blank %}background-image:url('{{ vimg | image_url: width: 500 }}');background-size:cover;background-position:center;{% else %}background:repeating-linear-gradient(135deg,#0d0d0d 0px,#0d0d0d 10px,#111 10px,#111 20px);{% endif %}border-radius:2px;">
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.92) 0%,transparent 52%);pointer-events:none;"></div>
         <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 12px;">
-          <p style="font-size:11px;color:white;font-weight:600;margin-bottom:5px;line-height:1.35;">{{ vid_label[i] }}</p>
+          <p style="font-size:11px;color:white;font-weight:600;margin-bottom:5px;line-height:1.35;">{{ vlbl }}</p>
           <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px;">
             <div style="width:18px;height:18px;border-radius:50%;background:#C4A843;display:flex;align-items:center;justify-content:center;font-size:8px;color:#080808;font-weight:700;flex-shrink:0;">&#9829;</div>
-            <span style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:300;">{{ vid_handle[i] }}</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:300;">{{ section.settings[hk] }}</span>
           </div>
           <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(196,168,67,0.12);border:1px solid rgba(196,168,67,0.35);padding:4px 9px;">
             <div style="width:6px;height:6px;background:#C4A843;border-radius:50%;"></div>
             <span style="font-size:9px;color:#C4A843;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Shop Now</span>
           </div>
         </div>
-      </div>
+      </a>
+      {%- endif -%}
     {%- endfor -%}
   </div>
 </section>
@@ -340,22 +334,22 @@
 <section class="hh-blog-section" style="padding:88px 48px;max-width:1440px;margin:0 auto;">
   <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:12px;">
     <div>
-      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Learn &amp; Style</p>
-      <h2 class="hh-blog-h2" style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;">From The Journal</h2>
+      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">{{ section.settings.blog_eyebrow }}</p>
+      <h2 class="hh-blog-h2" style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;">{{ section.settings.blog_heading }}</h2>
     </div>
     <a href="#" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:rgba(242,237,225,0.5);text-decoration:none;text-transform:uppercase;">All Articles &rarr;</a>
   </div>
   <div class="hh-blog-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;">
-    {%- assign blog_cat = 'Styling Guide|Care Guide|Care|Gift Guide' | split: '|' -%}
-    {%- assign blog_title = 'How To Layer Necklaces Like A Pro|What Is Gold Vermeil? Everything You Need To Know|How To Clean Your Gold Jewelry At Home|Your Complete Guide To Meaningful Gift Giving' | split: '|' -%}
     {%- assign blog_bg = 'repeating-linear-gradient(135deg,#120e09 0px,#120e09 11px,#1c1710 11px,#1c1710 22px)|repeating-linear-gradient(45deg,#0a0d12 0px,#0a0d12 11px,#0f1218 11px,#0f1218 22px)|repeating-linear-gradient(135deg,#110e07 0px,#110e07 11px,#19140a 11px,#19140a 22px)|repeating-linear-gradient(45deg,#0f0a12 0px,#0f0a12 11px,#160f1a 11px,#160f1a 22px)' | split: '|' -%}
-    {%- for i in (0..3) -%}
-      <div style="cursor:pointer;">
-        <div style="aspect-ratio:4/3;background:{{ blog_bg[i] }};margin-bottom:16px;position:relative;overflow:hidden;"></div>
-        <p style="font-size:9px;letter-spacing:0.18em;color:#C4A843;margin-bottom:9px;font-weight:700;text-transform:uppercase;">{{ blog_cat[i] }}</p>
-        <h4 class="hh-blog-h4" style="font-family:'Playfair Display',serif;font-size:17px;color:#f2ede1;margin-bottom:10px;line-height:1.45;font-weight:400;">{{ blog_title[i] }}</h4>
-        <a href="#" style="font-size:9px;letter-spacing:0.14em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">Read Our Blog &rarr;</a>
-      </div>
+    {%- for i in (1..4) -%}
+      {%- capture ik -%}blog{{ i }}_image{%- endcapture -%}{%- capture ck -%}blog{{ i }}_category{%- endcapture -%}{%- capture tk -%}blog{{ i }}_title{%- endcapture -%}{%- capture lk -%}blog{{ i }}_link{%- endcapture -%}
+      {%- assign bimg = section.settings[ik] -%}
+      <a href="{{ section.settings[lk] | default: '#' }}" style="cursor:pointer;display:block;text-decoration:none;">
+        <div style="aspect-ratio:4/3;margin-bottom:16px;position:relative;overflow:hidden;{% if bimg != blank %}background-image:url('{{ bimg | image_url: width: 500 }}');background-size:cover;background-position:center;{% else %}background:{{ blog_bg[forloop.index0] }};{% endif %}"></div>
+        <p style="font-size:9px;letter-spacing:0.18em;color:#C4A843;margin-bottom:9px;font-weight:700;text-transform:uppercase;">{{ section.settings[ck] }}</p>
+        <h4 class="hh-blog-h4" style="font-family:'Playfair Display',serif;font-size:17px;color:#f2ede1;margin-bottom:10px;line-height:1.45;font-weight:400;">{{ section.settings[tk] }}</h4>
+        <span style="font-size:9px;letter-spacing:0.14em;color:rgba(242,237,225,0.4);font-weight:600;text-transform:uppercase;">Read More &rarr;</span>
+      </a>
     {%- endfor -%}
   </div>
 </section>
@@ -363,9 +357,9 @@
 <!-- EMAIL SIGNUP -->
 <section class="hh-email-section" style="background:#0d0a06;border-top:1px solid #1f1a10;border-bottom:1px solid #1f1a10;padding:88px 48px;">
   <div style="max-width:560px;margin:0 auto;text-align:center;">
-    <p style="font-size:10px;letter-spacing:0.35em;color:#C4A843;margin-bottom:18px;font-weight:700;text-transform:uppercase;">Join The Heart Club</p>
-    <h2 class="hh-email-h2" style="font-family:'Playfair Display',serif;font-size:52px;color:#f2ede1;margin-bottom:16px;font-weight:400;line-height:1.05;">Sign Up For<br><em>10% Off</em></h2>
-    <p style="font-size:13px;color:rgba(242,237,225,0.5);margin-bottom:40px;line-height:1.9;font-weight:300;">Be first to know about new drops, exclusive offers, and styling inspiration. Plus, 10% off your very first order.</p>
+    <p style="font-size:10px;letter-spacing:0.35em;color:#C4A843;margin-bottom:18px;font-weight:700;text-transform:uppercase;">{{ section.settings.email_eyebrow }}</p>
+    <h2 class="hh-email-h2" style="font-family:'Playfair Display',serif;font-size:52px;color:#f2ede1;margin-bottom:16px;font-weight:400;line-height:1.05;">{{ section.settings.email_line1 }}<br><em>{{ section.settings.email_line2 }}</em></h2>
+    <p style="font-size:13px;color:rgba(242,237,225,0.5);margin-bottom:40px;line-height:1.9;font-weight:300;">{{ section.settings.email_body }}</p>
     {% form 'customer' %}
       <input type="hidden" name="contact[tags]" value="newsletter">
       <div class="hh-email-row" style="display:flex;max-width:460px;margin:0 auto 16px;">
@@ -446,5 +440,121 @@
 </script>
 
 {% schema %}
-{ "name": "HH Home" }
+{
+  "name": "HH Home",
+  "settings": [
+    { "type": "header", "content": "Announcement Bar" },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns" },
+
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image_left", "label": "Hero image — left" },
+    { "type": "image_picker", "id": "hero_image_right", "label": "Hero image — right" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Summer 2026 — New Collection" },
+    { "type": "text", "id": "hero_line1", "label": "Heading line 1", "default": "The Summer" },
+    { "type": "text", "id": "hero_line2", "label": "Heading emphasized word", "default": "Heart" },
+    { "type": "text", "id": "hero_line3", "label": "Heading line 1 ending", "default": "Guide" },
+    { "type": "text", "id": "hero_sub", "label": "Subheading", "default": "Wear what your heart already knows." },
+    { "type": "text", "id": "hero_cta_text", "label": "Button text", "default": "Shop The Collection" },
+    { "type": "url", "id": "hero_cta_link", "label": "Button link" },
+
+    { "type": "header", "content": "Shop The Look (3 cards)" },
+    { "type": "image_picker", "id": "look1_image", "label": "Card 1 image" },
+    { "type": "text", "id": "look1_title", "label": "Card 1 title", "default": "The Layered Look" },
+    { "type": "url", "id": "look1_link", "label": "Card 1 link" },
+    { "type": "image_picker", "id": "look2_image", "label": "Card 2 image" },
+    { "type": "text", "id": "look2_title", "label": "Card 2 title", "default": "Heart Pendants" },
+    { "type": "url", "id": "look2_link", "label": "Card 2 link" },
+    { "type": "image_picker", "id": "look3_image", "label": "Card 3 image" },
+    { "type": "text", "id": "look3_title", "label": "Card 3 title", "default": "Stacked Rings" },
+    { "type": "url", "id": "look3_link", "label": "Card 3 link" },
+
+    { "type": "header", "content": "Brand Statement" },
+    { "type": "text", "id": "brand_eyebrow", "label": "Eyebrow", "default": "Our Philosophy" },
+    { "type": "text", "id": "brand_heading", "label": "Heading", "default": "Jewelry You Can Live In" },
+    { "type": "richtext", "id": "brand_body", "label": "Body", "default": "<p>For too long, fine jewelry was something you reached for. Something locked away in velvet boxes. Humble Hearted set out to change that.</p><p>We believe jewelry isn't for hiding. It's for living. For marking milestones. For owning your everyday.</p>" },
+    { "type": "text", "id": "brand_link_text", "label": "Link text", "default": "About Us" },
+    { "type": "url", "id": "brand_link", "label": "Link" },
+
+    { "type": "header", "content": "Shop By Category (4 cards)" },
+    { "type": "image_picker", "id": "cat1_image", "label": "Card 1 image" },
+    { "type": "text", "id": "cat1_title", "label": "Card 1 title", "default": "Necklaces" },
+    { "type": "url", "id": "cat1_link", "label": "Card 1 link" },
+    { "type": "image_picker", "id": "cat2_image", "label": "Card 2 image" },
+    { "type": "text", "id": "cat2_title", "label": "Card 2 title", "default": "Rings" },
+    { "type": "url", "id": "cat2_link", "label": "Card 2 link" },
+    { "type": "image_picker", "id": "cat3_image", "label": "Card 3 image" },
+    { "type": "text", "id": "cat3_title", "label": "Card 3 title", "default": "Bracelets" },
+    { "type": "url", "id": "cat3_link", "label": "Card 3 link" },
+    { "type": "image_picker", "id": "cat4_image", "label": "Card 4 image" },
+    { "type": "text", "id": "cat4_title", "label": "Card 4 title", "default": "Earrings" },
+    { "type": "url", "id": "cat4_link", "label": "Card 4 link" },
+
+    { "type": "header", "content": "Feature Banners (2)" },
+    { "type": "image_picker", "id": "feat1_image", "label": "Banner 1 image" },
+    { "type": "text", "id": "feat1_eyebrow", "label": "Banner 1 eyebrow", "default": "Summer Edit" },
+    { "type": "text", "id": "feat1_title", "label": "Banner 1 title", "default": "Just Add Gold" },
+    { "type": "text", "id": "feat1_cta", "label": "Banner 1 link text", "default": "Shop Solid Gold" },
+    { "type": "url", "id": "feat1_link", "label": "Banner 1 link" },
+    { "type": "image_picker", "id": "feat2_image", "label": "Banner 2 image" },
+    { "type": "text", "id": "feat2_eyebrow", "label": "Banner 2 eyebrow", "default": "Signature Collection" },
+    { "type": "text", "id": "feat2_title", "label": "Banner 2 title", "default": "Hearts & Charms" },
+    { "type": "text", "id": "feat2_cta", "label": "Banner 2 link text", "default": "Shop Now" },
+    { "type": "url", "id": "feat2_link", "label": "Banner 2 link" },
+
+    { "type": "header", "content": "Best Sellers" },
+    { "type": "text", "id": "bs_eyebrow", "label": "Eyebrow", "default": "Most Loved" },
+    { "type": "text", "id": "bs_heading", "label": "Heading", "default": "Best Sellers" },
+    { "type": "collection", "id": "bs_collection", "label": "Collection to show" },
+
+    { "type": "header", "content": "Video / Social (5 cards)" },
+    { "type": "text", "id": "video_eyebrow", "label": "Eyebrow", "default": "As Seen On" },
+    { "type": "text", "id": "video_heading", "label": "Heading", "default": "@HumbleHeartedJewelry" },
+    { "type": "image_picker", "id": "vid1_image", "label": "Card 1 image" },
+    { "type": "text", "id": "vid1_label", "label": "Card 1 label", "default": "Layered Chains · 18k Gold Vermeil" },
+    { "type": "text", "id": "vid1_handle", "label": "Card 1 handle", "default": "@olivia_hh" },
+    { "type": "url", "id": "vid1_link", "label": "Card 1 link" },
+    { "type": "image_picker", "id": "vid2_image", "label": "Card 2 image" },
+    { "type": "text", "id": "vid2_label", "label": "Card 2 label", "default": "Heart Pendant · Gold Vermeil" },
+    { "type": "text", "id": "vid2_handle", "label": "Card 2 handle", "default": "@lucia.styles" },
+    { "type": "url", "id": "vid2_link", "label": "Card 2 link" },
+    { "type": "image_picker", "id": "vid3_image", "label": "Card 3 image" },
+    { "type": "text", "id": "vid3_label", "label": "Card 3 label", "default": "Chandelier Hoop Earrings" },
+    { "type": "text", "id": "vid3_handle", "label": "Card 3 handle", "default": "@zoeysfan" },
+    { "type": "url", "id": "vid3_link", "label": "Card 3 link" },
+    { "type": "image_picker", "id": "vid4_image", "label": "Card 4 image" },
+    { "type": "text", "id": "vid4_label", "label": "Card 4 label", "default": "Stacked Ring Set" },
+    { "type": "text", "id": "vid4_handle", "label": "Card 4 handle", "default": "@emmaluxe" },
+    { "type": "url", "id": "vid4_link", "label": "Card 4 link" },
+    { "type": "image_picker", "id": "vid5_image", "label": "Card 5 image" },
+    { "type": "text", "id": "vid5_label", "label": "Card 5 label", "default": "Pearl Drop Earrings" },
+    { "type": "text", "id": "vid5_handle", "label": "Card 5 handle", "default": "@annajewels" },
+    { "type": "url", "id": "vid5_link", "label": "Card 5 link" },
+
+    { "type": "header", "content": "From The Journal (4 cards)" },
+    { "type": "text", "id": "blog_eyebrow", "label": "Eyebrow", "default": "Learn & Style" },
+    { "type": "text", "id": "blog_heading", "label": "Heading", "default": "From The Journal" },
+    { "type": "image_picker", "id": "blog1_image", "label": "Card 1 image" },
+    { "type": "text", "id": "blog1_category", "label": "Card 1 category", "default": "Styling Guide" },
+    { "type": "text", "id": "blog1_title", "label": "Card 1 title", "default": "How To Layer Necklaces Like A Pro" },
+    { "type": "url", "id": "blog1_link", "label": "Card 1 link" },
+    { "type": "image_picker", "id": "blog2_image", "label": "Card 2 image" },
+    { "type": "text", "id": "blog2_category", "label": "Card 2 category", "default": "Care Guide" },
+    { "type": "text", "id": "blog2_title", "label": "Card 2 title", "default": "What Is Gold Vermeil?" },
+    { "type": "url", "id": "blog2_link", "label": "Card 2 link" },
+    { "type": "image_picker", "id": "blog3_image", "label": "Card 3 image" },
+    { "type": "text", "id": "blog3_category", "label": "Card 3 category", "default": "Care" },
+    { "type": "text", "id": "blog3_title", "label": "Card 3 title", "default": "How To Clean Your Gold Jewelry At Home" },
+    { "type": "url", "id": "blog3_link", "label": "Card 3 link" },
+    { "type": "image_picker", "id": "blog4_image", "label": "Card 4 image" },
+    { "type": "text", "id": "blog4_category", "label": "Card 4 category", "default": "Gift Guide" },
+    { "type": "text", "id": "blog4_title", "label": "Card 4 title", "default": "Your Complete Guide To Meaningful Gift Giving" },
+    { "type": "url", "id": "blog4_link", "label": "Card 4 link" },
+
+    { "type": "header", "content": "Email Signup" },
+    { "type": "text", "id": "email_eyebrow", "label": "Eyebrow", "default": "Join The Heart Club" },
+    { "type": "text", "id": "email_line1", "label": "Heading line 1", "default": "Sign Up For" },
+    { "type": "text", "id": "email_line2", "label": "Heading emphasized", "default": "10% Off" },
+    { "type": "text", "id": "email_body", "label": "Body", "default": "Be first to know about new drops, exclusive offers, and styling inspiration. Plus, 10% off your very first order." }
+  ]
+}
 {% endschema %}

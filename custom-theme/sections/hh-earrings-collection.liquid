@@ -74,7 +74,7 @@
 <div class="hhc">
   <div class="hhc-ann">
     <div class="hhc-ann-track">
-      <span>Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp;</span>
+      <span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
     </div>
   </div>
 
@@ -109,11 +109,11 @@
     </div>
   </nav>
 
-  <section class="hhc-hero">
+  <section class="hhc-hero" style="{% if section.settings.hero_image != blank %}background-image:url('{{ section.settings.hero_image | image_url: width: 1600 }}');background-size:cover;background-position:center;{% endif %}">
     <div class="hhc-hero-inner">
-      <p class="hhc-hero-eyebrow">Explore</p>
+      <p class="hhc-hero-eyebrow">{{ section.settings.hero_eyebrow | default: 'Explore' }}</p>
       <h1 class="hhc-hero-title">{{ collection.title | default: 'Collection' }}</h1>
-      <p class="hhc-hero-sub">{{ collection.products_count }} Pieces &middot; 18k Gold Vermeil</p>
+      <p class="hhc-hero-sub">{{ collection.products_count }} Pieces &middot; {{ section.settings.hero_material | default: '18k Gold Vermeil' }}</p>
     </div>
   </section>
 
@@ -205,8 +205,15 @@
 
 {% schema %}
 {
-  "name": "HH Earrings Collection",
-  "settings": [],
-  "presets": [{ "name": "HH Earrings Collection" }]
+  "name": "HH Collection Page",
+  "settings": [
+    { "type": "header", "content": "Announcement Bar" },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns" },
+    { "type": "header", "content": "Collection Header" },
+    { "type": "image_picker", "id": "hero_image", "label": "Header background image", "info": "Optional. Falls back to the dark pattern. The title comes from the collection itself." },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow text", "default": "Explore" },
+    { "type": "text", "id": "hero_material", "label": "Subtitle after piece count", "default": "18k Gold Vermeil" }
+  ],
+  "presets": [{ "name": "HH Collection Page" }]
 }
 {% endschema %}

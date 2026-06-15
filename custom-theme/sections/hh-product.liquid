@@ -84,7 +84,7 @@
 
 <div class="hhp">
   <div class="hhp-ann"><div>
-    <span>Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; 2-Year Warranty &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; 2-Year Warranty &nbsp;&#10022;&nbsp;</span>
+    <span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
   </div></div>
 
   <nav class="hhp-nav">
@@ -277,5 +277,12 @@
 </script>
 
 {% schema %}
-{ "name": "HH Product" }
+{
+  "name": "HH Product",
+  "settings": [
+    { "type": "header", "content": "Announcement Bar" },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns ✦ 2-Year Warranty" },
+    { "type": "paragraph", "content": "Product photos, title, price, variants and description come from the product itself (Products → edit the product)." }
+  ]
+}
 {% endschema %}

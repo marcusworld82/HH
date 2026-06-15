@@ -57,7 +57,7 @@
 {%- if settings.logo != blank -%}{%- assign logo_src = settings.logo | image_url: height: 124 -%}{%- else -%}{%- assign logo_src = 'hh-logo.png' | asset_url -%}{%- endif -%}
 
 <div class="hhs">
-  <div class="hhs-ann"><div><span>Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp;</span></div></div>
+  <div class="hhs-ann"><div><span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span></div></div>
   <nav class="hhs-nav"><div class="hhs-hn">
     <button class="hbg" aria-label="Menu" onclick="document.getElementById('hhsMenu').style.cssText='opacity:1;pointer-events:auto'"><span></span><span></span><span></span></button>
     <div class="hhs-l"><a class="hhs-link" href="/collections/necklaces">Necklaces</a><a class="hhs-link" href="/collections/rings">Rings</a><a class="hhs-link" href="/collections/bracelets">Bracelets</a><a class="hhs-link" href="/collections/earrings">Earrings</a></div>
@@ -74,8 +74,8 @@
 
   <div class="hhs-wrap">
     <div class="hhs-head">
-      <p class="hhs-eyebrow">Search</p>
-      <h1 class="hhs-h1">Find Your Piece</h1>
+      <p class="hhs-eyebrow">{{ section.settings.hero_eyebrow | default: 'Search' }}</p>
+      <h1 class="hhs-h1">{{ section.settings.hero_heading | default: 'Find Your Piece' }}</h1>
     </div>
     <form class="hhs-form" action="{{ routes.search_url }}" method="get" role="search">
       <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search jewelry..." autofocus>
@@ -142,5 +142,14 @@
 </div>
 
 {% schema %}
-{ "name": "HH Search" }
+{
+  "name": "HH Search",
+  "settings": [
+    { "type": "header", "content": "Announcement Bar" },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns" },
+    { "type": "header", "content": "Search Header" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Search" },
+    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "Find Your Piece" }
+  ]
+}
 {% endschema %}
