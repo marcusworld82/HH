@@ -1,0 +1,10 @@
+{
+  "layout": "hh-standalone",
+  "sections": {
+    "main": {
+      "type": "hh-earrings-collection",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
