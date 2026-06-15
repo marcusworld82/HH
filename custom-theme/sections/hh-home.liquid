@@ -1,0 +1,450 @@
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #080808; color: #f2ede1; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+    a { transition: color 0.2s ease, opacity 0.2s ease; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .hide-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+    .hide-scroll::-webkit-scrollbar { display: none; }
+    .hh-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
+    .hh-hamburger span { display: block; width: 22px; height: 2px; background: #f2ede1; border-radius: 1px; }
+
+    /* Shop-the-look hover cross-fade */
+    .hh-look-card .layer { position: absolute; inset: 0; transition: opacity 0.55s ease; }
+    .hh-look-card .layer-hover, .hh-look-card .pt-hover, .hh-look-card .newview { opacity: 0; }
+    .hh-look-card:hover .layer-base, .hh-look-card.flip .layer-base,
+    .hh-look-card:hover .pt-base, .hh-look-card.flip .pt-base { opacity: 0; }
+    .hh-look-card:hover .layer-hover, .hh-look-card.flip .layer-hover,
+    .hh-look-card:hover .pt-hover, .hh-look-card.flip .pt-hover,
+    .hh-look-card:hover .newview, .hh-look-card.flip .newview { opacity: 1; }
+
+    /* Product / quick-add hover */
+    .hh-bs-card .qa { opacity: 0; transition: opacity 0.3s ease; }
+    .hh-bs-card:hover .qa { opacity: 1; }
+    .hh-bs-card .hh-bs-img { transition: transform 0.4s ease; }
+    .hh-bs-card:hover .hh-bs-img { transform: scale(1.02); }
+    .hh-products-row { display: flex; gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory; }
+    .hh-bs-card { flex: 0 0 calc((100% - 84px) / 4); scroll-snap-align: start; cursor: pointer; }
+
+    .hh-cat-card:hover { opacity: 0.92; }
+    .hh-feat-panel:hover { opacity: 0.95; }
+
+    @media (max-width: 1024px) {
+      .hh-nav-inner { padding: 0 28px !important; }
+      .hh-nav-left { gap: 18px !important; }
+      .hh-hero { height: 580px !important; }
+      .hh-hero-h1 { font-size: 58px !important; }
+      .hh-cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .hh-brand-grid { padding: 72px 28px !important; gap: 48px !important; }
+      .hh-bs-card { flex-basis: calc((100% - 28px) / 2); }
+      .hh-footer-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 32px !important; }
+      .hh-footer-logo-col { grid-column: 1 / -1 !important; }
+    }
+    @media (max-width: 768px) {
+      .hh-nav-inner { grid-template-columns: auto 1fr auto !important; padding: 0 20px !important; height: 60px !important; }
+      .hh-nav-left, .hh-nav-right-links, .hh-nav-divider-text { display: none !important; }
+      .hh-hamburger { display: flex !important; }
+      .hh-nav-logo img { height: 46px !important; }
+      .hh-hero { grid-template-columns: 1fr !important; height: 540px !important; }
+      .hh-hero-right-panel { display: none !important; }
+      .hh-hero-h1 { font-size: 40px !important; line-height: 1.05 !important; }
+      .hh-look-grid { grid-template-columns: 1fr !important; }
+      .hh-look-card { height: 340px !important; }
+      .hh-brand-grid { grid-template-columns: 1fr !important; gap: 28px !important; padding: 56px 24px !important; }
+      .hh-brand-h2 { font-size: 34px !important; }
+      .hh-cat-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+      .hh-feat-grid { grid-template-columns: 1fr !important; height: auto !important; }
+      .hh-feat-panel { height: 340px !important; }
+      .hh-bs-card { flex-basis: calc((100% - 14px) / 2); }
+      .hh-perks-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+      .hh-perks-mid { border-left: none !important; border-right: none !important; border-top: 1px solid rgba(8,8,8,0.15) !important; border-bottom: 1px solid rgba(8,8,8,0.15) !important; padding: 32px 0 !important; }
+      .hh-blog-grid { grid-template-columns: 1fr 1fr !important; gap: 18px !important; }
+      .hh-email-h2 { font-size: 38px !important; }
+      .hh-email-row { flex-direction: column !important; }
+      .hh-email-input { border-right: 1px solid #2a2218 !important; border-bottom: none; }
+      .hh-email-btn { width: 100% !important; }
+      .hh-footer-grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+      .hh-footer-logo-col { grid-column: 1 / -1 !important; }
+      .hh-footer-bottom { flex-direction: column !important; gap: 10px !important; text-align: center !important; }
+    }
+  </style>
+
+{%- assign logo_url = 'hh-logo.png' | asset_url -%}
+{%- if settings.logo != blank -%}{%- assign logo_src = settings.logo | image_url: height: 124 -%}{%- else -%}{%- assign logo_src = logo_url -%}{%- endif -%}
+
+<!-- MOBILE MENU -->
+<div id="hhMobileMenu" style="position:fixed;inset:0;z-index:999;background:#080808;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease;padding:40px 24px;">
+  <button onclick="hhMenu(false)" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;color:#f2ede1;font-size:32px;line-height:1;padding:8px;">&times;</button>
+  <img src="{{ logo_src }}" alt="{{ shop.name }}" style="height:72px;margin-bottom:40px;" onerror="this.style.display='none'">
+  <a href="/collections/necklaces" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Necklaces</a>
+  <a href="/collections/rings" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Rings</a>
+  <a href="/collections/bracelets" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Bracelets</a>
+  <a href="/collections/earrings" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Earrings</a>
+  <a href="/collections" style="font-size:14px;letter-spacing:0.2em;color:#f2ede1;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">Collections</a>
+  <a href="/collections/all?sort_by=created-descending" style="font-size:14px;letter-spacing:0.2em;color:#C4A843;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">New In</a>
+  <a href="/collections/all" style="font-size:14px;letter-spacing:0.2em;color:#f2ede1;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">Gifts</a>
+  <div style="width:40px;height:1px;background:#C4A843;margin:20px 0 24px;"></div>
+  <div style="display:flex;gap:28px;">
+    <a href="#" style="font-size:10px;letter-spacing:0.15em;color:rgba(242,237,225,0.45);text-decoration:none;text-transform:uppercase;font-weight:600;">TikTok</a>
+    <a href="#" style="font-size:10px;letter-spacing:0.15em;color:rgba(242,237,225,0.45);text-decoration:none;text-transform:uppercase;font-weight:600;">Instagram</a>
+    <a href="#" style="font-size:10px;letter-spacing:0.15em;color:rgba(242,237,225,0.45);text-decoration:none;text-transform:uppercase;font-weight:600;">Pinterest</a>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div style="background:#C4A843;overflow:hidden;height:38px;display:flex;align-items:center;">
+  <div style="display:flex;animation:marquee 36s linear infinite;white-space:nowrap;will-change:transform;">
+    <span style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;">Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; Handcrafted With Love &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; Handcrafted With Love &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp;</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav style="background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;">
+  <div class="hh-nav-inner" style="max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;">
+    <button class="hh-hamburger" onclick="hhMenu(true)" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <div class="hh-nav-left" style="display:flex;gap:32px;align-items:center;">
+      <a href="/collections/necklaces" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Necklaces</a>
+      <a href="/collections/rings" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Rings</a>
+      <a href="/collections/bracelets" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Bracelets</a>
+      <a href="/collections/earrings" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Earrings</a>
+    </div>
+    <a class="hh-nav-logo" href="/" style="display:block;line-height:0;justify-self:center;">
+      <img src="{{ logo_src }}" alt="{{ shop.name }}" style="height:62px;width:auto;display:block;" onerror="this.outerHTML='<span style=&quot;font-family:Playfair Display,serif;font-size:26px;letter-spacing:0.15em;color:#f2ede1;&quot;>HUMBLE HEARTED</span>'">
+    </a>
+    <div class="hh-nav-right" style="display:flex;gap:28px;align-items:center;justify-content:flex-end;">
+      <div class="hh-nav-right-links" style="display:flex;gap:28px;align-items:center;">
+        <a href="/collections" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Collections</a>
+        <a href="/collections/all?sort_by=created-descending" style="color:#C4A843;font-size:11px;font-weight:700;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">New In</a>
+        <a href="/collections/all" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Gifts</a>
+      </div>
+      <div class="hh-nav-divider-text" style="display:flex;gap:18px;align-items:center;border-left:1px solid #1f1a14;padding-left:24px;margin-left:4px;">
+        <a href="/search" style="color:#f2ede1;line-height:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></a>
+        <a href="/account" style="color:#f2ede1;line-height:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+        <a href="/cart" style="color:#f2ede1;line-height:0;position:relative;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span style="position:absolute;top:-7px;right:-7px;background:#8B1818;color:white;font-size:9px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;">{{ cart.item_count }}</span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hh-hero" style="display:grid;grid-template-columns:1fr 1fr;height:680px;position:relative;overflow:hidden;">
+  <div style="position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#120e09 0px,#120e09 14px,#1d1710 14px,#1d1710 28px);"><div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,0.2) 0%,transparent 80%);"></div></div>
+  <div class="hh-hero-right-panel" style="position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#0c0f14 0px,#0c0f14 14px,#111520 14px,#111520 28px);"><div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(8,8,8,0.2) 0%,transparent 80%);"></div></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(8,8,8,0.5) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:0 24px;">
+    <div style="text-align:center;width:100%;max-width:700px;">
+      <p class="hh-hero-label" style="font-size:10px;letter-spacing:0.35em;color:#C4A843;margin-bottom:18px;font-weight:700;text-transform:uppercase;">Summer 2026 — New Collection</p>
+      <h1 class="hh-hero-h1" style="font-family:'Playfair Display',serif;font-size:76px;line-height:1.0;color:#f2ede1;margin-bottom:16px;font-weight:500;text-shadow:0 4px 32px rgba(0,0,0,0.8);">The Summer<br><em>Heart</em> Guide</h1>
+      <p class="hh-hero-sub" style="font-size:14px;letter-spacing:0.06em;color:rgba(242,237,225,0.7);margin-bottom:36px;font-weight:300;">Wear what your heart already knows.</p>
+      <div class="hh-hero-btns" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;">
+        <a href="/collections/necklaces" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Necklaces</a>
+        <a href="/collections/rings" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Rings</a>
+        <a href="/collections/bracelets" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Bracelets</a>
+        <a href="/collections/earrings" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Earrings</a>
+        <a href="/collections/all" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Best Sellers</a>
+      </div>
+      <a class="hh-hero-cta" href="/collections/earrings" style="display:inline-block;padding:16px 52px;background:#C4A843;color:#080808;font-size:11px;letter-spacing:0.22em;font-weight:800;text-decoration:none;text-transform:uppercase;">Shop The Collection</a>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP THE LOOK -->
+<section class="hh-look-grid" style="display:grid;grid-template-columns:repeat(3,1fr);">
+  {%- assign look_titles = 'The Layered Look|Heart Pendants|Stacked Rings' | split: '|' -%}
+  {%- assign look_base = 'repeating-linear-gradient(135deg,#130f0a 0px,#130f0a 14px,#1d1811 14px,#1d1811 28px)|repeating-linear-gradient(135deg,#0b0e14 0px,#0b0e14 14px,#101420 14px,#101420 28px)|repeating-linear-gradient(135deg,#120e08 0px,#120e08 14px,#1c1710 14px,#1c1710 28px)' | split: '|' -%}
+  {%- assign look_hover = 'repeating-linear-gradient(45deg,#0f1318 0px,#0f1318 14px,#141a22 14px,#141a22 28px)|repeating-linear-gradient(45deg,#140f0a 0px,#140f0a 14px,#1e1710 14px,#1e1710 28px)|repeating-linear-gradient(45deg,#0a0c10 0px,#0a0c10 14px,#0f1118 14px,#0f1118 28px)' | split: '|' -%}
+  {%- for i in (0..2) -%}
+    <div class="hh-look-card" onclick="this.classList.toggle('flip')" style="position:relative;height:540px;overflow:hidden;cursor:pointer;">
+      <div class="layer layer-base" style="background:{{ look_base[i] }};"></div>
+      <div class="layer layer-hover" style="background:{{ look_hover[i] }};"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.85) 0%,transparent 55%);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:28px;left:28px;right:28px;display:flex;justify-content:space-between;align-items:flex-end;">
+        <div>
+          <p style="font-family:'Playfair Display',serif;font-size:20px;color:#f2ede1;margin-bottom:6px;font-weight:400;line-height:1.2;">{{ look_titles[i] }}</p>
+          <span style="font-size:9px;letter-spacing:0.22em;color:#C4A843;font-weight:700;text-transform:uppercase;">&#10022; Shop The Look</span>
+        </div>
+        <div class="newview" style="background:rgba(196,168,67,0.15);border:1px solid rgba(196,168,67,0.4);padding:5px 10px;font-size:9px;letter-spacing:0.14em;color:#C4A843;font-weight:700;text-transform:uppercase;transition:opacity 0.3s ease;">New View</div>
+      </div>
+    </div>
+  {%- endfor -%}
+</section>
+
+<!-- BRAND STATEMENT -->
+<section>
+  <div class="hh-brand-grid" style="padding:96px 48px;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
+    <div>
+      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:20px;font-weight:700;text-transform:uppercase;">Our Philosophy</p>
+      <h2 class="hh-brand-h2" style="font-family:'Playfair Display',serif;font-size:48px;line-height:1.15;color:#f2ede1;font-weight:400;">Jewelry You<br>Can <em>Live In</em></h2>
+      <div style="width:48px;height:1px;background:#C4A843;margin-top:28px;"></div>
+    </div>
+    <div>
+      <p style="font-size:14px;line-height:2.0;color:rgba(242,237,225,0.65);margin-bottom:22px;font-weight:300;">For too long, fine jewelry was something you reached for. Something locked away in velvet boxes. Humble Hearted set out to change that.</p>
+      <p style="font-size:14px;line-height:2.0;color:rgba(242,237,225,0.65);margin-bottom:36px;font-weight:300;">We believe jewelry isn't for hiding. It's for living. For marking milestones. For owning your everyday. For celebrating yourself — because you deserve the daily diamond.</p>
+      <a href="/pages/our-story" style="display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.2em;font-weight:700;color:#C4A843;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #C4A843;padding-bottom:5px;">About Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP BY CATEGORY -->
+<section class="hh-cat-section" style="padding:0 48px 80px;max-width:1440px;margin:0 auto;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:12px;">
+    <div>
+      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Explore</p>
+      <h2 class="hh-cat-h2" style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;">Shop By Category</h2>
+    </div>
+    <a href="/collections" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:#C4A843;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #C4A843;padding-bottom:4px;">View All &rarr;</a>
+  </div>
+  <div class="hh-cat-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+    {%- assign cat_names = 'Necklaces|Rings|Bracelets|Earrings' | split: '|' -%}
+    {%- assign cat_handles = 'necklaces|rings|bracelets|earrings' | split: '|' -%}
+    {%- assign cat_bg = 'repeating-linear-gradient(135deg,#120e09 0px,#120e09 13px,#1c1710 13px,#1c1710 26px)|repeating-linear-gradient(45deg,#0a0d12 0px,#0a0d12 13px,#0f121a 13px,#0f121a 26px)|repeating-linear-gradient(135deg,#110e07 0px,#110e07 13px,#19140a 13px,#19140a 26px)|repeating-linear-gradient(45deg,#0f0a12 0px,#0f0a12 13px,#160f1a 13px,#160f1a 26px)' | split: '|' -%}
+    {%- for i in (0..3) -%}
+      <a class="hh-cat-card" href="/collections/{{ cat_handles[i] }}" style="position:relative;aspect-ratio:2/3;overflow:hidden;cursor:pointer;display:block;text-decoration:none;background:{{ cat_bg[i] }};">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.88) 0%,rgba(8,8,8,0.08) 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;">
+          <p style="font-family:'Playfair Display',serif;font-size:22px;color:#f2ede1;margin-bottom:7px;position:relative;z-index:1;line-height:1.1;">{{ cat_names[i] }}</p>
+          <span style="font-size:9px;letter-spacing:0.2em;color:#C4A843;text-transform:uppercase;font-weight:700;position:relative;z-index:1;">Shop Now &rarr;</span>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+<!-- FEATURE BANNERS -->
+<section class="hh-feat-grid" style="display:grid;grid-template-columns:1fr 1fr;height:540px;">
+  <a class="hh-feat-panel" href="/collections/all" style="position:relative;overflow:hidden;cursor:pointer;text-decoration:none;background:repeating-linear-gradient(160deg,#0e0b07 0px,#0e0b07 16px,#161209 16px,#161209 32px);">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,8,8,0.65) 0%,rgba(8,8,8,0.1) 80%);"></div>
+    <div style="position:absolute;bottom:44px;left:44px;">
+      <p style="font-size:10px;letter-spacing:0.28em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Summer Edit</p>
+      <h3 class="hh-feat-h3" style="font-family:'Playfair Display',serif;font-size:40px;color:#f2ede1;margin-bottom:18px;font-weight:400;line-height:1.05;">Just Add Gold</h3>
+      <span style="display:inline-block;font-size:10px;letter-spacing:0.2em;color:#f2ede1;text-transform:uppercase;font-weight:700;border-bottom:1px solid rgba(242,237,225,0.5);padding-bottom:3px;">Shop Solid Gold &rarr;</span>
+    </div>
+  </a>
+  <a class="hh-feat-panel" href="/collections/all" style="position:relative;overflow:hidden;cursor:pointer;text-decoration:none;background:repeating-linear-gradient(20deg,#0a0810 0px,#0a0810 16px,#0f0c16 16px,#0f0c16 32px);">
+    <div style="position:absolute;inset:0;background:linear-gradient(225deg,rgba(8,8,8,0.65) 0%,rgba(8,8,8,0.1) 80%);"></div>
+    <div style="position:absolute;bottom:44px;left:44px;">
+      <p style="font-size:10px;letter-spacing:0.28em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Signature Collection</p>
+      <h3 class="hh-feat-h3" style="font-family:'Playfair Display',serif;font-size:40px;color:#f2ede1;margin-bottom:18px;font-weight:400;line-height:1.05;">Hearts &amp; Charms</h3>
+      <span style="display:inline-block;font-size:10px;letter-spacing:0.2em;color:#f2ede1;text-transform:uppercase;font-weight:700;border-bottom:1px solid rgba(242,237,225,0.5);padding-bottom:3px;">Shop Now &rarr;</span>
+    </div>
+  </a>
+</section>
+
+<!-- BEST SELLERS -->
+<section class="hh-bs-section" style="padding:88px 48px;background:#080808;">
+  <div style="max-width:1440px;margin:0 auto;">
+    <div class="hh-bs-header" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;">
+      <div>
+        <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Most Loved</p>
+        <h2 style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;">Best Sellers</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <a href="/collections/all" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:rgba(242,237,225,0.4);text-decoration:none;text-transform:uppercase;margin-right:12px;">View All &rarr;</a>
+        <button onclick="hhScroll(-1)" style="width:44px;height:44px;background:transparent;border:1px solid #2a2a2a;color:#f2ede1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;">&larr;</button>
+        <button onclick="hhScroll(1)" style="width:44px;height:44px;background:transparent;border:1px solid #2a2a2a;color:#f2ede1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;">&rarr;</button>
+      </div>
+    </div>
+    <div class="hh-products-row hide-scroll" id="hhBsRow">
+      {%- assign bs = collections.earrings.products -%}
+      {%- assign bs_bg = 'repeating-linear-gradient(135deg,#111 0px,#111 11px,#171717 11px,#171717 22px)|repeating-linear-gradient(45deg,#0e0e0e 0px,#0e0e0e 11px,#141414 11px,#141414 22px)|repeating-linear-gradient(135deg,#121008 0px,#121008 11px,#181410 11px,#181410 22px)|repeating-linear-gradient(45deg,#0e1014 0px,#0e1014 11px,#12151a 11px,#12151a 22px)' | split: '|' -%}
+      {%- if bs.size > 0 -%}
+        {%- for product in bs limit: 8 -%}
+          {%- assign bi = forloop.index0 | modulo: 4 -%}
+          <a class="hh-bs-card" href="{{ product.url }}" style="text-decoration:none;">
+            <div class="hh-bs-img" style="aspect-ratio:1;margin-bottom:16px;position:relative;overflow:hidden;{% if product.featured_image %}background-image:url('{{ product.featured_image | image_url: width: 600 }}');background-size:cover;background-position:center;{% else %}background:{{ bs_bg[bi] }};{% endif %}">
+              {%- if product.compare_at_price > product.price -%}<div style="position:absolute;top:10px;left:10px;background:#8B1818;color:white;font-size:9px;font-weight:700;padding:4px 8px;letter-spacing:0.1em;text-transform:uppercase;">Sale</div>{%- endif -%}
+              <div class="qa" style="position:absolute;bottom:0;left:0;right:0;background:#080808;color:#C4A843;font-size:9px;font-weight:700;letter-spacing:0.16em;padding:12px;text-align:center;text-transform:uppercase;border-top:1px solid #1f1f1f;">+ Quick Add</div>
+            </div>
+            <p style="font-size:9px;color:#C4A843;letter-spacing:0.12em;margin-bottom:5px;font-weight:700;text-transform:uppercase;">{{ product.type | default: '18k Gold Vermeil' }}</p>
+            <h4 style="font-family:'Playfair Display',serif;font-size:16px;color:#f2ede1;margin-bottom:8px;line-height:1.3;font-weight:400;">{{ product.title }}</h4>
+            <div style="margin-bottom:7px;"><span style="color:#C4A843;font-size:12px;letter-spacing:1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <span style="font-size:15px;color:#f2ede1;font-weight:600;">{{ product.price | money_without_trailing_zeros }}</span>
+              {%- if product.compare_at_price > product.price -%}<span style="font-size:13px;color:rgba(242,237,225,0.35);text-decoration:line-through;">{{ product.compare_at_price | money_without_trailing_zeros }}</span>{%- endif -%}
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign ph_names = 'Heart Pendant Necklace|Layered Chain Set|Stacked Ring Set|Gold Hoop Earrings|Heart Charm Bracelet|Pearl Drop Earrings' | split: '|' -%}
+        {%- assign ph_price = '$89|$129|$95|$65|$145|$75' | split: '|' -%}
+        {%- for i in (0..5) -%}
+          {%- assign bi = i | modulo: 4 -%}
+          <a class="hh-bs-card" href="/collections/all" style="text-decoration:none;">
+            <div class="hh-bs-img" style="aspect-ratio:1;margin-bottom:16px;position:relative;overflow:hidden;background:{{ bs_bg[bi] }};">
+              <div class="qa" style="position:absolute;bottom:0;left:0;right:0;background:#080808;color:#C4A843;font-size:9px;font-weight:700;letter-spacing:0.16em;padding:12px;text-align:center;text-transform:uppercase;border-top:1px solid #1f1f1f;">+ Quick Add</div>
+            </div>
+            <p style="font-size:9px;color:#C4A843;letter-spacing:0.12em;margin-bottom:5px;font-weight:700;text-transform:uppercase;">18k Gold Vermeil</p>
+            <h4 style="font-family:'Playfair Display',serif;font-size:16px;color:#f2ede1;margin-bottom:8px;line-height:1.3;font-weight:400;">{{ ph_names[i] }}</h4>
+            <div style="margin-bottom:7px;"><span style="color:#C4A843;font-size:12px;letter-spacing:1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:15px;color:#f2ede1;font-weight:600;">{{ ph_price[i] }}</span></div>
+          </a>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO / SOCIAL -->
+<section class="hh-video-section" style="padding:80px 0 88px;background:#0a0a0a;overflow:hidden;">
+  <div class="hh-video-header" style="max-width:1440px;margin:0 auto;padding:0 48px;margin-bottom:40px;display:flex;justify-content:space-between;align-items:flex-end;">
+    <div>
+      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">As Seen On</p>
+      <h2 class="hh-video-h2" style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;line-height:1.1;">@HumbleHeartedJewelry</h2>
+    </div>
+    <a href="#" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:#C4A843;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #C4A843;padding-bottom:4px;white-space:nowrap;">Follow Us &rarr;</a>
+  </div>
+  <div class="hide-scroll" style="display:flex;gap:14px;padding:0 48px;overflow-x:auto;">
+    {%- assign vid_label = 'Layered Chains · 18k Gold Vermeil|Heart Pendant · Gold Vermeil|Chandelier Hoop Earrings|Stacked Ring Set|Pearl Drop Earrings' | split: '|' -%}
+    {%- assign vid_handle = '@olivia_hh|@lucia.styles|@zoeysfan|@emmaluxe|@annajewels' | split: '|' -%}
+    {%- for i in (0..4) -%}
+      <div onclick="this.classList.toggle('playing')" style="flex:0 0 216px;height:400px;position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#0d0d0d 0px,#0d0d0d 10px,#111 10px,#111 20px);cursor:pointer;border-radius:2px;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:rgba(196,168,67,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid #080808;margin-left:4px;"></div></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.92) 0%,transparent 52%);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 12px;">
+          <p style="font-size:11px;color:white;font-weight:600;margin-bottom:5px;line-height:1.35;">{{ vid_label[i] }}</p>
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px;">
+            <div style="width:18px;height:18px;border-radius:50%;background:#C4A843;display:flex;align-items:center;justify-content:center;font-size:8px;color:#080808;font-weight:700;flex-shrink:0;">&#9829;</div>
+            <span style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:300;">{{ vid_handle[i] }}</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(196,168,67,0.12);border:1px solid rgba(196,168,67,0.35);padding:4px 9px;">
+            <div style="width:6px;height:6px;background:#C4A843;border-radius:50%;"></div>
+            <span style="font-size:9px;color:#C4A843;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Shop Now</span>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+<!-- PERKS -->
+<section class="hh-perks-section" style="background:#C4A843;padding:44px 48px;">
+  <div class="hh-perks-grid" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#080808" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      <p style="font-size:12px;font-weight:800;letter-spacing:0.18em;color:#080808;text-transform:uppercase;">2 Year Warranty</p>
+      <p style="font-size:12px;color:rgba(8,8,8,0.6);font-weight:400;line-height:1.5;">Every piece backed by our promise</p>
+    </div>
+    <div class="hh-perks-mid" style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;border-left:1px solid rgba(8,8,8,0.15);border-right:1px solid rgba(8,8,8,0.15);">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#080808" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"></rect><path d="M16 8h4l3 4v5h-7V8z"></path><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+      <p style="font-size:12px;font-weight:800;letter-spacing:0.18em;color:#080808;text-transform:uppercase;">Free Shipping $75+</p>
+      <p style="font-size:12px;color:rgba(8,8,8,0.6);font-weight:400;line-height:1.5;">Free standard shipping on qualifying orders</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#080808" stroke-width="1.5" stroke-linecap="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-4.46"></path></svg>
+      <p style="font-size:12px;font-weight:800;letter-spacing:0.18em;color:#080808;text-transform:uppercase;">60-Day Returns</p>
+      <p style="font-size:12px;color:rgba(8,8,8,0.6);font-weight:400;line-height:1.5;">Hassle-free returns within 60 days</p>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="hh-blog-section" style="padding:88px 48px;max-width:1440px;margin:0 auto;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:12px;">
+    <div>
+      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">Learn &amp; Style</p>
+      <h2 class="hh-blog-h2" style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;">From The Journal</h2>
+    </div>
+    <a href="#" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:rgba(242,237,225,0.5);text-decoration:none;text-transform:uppercase;">All Articles &rarr;</a>
+  </div>
+  <div class="hh-blog-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;">
+    {%- assign blog_cat = 'Styling Guide|Care Guide|Care|Gift Guide' | split: '|' -%}
+    {%- assign blog_title = 'How To Layer Necklaces Like A Pro|What Is Gold Vermeil? Everything You Need To Know|How To Clean Your Gold Jewelry At Home|Your Complete Guide To Meaningful Gift Giving' | split: '|' -%}
+    {%- assign blog_bg = 'repeating-linear-gradient(135deg,#120e09 0px,#120e09 11px,#1c1710 11px,#1c1710 22px)|repeating-linear-gradient(45deg,#0a0d12 0px,#0a0d12 11px,#0f1218 11px,#0f1218 22px)|repeating-linear-gradient(135deg,#110e07 0px,#110e07 11px,#19140a 11px,#19140a 22px)|repeating-linear-gradient(45deg,#0f0a12 0px,#0f0a12 11px,#160f1a 11px,#160f1a 22px)' | split: '|' -%}
+    {%- for i in (0..3) -%}
+      <div style="cursor:pointer;">
+        <div style="aspect-ratio:4/3;background:{{ blog_bg[i] }};margin-bottom:16px;position:relative;overflow:hidden;"></div>
+        <p style="font-size:9px;letter-spacing:0.18em;color:#C4A843;margin-bottom:9px;font-weight:700;text-transform:uppercase;">{{ blog_cat[i] }}</p>
+        <h4 class="hh-blog-h4" style="font-family:'Playfair Display',serif;font-size:17px;color:#f2ede1;margin-bottom:10px;line-height:1.45;font-weight:400;">{{ blog_title[i] }}</h4>
+        <a href="#" style="font-size:9px;letter-spacing:0.14em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">Read Our Blog &rarr;</a>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+<!-- EMAIL SIGNUP -->
+<section class="hh-email-section" style="background:#0d0a06;border-top:1px solid #1f1a10;border-bottom:1px solid #1f1a10;padding:88px 48px;">
+  <div style="max-width:560px;margin:0 auto;text-align:center;">
+    <p style="font-size:10px;letter-spacing:0.35em;color:#C4A843;margin-bottom:18px;font-weight:700;text-transform:uppercase;">Join The Heart Club</p>
+    <h2 class="hh-email-h2" style="font-family:'Playfair Display',serif;font-size:52px;color:#f2ede1;margin-bottom:16px;font-weight:400;line-height:1.05;">Sign Up For<br><em>10% Off</em></h2>
+    <p style="font-size:13px;color:rgba(242,237,225,0.5);margin-bottom:40px;line-height:1.9;font-weight:300;">Be first to know about new drops, exclusive offers, and styling inspiration. Plus, 10% off your very first order.</p>
+    {% form 'customer' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="hh-email-row" style="display:flex;max-width:460px;margin:0 auto 16px;">
+        <input class="hh-email-input" type="email" name="contact[email]" placeholder="Enter your email address" required style="flex:1;padding:16px 18px;background:#111;border:1px solid #2a2218;border-right:none;color:#f2ede1;font-size:13px;outline:none;font-weight:300;min-width:0;">
+        <button class="hh-email-btn" type="submit" style="padding:16px 24px;background:#C4A843;color:#080808;font-size:10px;letter-spacing:0.2em;font-weight:800;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap;">Subscribe &rarr;</button>
+      </div>
+    {% endform %}
+    <p style="font-size:10px;color:rgba(242,237,225,0.25);line-height:1.6;font-weight:300;">By signing up you agree to our Privacy Policy. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="hh-footer" style="background:#080808;padding:72px 48px 40px;">
+  <div style="max-width:1440px;margin:0 auto;">
+    <div class="hh-footer-grid" style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;gap:52px;margin-bottom:56px;padding-bottom:56px;border-bottom:1px solid #1a1510;">
+      <div class="hh-footer-logo-col">
+        <img src="{{ logo_src }}" alt="{{ shop.name }}" style="height:68px;width:auto;display:block;margin-bottom:18px;" onerror="this.outerHTML='<span style=&quot;font-family:Playfair Display,serif;font-size:24px;letter-spacing:0.15em;color:#f2ede1;&quot;>HUMBLE HEARTED</span>'">
+        <p style="font-size:12px;color:rgba(242,237,225,0.4);line-height:1.9;max-width:260px;font-weight:300;">Luxury for the real. Beautiful pieces crafted for people with beautiful hearts.</p>
+        <div style="display:flex;gap:18px;margin-top:24px;flex-wrap:wrap;">
+          <a href="#" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">TikTok</a>
+          <a href="#" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">Instagram</a>
+          <a href="#" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">Pinterest</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="font-size:10px;letter-spacing:0.18em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:20px;">Help</h5>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">FAQs</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Shipping Info</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Returns</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Materials &amp; Care</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Size Guides</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Contact Us</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="font-size:10px;letter-spacing:0.18em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:20px;">Shop</h5>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="/collections/necklaces" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Necklaces</a>
+          <a href="/collections/rings" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Rings</a>
+          <a href="/collections/bracelets" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Bracelets</a>
+          <a href="/collections/earrings" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Earrings</a>
+          <a href="/collections" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Collections</a>
+          <a href="/collections/all" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Gift Sets</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="font-size:10px;letter-spacing:0.18em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:20px;">About Us</h5>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Our Story</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Craftsmanship</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Sustainability</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Blog / Journal</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Careers</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="font-size:10px;letter-spacing:0.18em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:20px;">More</h5>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Privacy Policy</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Terms &amp; Conditions</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Accessibility</a>
+          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Stockists</a>
+        </div>
+      </div>
+    </div>
+    <div class="hh-footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
+      <span style="font-size:10px;color:rgba(242,237,225,0.2);letter-spacing:0.06em;">Visa · Mastercard · Amex · PayPal · Shop Pay · Apple Pay</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function hhMenu(open){var m=document.getElementById('hhMobileMenu');m.style.opacity=open?'1':'0';m.style.pointerEvents=open?'auto':'none';}
+  function hhScroll(dir){var r=document.getElementById('hhBsRow');if(r){r.scrollBy({left:dir*(r.clientWidth/2),behavior:'smooth'});}}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')hhMenu(false);});
+</script>
+
+{% schema %}
+{ "name": "HH Home" }
+{% endschema %}

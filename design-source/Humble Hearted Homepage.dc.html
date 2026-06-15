@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #080808; color: #f2ede1; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0d0d0d; }
+    ::-webkit-scrollbar-thumb { background: #C4A843; border-radius: 3px; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .hide-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+    .hide-scroll::-webkit-scrollbar { display: none; }
+    a { transition: color 0.2s ease, opacity 0.2s ease; }
+
+    /* ── Hamburger (hidden on desktop) ── */
+    .hh-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
+    .hh-hamburger span { display: block; width: 22px; height: 2px; background: #f2ede1; border-radius: 1px; }
+
+    /* ── TABLET ≤ 1024px ── */
+    @media (max-width: 1024px) {
+      .hh-nav-inner { padding: 0 28px !important; }
+      .hh-nav-left { gap: 18px !important; }
+      .hh-nav-right { gap: 16px !important; }
+      .hh-hero { height: 580px !important; }
+      .hh-hero-h1 { font-size: 58px !important; }
+      .hh-cat-section { padding: 0 28px 64px !important; }
+      .hh-cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .hh-brand-grid { padding: 72px 28px !important; gap: 48px !important; }
+      .hh-feat-grid { height: auto !important; }
+      .hh-feat-panel { height: 400px; }
+      .hh-bs-section { padding: 72px 28px !important; }
+      .hh-video-header { padding: 0 28px !important; }
+      .hh-video-scroll { padding: 0 28px !important; }
+      .hh-perks-section { padding: 44px 28px !important; }
+      .hh-blog-section { padding: 72px 28px !important; }
+      .hh-blog-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .hh-email-section { padding: 72px 28px !important; }
+      .hh-footer { padding: 60px 28px 36px !important; }
+      .hh-footer-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 32px !important; }
+      .hh-footer-logo-col { grid-column: 1 / -1 !important; }
+    }
+
+    /* ── MOBILE ≤ 768px ── */
+    @media (max-width: 768px) {
+      /* Nav */
+      .hh-nav-inner { grid-template-columns: auto 1fr auto !important; padding: 0 20px !important; height: 60px !important; }
+      .hh-nav-left { display: none !important; }
+      .hh-nav-right-links { display: none !important; }
+      .hh-nav-divider { display: none !important; }
+      .hh-hamburger { display: flex !important; }
+      .hh-nav-logo img { height: 46px !important; }
+      .hh-nav-logo { justify-self: center; }
+      .hh-nav-cart-only { padding-left: 0 !important; border-left: none !important; margin-left: 0 !important; }
+
+      /* Hero */
+      .hh-hero { grid-template-columns: 1fr !important; height: 540px !important; }
+      .hh-hero-right-panel { display: none !important; }
+      .hh-hero-h1 { font-size: 40px !important; line-height: 1.05 !important; margin-bottom: 10px !important; }
+      .hh-hero-label { font-size: 9px !important; margin-bottom: 12px !important; }
+      .hh-hero-sub { font-size: 12px !important; margin-bottom: 24px !important; }
+      .hh-hero-btns { gap: 7px !important; margin-bottom: 20px !important; }
+      .hh-hero-cta { padding: 13px 36px !important; font-size: 10px !important; }
+
+      /* Shop the Look */
+      .hh-look-grid { grid-template-columns: 1fr !important; }
+      .hh-look-card { height: 340px !important; }
+
+      /* Brand statement */
+      .hh-brand-grid { grid-template-columns: 1fr !important; gap: 28px !important; padding: 56px 24px !important; }
+      .hh-brand-h2 { font-size: 34px !important; }
+
+      /* Category grid */
+      .hh-cat-section { padding: 0 20px 56px !important; }
+      .hh-cat-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+      .hh-cat-h2 { font-size: 26px !important; }
+
+      /* Feature banners */
+      .hh-feat-grid { grid-template-columns: 1fr !important; height: auto !important; }
+      .hh-feat-panel { height: 340px !important; }
+      .hh-feat-h3 { font-size: 30px !important; }
+
+      /* Bestsellers */
+      .hh-bs-section { padding: 56px 20px !important; }
+      .hh-bs-header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 28px !important; }
+      .hh-products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; }
+
+      /* Video */
+      .hh-video-section { padding: 56px 0 72px !important; }
+      .hh-video-header { padding: 0 20px !important; flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; margin-bottom: 24px !important; }
+      .hh-video-scroll { padding: 0 20px !important; gap: 10px !important; }
+      .hh-video-h2 { font-size: 24px !important; }
+
+      /* Perks */
+      .hh-perks-section { padding: 40px 20px !important; }
+      .hh-perks-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+      .hh-perks-mid { border-left: none !important; border-right: none !important; padding: 32px 0 !important; border-top: 1px solid rgba(8,8,8,0.15) !important; border-bottom: 1px solid rgba(8,8,8,0.15) !important; }
+      .hh-perks-item { padding: 28px 0; }
+
+      /* Blog */
+      .hh-blog-section { padding: 56px 20px !important; }
+      .hh-blog-grid { grid-template-columns: 1fr 1fr !important; gap: 18px !important; }
+      .hh-blog-h2 { font-size: 26px !important; }
+      .hh-blog-h4 { font-size: 15px !important; }
+
+      /* Email */
+      .hh-email-section { padding: 56px 20px !important; }
+      .hh-email-h2 { font-size: 38px !important; }
+      .hh-email-row { flex-direction: column !important; }
+      .hh-email-input { border-right: 1px solid #2a2218 !important; border-bottom: none; }
+      .hh-email-btn { width: 100% !important; }
+
+      /* Footer */
+      .hh-footer { padding: 48px 20px 32px !important; }
+      .hh-footer-grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; margin-bottom: 36px !important; padding-bottom: 36px !important; }
+      .hh-footer-logo-col { grid-column: 1 / -1 !important; }
+      .hh-footer-bottom { flex-direction: column !important; gap: 10px !important; text-align: center !important; }
+    }
+  </style>
+</helmet>
+
+{{ mobileMenu }}
+
+<!-- ═══ ANNOUNCEMENT BAR ═══ -->
+<div style="background: #C4A843; overflow: hidden; height: 38px; display: flex; align-items: center;">
+  <div style="display: flex; animation: marquee 36s linear infinite; white-space: nowrap; will-change: transform;">
+    <span style="font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #080808; padding: 0 32px; text-transform: uppercase;">
+      Free Shipping On Orders $75+ &nbsp;✦&nbsp; Sign Up For 10% Off &nbsp;✦&nbsp; New: Summer Heart Collection &nbsp;✦&nbsp; Handcrafted With Love &nbsp;✦&nbsp; 60-Day Returns &nbsp;✦&nbsp; Free Shipping On Orders $75+ &nbsp;✦&nbsp; Sign Up For 10% Off &nbsp;✦&nbsp; New: Summer Heart Collection &nbsp;✦&nbsp; Handcrafted With Love &nbsp;✦&nbsp; 60-Day Returns &nbsp;✦&nbsp;
+    </span>
+  </div>
+</div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav style="background: #080808; border-bottom: 1px solid #1a1510; position: sticky; top: 0; z-index: 200;">
+  <div class="hh-nav-inner" style="max-width: 1440px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 80px;">
+    <!-- Hamburger (mobile only) -->
+    <button class="hh-hamburger" onclick="{{ toggleMobileMenu }}" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <!-- Left nav links (desktop) -->
+    <div class="hh-nav-left" style="display: flex; gap: 32px; align-items: center;">
+      <a href="#" style="color: #f2ede1; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase;">Necklaces</a>
+      <a href="#" style="color: #f2ede1; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase;">Rings</a>
+      <a href="#" style="color: #f2ede1; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase;">Bracelets</a>
+      <a href="#" style="color: #f2ede1; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase;">Earrings</a>
+    </div>
+    <!-- Logo -->
+    <a class="hh-nav-logo" href="#" style="display: block; line-height: 0;">
+      <img src="uploads/04dd1e1d-e3be-41b2-b1b4-c54df8c8a8af.png" alt="Humble Hearted Jewelry" style="height: 62px; width: auto; display: block;">
+    </a>
+    <!-- Right: desktop text links + icons -->
+    <div class="hh-nav-right" style="display: flex; gap: 28px; align-items: center; justify-content: flex-end;">
+      <div class="hh-nav-right-links" style="display: flex; gap: 28px; align-items: center;">
+        <a href="#" style="color: #f2ede1; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase;">Collections</a>
+        <a href="#" style="color: #C4A843; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase;">New In</a>
+        <a href="#" style="color: #f2ede1; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase;">Gifts</a>
+      </div>
+      <!-- Icons -->
+      <div class="hh-nav-divider" style="display: flex; gap: 18px; align-items: center; border-left: 1px solid #1f1a14; padding-left: 24px; margin-left: 4px;">
+        <a href="#" class="hh-nav-search" style="color: #f2ede1; line-height: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </a>
+        <a href="#" class="hh-nav-account" style="color: #f2ede1; line-height: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </a>
+        <a href="#" style="color: #f2ede1; line-height: 0; position: relative;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span style="position: absolute; top: -7px; right: -7px; background: #8B1818; color: white; font-size: 9px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-family: 'Montserrat', sans-serif;">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hh-hero" style="display: grid; grid-template-columns: 1fr 1fr; height: 680px; position: relative; overflow: hidden;">
+  <div style="position: relative; overflow: hidden; background: repeating-linear-gradient(135deg, #120e09 0px, #120e09 14px, #1d1710 14px, #1d1710 28px);">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(8,8,8,0.2) 0%, transparent 80%);"></div>
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; width: 80%;">
+      <span style="font-family: monospace; font-size: 11px; color: #3a3028; line-height: 1.7;">[ editorial lifestyle —<br>model, layered gold necklaces<br>warm candlelight, close up ]</span>
+    </div>
+  </div>
+  <div class="hh-hero-right-panel" style="position: relative; overflow: hidden; background: repeating-linear-gradient(45deg, #0c0f14 0px, #0c0f14 14px, #111520 14px, #111520 28px);">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to left, rgba(8,8,8,0.2) 0%, transparent 80%);"></div>
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; width: 80%;">
+      <span style="font-family: monospace; font-size: 11px; color: #2e3038; line-height: 1.7;">[ heart pendant necklace<br>on neck, golden hour<br>sunlit skin tone ]</span>
+    </div>
+  </div>
+  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(8,8,8,0.5) 0%, transparent 70%); pointer-events: none;"></div>
+  <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; padding: 0 24px;">
+    <div style="text-align: center; width: 100%; max-width: 700px;">
+      <p class="hh-hero-label" style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.35em; color: #C4A843; margin-bottom: 18px; font-weight: 700; text-transform: uppercase;">Summer 2026 — New Collection</p>
+      <h1 class="hh-hero-h1" style="font-family: 'Playfair Display', serif; font-size: 76px; line-height: 1.0; color: #f2ede1; margin-bottom: 16px; font-weight: 500; text-shadow: 0 4px 32px rgba(0,0,0,0.8);">The Summer<br><em>Heart</em> Guide</h1>
+      <p class="hh-hero-sub" style="font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 0.06em; color: rgba(242,237,225,0.7); margin-bottom: 36px; font-weight: 300;">Wear what your heart already knows.</p>
+      <div class="hh-hero-btns" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px;">
+        <a href="#" style="padding: 9px 20px; background: transparent; border: 1px solid rgba(242,237,225,0.55); color: #f2ede1; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; font-weight: 700; text-decoration: none; text-transform: uppercase;">Necklaces</a>
+        <a href="#" style="padding: 9px 20px; background: transparent; border: 1px solid rgba(242,237,225,0.55); color: #f2ede1; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; font-weight: 700; text-decoration: none; text-transform: uppercase;">Rings</a>
+        <a href="#" style="padding: 9px 20px; background: transparent; border: 1px solid rgba(242,237,225,0.55); color: #f2ede1; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; font-weight: 700; text-decoration: none; text-transform: uppercase;">Bracelets</a>
+        <a href="#" style="padding: 9px 20px; background: transparent; border: 1px solid rgba(242,237,225,0.55); color: #f2ede1; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; font-weight: 700; text-decoration: none; text-transform: uppercase;">Earrings</a>
+        <a href="#" style="padding: 9px 20px; background: transparent; border: 1px solid rgba(242,237,225,0.55); color: #f2ede1; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; font-weight: 700; text-decoration: none; text-transform: uppercase;">Best Sellers</a>
+      </div>
+      <a class="hh-hero-cta" href="#" style="display: inline-block; padding: 16px 52px; background: #C4A843; color: #080808; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.22em; font-weight: 800; text-decoration: none; text-transform: uppercase;">Shop The Collection</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHOP THE LOOK ═══ -->
+<section class="hh-look-grid" style="display: grid; grid-template-columns: repeat(3, 1fr);">
+  {{ lookCard0 }}
+  {{ lookCard1 }}
+  {{ lookCard2 }}
+</section>
+
+<!-- ═══ BRAND STATEMENT ═══ -->
+<section>
+  <div class="hh-brand-grid" style="padding: 96px 48px; max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center;">
+    <div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: #C4A843; margin-bottom: 20px; font-weight: 700; text-transform: uppercase;">Our Philosophy</p>
+      <h2 class="hh-brand-h2" style="font-family: 'Playfair Display', serif; font-size: 48px; line-height: 1.15; color: #f2ede1; font-weight: 400;">Jewelry You<br>Can <em>Live In</em></h2>
+      <div style="width: 48px; height: 1px; background: #C4A843; margin-top: 28px;"></div>
+    </div>
+    <div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 2.0; color: rgba(242,237,225,0.65); margin-bottom: 22px; font-weight: 300;">For too long, fine jewelry was something you reached for. Something locked away in velvet boxes. Humble Hearted set out to change that.</p>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 2.0; color: rgba(242,237,225,0.65); margin-bottom: 36px; font-weight: 300;">We believe jewelry isn't for hiding. It's for living. For marking milestones. For owning your everyday. For celebrating yourself — because you deserve the daily diamond.</p>
+      <a href="#" style="display: inline-flex; align-items: center; gap: 10px; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.2em; font-weight: 700; color: #C4A843; text-decoration: none; text-transform: uppercase; border-bottom: 1px solid #C4A843; padding-bottom: 5px;">About Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHOP BY CATEGORY ═══ -->
+<section class="hh-cat-section" style="padding: 0 48px 80px; max-width: 1440px; margin: 0 auto;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; flex-wrap: wrap; gap: 12px;">
+    <div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: #C4A843; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Explore</p>
+      <h2 class="hh-cat-h2" style="font-family: 'Playfair Display', serif; font-size: 36px; color: #f2ede1; font-weight: 400;">Shop By Category</h2>
+    </div>
+    <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; font-weight: 700; color: #C4A843; text-decoration: none; text-transform: uppercase; border-bottom: 1px solid #C4A843; padding-bottom: 4px;">View All →</a>
+  </div>
+  <div class="hh-cat-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
+    <div style="position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: repeating-linear-gradient(135deg, #120e09 0px, #120e09 13px, #1c1710 13px, #1c1710 26px);">
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.08) 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px;">
+        <span style="font-family: monospace; font-size: 10px; color: #3a3028; position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.6; width: 80%;">[ necklace collection<br>lifestyle shot ]</span>
+        <p style="font-family: 'Playfair Display', serif; font-size: 22px; color: #f2ede1; margin-bottom: 7px; position: relative; z-index: 1; line-height: 1.1;">Necklaces</p>
+        <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; color: #C4A843; text-decoration: none; text-transform: uppercase; font-weight: 700; position: relative; z-index: 1;">Shop Now →</a>
+      </div>
+    </div>
+    <div style="position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: repeating-linear-gradient(45deg, #0a0d12 0px, #0a0d12 13px, #0f121a 13px, #0f121a 26px);">
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.08) 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px;">
+        <span style="font-family: monospace; font-size: 10px; color: #2e3038; position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.6; width: 80%;">[ ring collection<br>stacked on fingers ]</span>
+        <p style="font-family: 'Playfair Display', serif; font-size: 22px; color: #f2ede1; margin-bottom: 7px; position: relative; z-index: 1; line-height: 1.1;">Rings</p>
+        <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; color: #C4A843; text-decoration: none; text-transform: uppercase; font-weight: 700; position: relative; z-index: 1;">Shop Now →</a>
+      </div>
+    </div>
+    <div style="position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: repeating-linear-gradient(135deg, #110e07 0px, #110e07 13px, #19140a 13px, #19140a 26px);">
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.08) 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px;">
+        <span style="font-family: monospace; font-size: 10px; color: #38300a; position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.6; width: 80%;">[ bracelet collection<br>wrist, stacked styles ]</span>
+        <p style="font-family: 'Playfair Display', serif; font-size: 22px; color: #f2ede1; margin-bottom: 7px; position: relative; z-index: 1; line-height: 1.1;">Bracelets</p>
+        <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; color: #C4A843; text-decoration: none; text-transform: uppercase; font-weight: 700; position: relative; z-index: 1;">Shop Now →</a>
+      </div>
+    </div>
+    <div style="position: relative; aspect-ratio: 2/3; overflow: hidden; cursor: pointer; background: repeating-linear-gradient(45deg, #0f0a12 0px, #0f0a12 13px, #160f1a 13px, #160f1a 26px);">
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.08) 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px;">
+        <span style="font-family: monospace; font-size: 10px; color: #300a30; position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.6; width: 80%;">[ earring collection<br>gold drops on ear ]</span>
+        <p style="font-family: 'Playfair Display', serif; font-size: 22px; color: #f2ede1; margin-bottom: 7px; position: relative; z-index: 1; line-height: 1.1;">Earrings</p>
+        <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.2em; color: #C4A843; text-decoration: none; text-transform: uppercase; font-weight: 700; position: relative; z-index: 1;">Shop Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURE COLLECTION BANNERS ═══ -->
+<section class="hh-feat-grid" style="display: grid; grid-template-columns: 1fr 1fr; height: 540px;">
+  <div class="hh-feat-panel" style="position: relative; overflow: hidden; cursor: pointer; background: repeating-linear-gradient(160deg, #0e0b07 0px, #0e0b07 16px, #161209 16px, #161209 32px);">
+    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(8,8,8,0.65) 0%, rgba(8,8,8,0.1) 80%);"></div>
+    <span style="font-family: monospace; font-size: 11px; color: #30280a; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.7; pointer-events: none;">[ hands with gold rings<br>ocean / summer background<br>warm golden hour ]</span>
+    <div style="position: absolute; bottom: 44px; left: 44px;">
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.28em; color: #C4A843; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Summer Edit</p>
+      <h3 class="hh-feat-h3" style="font-family: 'Playfair Display', serif; font-size: 40px; color: #f2ede1; margin-bottom: 18px; font-weight: 400; line-height: 1.05;">Just Add Gold</h3>
+      <a href="#" style="display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: #f2ede1; text-decoration: none; text-transform: uppercase; font-weight: 700; border-bottom: 1px solid rgba(242,237,225,0.5); padding-bottom: 3px;">Shop Solid Gold →</a>
+    </div>
+  </div>
+  <div class="hh-feat-panel" style="position: relative; overflow: hidden; cursor: pointer; background: repeating-linear-gradient(20deg, #0a0810 0px, #0a0810 16px, #0f0c16 16px, #0f0c16 32px);">
+    <div style="position: absolute; inset: 0; background: linear-gradient(225deg, rgba(8,8,8,0.65) 0%, rgba(8,8,8,0.1) 80%);"></div>
+    <span style="font-family: monospace; font-size: 11px; color: #20181a; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.7; pointer-events: none;">[ heart charm pendant<br>close-up on neck, skin<br>candlelight warmth ]</span>
+    <div style="position: absolute; bottom: 44px; left: 44px;">
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.28em; color: #C4A843; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Signature Collection</p>
+      <h3 class="hh-feat-h3" style="font-family: 'Playfair Display', serif; font-size: 40px; color: #f2ede1; margin-bottom: 18px; font-weight: 400; line-height: 1.05;">Hearts &amp; Charms</h3>
+      <a href="#" style="display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: #f2ede1; text-decoration: none; text-transform: uppercase; font-weight: 700; border-bottom: 1px solid rgba(242,237,225,0.5); padding-bottom: 3px;">Shop Now →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BEST SELLERS ═══ -->
+<section class="hh-bs-section" style="padding: 88px 48px; background: #080808;">
+  <div class="hh-bs-inner" style="max-width: 1440px; margin: 0 auto;">
+    <div class="hh-bs-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 44px;">
+      <div>
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: #C4A843; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Most Loved</p>
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 36px; color: #f2ede1; font-weight: 400;">Best Sellers</h2>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; font-weight: 700; color: rgba(242,237,225,0.4); text-decoration: none; text-transform: uppercase; margin-right: 12px;">View All →</a>
+        <button onclick="{{ prevProduct }}" style="width: 44px; height: 44px; background: transparent; border: 1px solid #2a2a2a; color: #f2ede1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; font-family: sans-serif;">←</button>
+        <button onclick="{{ nextProduct }}" style="width: 44px; height: 44px; background: transparent; border: 1px solid #2a2a2a; color: #f2ede1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; font-family: sans-serif;">→</button>
+      </div>
+    </div>
+    {{ productCarousel }}
+  </div>
+</section>
+
+<!-- ═══ VIDEO / SOCIAL SECTION ═══ -->
+<section class="hh-video-section" style="padding: 80px 0 88px; background: #0a0a0a; overflow: hidden;">
+  <div class="hh-video-header" style="max-width: 1440px; margin: 0 auto; padding: 0 48px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+    <div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: #C4A843; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">As Seen On</p>
+      <h2 class="hh-video-h2" style="font-family: 'Playfair Display', serif; font-size: 36px; color: #f2ede1; font-weight: 400; line-height: 1.1;">@HumbleHeartedJewelry</h2>
+    </div>
+    <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; font-weight: 700; color: #C4A843; text-decoration: none; text-transform: uppercase; border-bottom: 1px solid #C4A843; padding-bottom: 4px; white-space: nowrap;">Follow Us →</a>
+  </div>
+  <div class="hh-video-scroll hide-scroll" style="display: flex; gap: 14px; padding: 0 48px; overflow-x: auto;">
+    {{ videoCard0 }}
+    {{ videoCard1 }}
+    {{ videoCard2 }}
+    {{ videoCard3 }}
+    {{ videoCard4 }}
+  </div>
+</section>
+
+<!-- ═══ PERKS BAR ═══ -->
+<section class="hh-perks-section" style="background: #C4A843; padding: 44px 48px;">
+  <div class="hh-perks-grid" style="max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+    <div class="hh-perks-item" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#080808" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.18em; color: #080808; text-transform: uppercase;">2 Year Warranty</p>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(8,8,8,0.6); font-weight: 400; line-height: 1.5;">Every piece backed by our promise</p>
+    </div>
+    <div class="hh-perks-mid" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; border-left: 1px solid rgba(8,8,8,0.15); border-right: 1px solid rgba(8,8,8,0.15);">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#080808" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"></rect><path d="M16 8h4l3 4v5h-7V8z"></path><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.18em; color: #080808; text-transform: uppercase;">Free Shipping $75+</p>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(8,8,8,0.6); font-weight: 400; line-height: 1.5;">Free standard shipping on qualifying orders</p>
+    </div>
+    <div class="hh-perks-item" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#080808" stroke-width="1.5" stroke-linecap="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-4.46"></path></svg>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.18em; color: #080808; text-transform: uppercase;">60-Day Returns</p>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(8,8,8,0.6); font-weight: 400; line-height: 1.5;">Hassle-free returns within 60 days</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BLOG / JOURNAL ═══ -->
+<section class="hh-blog-section" style="padding: 88px 48px; max-width: 1440px; margin: 0 auto;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 12px;">
+    <div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: #C4A843; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Learn &amp; Style</p>
+      <h2 class="hh-blog-h2" style="font-family: 'Playfair Display', serif; font-size: 36px; color: #f2ede1; font-weight: 400;">From The Journal</h2>
+    </div>
+    <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; font-weight: 700; color: rgba(242,237,225,0.5); text-decoration: none; text-transform: uppercase;">All Articles →</a>
+  </div>
+  <div class="hh-blog-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;">
+    <div style="cursor: pointer;">
+      <div style="aspect-ratio: 4/3; background: repeating-linear-gradient(135deg, #120e09 0px, #120e09 11px, #1c1710 11px, #1c1710 22px); margin-bottom: 16px; position: relative; overflow: hidden;">
+        <span style="font-family: monospace; font-size: 10px; color: #3a3028; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.5;">[ necklace layering<br>styling guide ]</span>
+      </div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: #C4A843; margin-bottom: 9px; font-weight: 700; text-transform: uppercase;">Styling Guide</p>
+      <h4 class="hh-blog-h4" style="font-family: 'Playfair Display', serif; font-size: 17px; color: #f2ede1; margin-bottom: 10px; line-height: 1.45; font-weight: 400;">How To Layer Necklaces Like A Pro</h4>
+      <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.14em; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 600; text-transform: uppercase;">Read Our Blog →</a>
+    </div>
+    <div style="cursor: pointer;">
+      <div style="aspect-ratio: 4/3; background: repeating-linear-gradient(45deg, #0a0d12 0px, #0a0d12 11px, #0f1218 11px, #0f1218 22px); margin-bottom: 16px; position: relative; overflow: hidden;">
+        <span style="font-family: monospace; font-size: 10px; color: #2e3038; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.5;">[ gold vermeil<br>jewelry close-up ]</span>
+      </div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: #C4A843; margin-bottom: 9px; font-weight: 700; text-transform: uppercase;">Care Guide</p>
+      <h4 class="hh-blog-h4" style="font-family: 'Playfair Display', serif; font-size: 17px; color: #f2ede1; margin-bottom: 10px; line-height: 1.45; font-weight: 400;">What Is Gold Vermeil? Everything You Need To Know</h4>
+      <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.14em; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 600; text-transform: uppercase;">Read Our Blog →</a>
+    </div>
+    <div style="cursor: pointer;">
+      <div style="aspect-ratio: 4/3; background: repeating-linear-gradient(135deg, #110e07 0px, #110e07 11px, #19140a 11px, #19140a 22px); margin-bottom: 16px; position: relative; overflow: hidden;">
+        <span style="font-family: monospace; font-size: 10px; color: #38300a; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.5;">[ cleaning jewelry<br>at home ]</span>
+      </div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: #C4A843; margin-bottom: 9px; font-weight: 700; text-transform: uppercase;">Care</p>
+      <h4 class="hh-blog-h4" style="font-family: 'Playfair Display', serif; font-size: 17px; color: #f2ede1; margin-bottom: 10px; line-height: 1.45; font-weight: 400;">How To Clean Your Gold Jewelry At Home</h4>
+      <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.14em; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 600; text-transform: uppercase;">Read Our Blog →</a>
+    </div>
+    <div style="cursor: pointer;">
+      <div style="aspect-ratio: 4/3; background: repeating-linear-gradient(45deg, #0f0a12 0px, #0f0a12 11px, #160f1a 11px, #160f1a 22px); margin-bottom: 16px; position: relative; overflow: hidden;">
+        <span style="font-family: monospace; font-size: 10px; color: #300a30; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.5;">[ heart ring on finger<br>gift wrapping ]</span>
+      </div>
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: #C4A843; margin-bottom: 9px; font-weight: 700; text-transform: uppercase;">Gift Guide</p>
+      <h4 class="hh-blog-h4" style="font-family: 'Playfair Display', serif; font-size: 17px; color: #f2ede1; margin-bottom: 10px; line-height: 1.45; font-weight: 400;">Your Complete Guide To Meaningful Gift Giving</h4>
+      <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.14em; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 600; text-transform: uppercase;">Read Our Blog →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EMAIL SIGNUP ═══ -->
+<section class="hh-email-section" style="background: #0d0a06; border-top: 1px solid #1f1a10; border-bottom: 1px solid #1f1a10; padding: 88px 48px;">
+  <div class="hh-email-inner" style="max-width: 560px; margin: 0 auto; text-align: center;">
+    <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.35em; color: #C4A843; margin-bottom: 18px; font-weight: 700; text-transform: uppercase;">Join The Heart Club</p>
+    <h2 class="hh-email-h2" style="font-family: 'Playfair Display', serif; font-size: 52px; color: #f2ede1; margin-bottom: 16px; font-weight: 400; line-height: 1.05;">Sign Up For<br><em>10% Off</em></h2>
+    <p style="font-family: 'Montserrat', sans-serif; font-size: 13px; color: rgba(242,237,225,0.5); margin-bottom: 40px; line-height: 1.9; font-weight: 300;">Be first to know about new drops, exclusive offers, and styling inspiration. Plus, 10% off your very first order.</p>
+    <div class="hh-email-row" style="display: flex; max-width: 460px; margin: 0 auto 16px;">
+      <input class="hh-email-input" type="email" placeholder="Enter your email address" style="flex: 1; padding: 16px 18px; background: #111; border: 1px solid #2a2218; border-right: none; color: #f2ede1; font-family: 'Montserrat', sans-serif; font-size: 13px; outline: none; font-weight: 300; min-width: 0;">
+      <button class="hh-email-btn" style="padding: 16px 24px; background: #C4A843; color: #080808; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.2em; font-weight: 800; text-transform: uppercase; border: none; cursor: pointer; white-space: nowrap;">Subscribe →</button>
+    </div>
+    <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; color: rgba(242,237,225,0.25); line-height: 1.6; font-weight: 300;">By signing up you agree to our Privacy Policy. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="hh-footer" style="background: #080808; padding: 72px 48px 40px;">
+  <div class="hh-footer-inner" style="max-width: 1440px; margin: 0 auto;">
+    <div class="hh-footer-grid" style="display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr; gap: 52px; margin-bottom: 56px; padding-bottom: 56px; border-bottom: 1px solid #1a1510;">
+      <div class="hh-footer-logo-col">
+        <img src="uploads/04dd1e1d-e3be-41b2-b1b4-c54df8c8a8af.png" alt="Humble Hearted Jewelry" style="height: 68px; width: auto; display: block; margin-bottom: 18px;">
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); line-height: 1.9; max-width: 260px; font-weight: 300;">Luxury for the real. Beautiful pieces crafted for people with beautiful hearts.</p>
+        <div style="display: flex; gap: 18px; margin-top: 24px; flex-wrap: wrap;">
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.1em; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 600; text-transform: uppercase;">TikTok</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.1em; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 600; text-transform: uppercase;">Instagram</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.1em; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 600; text-transform: uppercase;">Pinterest</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; color: #f2ede1; text-transform: uppercase; font-weight: 700; margin-bottom: 20px;">Help</h5>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">FAQs</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Shipping Info</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Returns</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Materials &amp; Care</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Size Guides</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Contact Us</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; color: #f2ede1; text-transform: uppercase; font-weight: 700; margin-bottom: 20px;">Shop</h5>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Necklaces</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Rings</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Bracelets</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Earrings</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Collections</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Gift Sets</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; color: #f2ede1; text-transform: uppercase; font-weight: 700; margin-bottom: 20px;">About Us</h5>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Our Story</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Craftsmanship</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Sustainability</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Blog / Journal</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Careers</a>
+        </div>
+      </div>
+      <div>
+        <h5 style="font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; color: #f2ede1; text-transform: uppercase; font-weight: 700; margin-bottom: 20px;">More</h5>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Privacy Policy</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Terms &amp; Conditions</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Accessibility</a>
+          <a href="#" style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: rgba(242,237,225,0.4); text-decoration: none; font-weight: 300;">Stockists</a>
+        </div>
+      </div>
+    </div>
+    <div class="hh-footer-bottom" style="display: flex; justify-content: space-between; align-items: center;">
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 11px; color: rgba(242,237,225,0.2); font-weight: 300;">© 2026 Humble Hearted Jewelry. All Rights Reserved.</p>
+      <span style="font-family: 'Montserrat', sans-serif; font-size: 10px; color: rgba(242,237,225,0.2); letter-spacing: 0.06em;">Visa · Mastercard · Amex · PayPal · Shop Pay · Apple Pay</span>
+    </div>
+  </div>
+</footer>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="80" fill="#080808"/>
+    <rect width="120" height="6" fill="#C4A843"/>
+    <text x="60" y="38" text-anchor="middle" font-family="serif" font-size="16" fill="#C4A843" font-weight="bold">HH</text>
+    <text x="60" y="52" text-anchor="middle" font-family="serif" font-size="7" fill="#8B1818" letter-spacing="2">HUMBLE HEARTED</text>
+    <text x="60" y="62" text-anchor="middle" font-family="sans-serif" font-size="5" fill="#C4A843" letter-spacing="1">JEWELRY</text>
+  </svg>
+</template>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { productOffset: 0, mobileMenuOpen: false };
+
+  componentDidMount() {
+    this._handleKey = (e) => { if (e.key === 'Escape') this.setState({ mobileMenuOpen: false }); };
+    window.addEventListener('keydown', this._handleKey);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._handleKey);
+  }
+
+  renderVals() {
+    const self = this;
+    const { mobileMenuOpen } = this.state;
+
+    // ── MOBILE MENU OVERLAY ──
+    const mobileMenu = React.createElement('div', {
+      style: {
+        position: 'fixed', inset: 0, zIndex: 999,
+        background: '#080808',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        opacity: mobileMenuOpen ? 1 : 0,
+        pointerEvents: mobileMenuOpen ? 'auto' : 'none',
+        transition: 'opacity 0.35s ease',
+        padding: '40px 24px',
+      },
+    }, [
+      React.createElement('button', {
+        key: 'close',
+        onClick: () => self.setState({ mobileMenuOpen: false }),
+        style: { position: 'absolute', top: 20, right: 20, background: 'none', border: 'none', cursor: 'pointer', color: '#f2ede1', fontSize: 32, lineHeight: 1, padding: 8 },
+      }, '×'),
+      React.createElement('img', {
+        key: 'logo',
+        src: 'uploads/04dd1e1d-e3be-41b2-b1b4-c54df8c8a8af.png',
+        alt: 'Humble Hearted Jewelry',
+        style: { height: 72, marginBottom: 40 },
+      }),
+      ...['Necklaces', 'Rings', 'Bracelets', 'Earrings', 'Collections', 'New In', 'Gifts'].map((link, i) =>
+        React.createElement('a', {
+          key: link, href: '#',
+          onClick: () => self.setState({ mobileMenuOpen: false }),
+          style: {
+            display: 'block',
+            fontFamily: i < 4 ? 'Playfair Display, serif' : 'Montserrat, sans-serif',
+            fontSize: i < 4 ? 28 : 14,
+            color: link === 'New In' ? '#C4A843' : '#f2ede1',
+            textDecoration: 'none',
+            marginBottom: i < 4 ? 18 : 12,
+            letterSpacing: i < 4 ? '0.04em' : '0.2em',
+            textAlign: 'center',
+            fontWeight: i < 4 ? 400 : 700,
+            textTransform: i >= 4 ? 'uppercase' : 'none',
+          },
+        }, link)
+      ),
+      React.createElement('div', { key: 'div', style: { width: 40, height: 1, background: '#C4A843', margin: '20px 0 24px' } }),
+      React.createElement('div', {
+        key: 'social',
+        style: { display: 'flex', gap: 28 },
+      }, ['TikTok', 'Instagram', 'Pinterest'].map(s =>
+        React.createElement('a', {
+          key: s, href: '#',
+          style: { fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.15em', color: 'rgba(242,237,225,0.45)', textDecoration: 'none', textTransform: 'uppercase', fontWeight: 600 },
+        }, s)
+      )),
+    ]);
+
+    // ── LOOK CARDS with hover swap ──
+    const lookItems = [
+      { baseLabel: 'layered gold necklaces\non skin, editorial close-up', hoverLabel: 'same model, profile view\ngolden hour backlight', baseBg: ['#130f0a', '#1d1811'], hoverBg: ['#0f1318', '#141a22'], title: 'The Layered Look' },
+      { baseLabel: 'heart pendant necklace\nworn naturally, neck close-up', hoverLabel: 'pendant detail, macro\nwarm candlelight', baseBg: ['#0b0e14', '#101420'], hoverBg: ['#140f0a', '#1e1710'], title: 'Heart Pendants' },
+      { baseLabel: 'stacked gold rings\nhand lifestyle shot', hoverLabel: 'ring close-up\nmarble surface, detail', baseBg: ['#120e08', '#1c1710'], hoverBg: ['#0a0c10', '#0f1118'], title: 'Stacked Rings' },
+    ];
+
+    const LookCard = ({ item }) => {
+      const [hovered, setHovered] = React.useState(false);
+      return React.createElement('div', {
+        className: 'hh-look-card',
+        style: { position: 'relative', height: 540, overflow: 'hidden', cursor: 'pointer' },
+        onMouseEnter: () => setHovered(true),
+        onMouseLeave: () => setHovered(false),
+        onClick: () => setHovered(h => !h),
+      }, [
+        React.createElement('div', { key: 'base', style: { position: 'absolute', inset: 0, background: `repeating-linear-gradient(135deg, ${item.baseBg[0]} 0px, ${item.baseBg[0]} 14px, ${item.baseBg[1]} 14px, ${item.baseBg[1]} 28px)`, transition: 'opacity 0.55s ease', opacity: hovered ? 0 : 1 } }),
+        React.createElement('div', { key: 'hover', style: { position: 'absolute', inset: 0, background: `repeating-linear-gradient(45deg, ${item.hoverBg[0]} 0px, ${item.hoverBg[0]} 14px, ${item.hoverBg[1]} 14px, ${item.hoverBg[1]} 28px)`, transition: 'opacity 0.55s ease', opacity: hovered ? 1 : 0 } }),
+        React.createElement('div', { key: 'pt', style: { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', textAlign: 'center', lineHeight: 1.7, transition: 'opacity 0.55s ease', opacity: hovered ? 0 : 1, pointerEvents: 'none', width: '75%' } },
+          React.createElement('span', { style: { fontFamily: 'monospace', fontSize: 10, color: '#3a3028' } }, `[ ${item.baseLabel} ]`)
+        ),
+        React.createElement('div', { key: 'ht', style: { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', textAlign: 'center', lineHeight: 1.7, transition: 'opacity 0.55s ease', opacity: hovered ? 1 : 0, pointerEvents: 'none', width: '75%' } },
+          React.createElement('span', { style: { fontFamily: 'monospace', fontSize: 10, color: '#40382e' } }, `[ ${item.hoverLabel} ]`)
+        ),
+        React.createElement('div', { key: 'grad', style: { position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 55%)', pointerEvents: 'none' } }),
+        React.createElement('div', { key: 'lbl', style: { position: 'absolute', bottom: 28, left: 28, right: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' } }, [
+          React.createElement('div', { key: 'info' }, [
+            React.createElement('p', { key: 'title', style: { fontFamily: 'Playfair Display, serif', fontSize: 20, color: '#f2ede1', marginBottom: 6, fontWeight: 400, lineHeight: 1.2 } }, item.title),
+            React.createElement('span', { key: 'cta', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.22em', color: '#C4A843', fontWeight: 700, textTransform: 'uppercase' } }, '✦ Shop The Look'),
+          ]),
+          React.createElement('div', { key: 'badge', style: { background: 'rgba(196,168,67,0.15)', border: '1px solid rgba(196,168,67,0.4)', padding: '5px 10px', fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.14em', color: '#C4A843', fontWeight: 700, textTransform: 'uppercase', opacity: hovered ? 1 : 0, transition: 'opacity 0.3s ease' } }, 'New View'),
+        ]),
+      ]);
+    };
+
+    // ── PRODUCT CAROUSEL ──
+    const products = [
+      { name: 'Heart Pendant Necklace', price: '$89', orig: null, rating: 5, material: '18k Gold Vermeil', cat: 'Necklace' },
+      { name: 'Layered Chain Set', price: '$129', orig: '$159', rating: 5, material: '18k Gold Vermeil', cat: 'Set' },
+      { name: 'Stacked Ring Set', price: '$95', orig: null, rating: 5, material: '18k Gold Vermeil', cat: 'Rings' },
+      { name: 'Gold Hoop Earrings', price: '$65', orig: null, rating: 4, material: '18k Gold Vermeil', cat: 'Earrings' },
+      { name: 'Heart Charm Bracelet', price: '$145', orig: '$180', rating: 5, material: '18k Gold Vermeil', cat: 'Bracelet' },
+      { name: 'Pearl Drop Earrings', price: '$75', orig: null, rating: 4, material: 'Sterling Silver', cat: 'Earrings' },
+    ];
+    const bgV = [
+      'repeating-linear-gradient(135deg,#111 0px,#111 11px,#171717 11px,#171717 22px)',
+      'repeating-linear-gradient(45deg,#0e0e0e 0px,#0e0e0e 11px,#141414 11px,#141414 22px)',
+      'repeating-linear-gradient(135deg,#121008 0px,#121008 11px,#181410 11px,#181410 22px)',
+      'repeating-linear-gradient(45deg,#0e1014 0px,#0e1014 11px,#12151a 11px,#12151a 22px)',
+    ];
+    const offset = this.state.productOffset;
+    const visible = products.slice(offset, offset + 4);
+
+    const ProductCard = ({ p, bi }) => {
+      const [hover, setHover] = React.useState(false);
+      return React.createElement('div', {
+        style: { cursor: 'pointer' },
+        onMouseEnter: () => setHover(true),
+        onMouseLeave: () => setHover(false),
+      }, [
+        React.createElement('div', { key: 'img', style: { aspectRatio: '1', marginBottom: 16, position: 'relative', overflow: 'hidden', background: bgV[bi % 4], transition: 'transform 0.4s ease', transform: hover ? 'scale(1.02)' : 'scale(1)' } }, [
+          React.createElement('span', { key: 'ph', style: { fontFamily: 'monospace', fontSize: 10, color: '#3a3530', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', textAlign: 'center', lineHeight: 1.5, width: '75%' } }, `[ ${p.cat.toLowerCase()} product\nwhite background ]`),
+          p.orig && React.createElement('div', { key: 'sale', style: { position: 'absolute', top: 10, left: 10, background: '#8B1818', color: 'white', fontFamily: 'Montserrat,sans-serif', fontSize: 9, fontWeight: 700, padding: '4px 8px', letterSpacing: '0.1em', textTransform: 'uppercase' } }, 'Sale'),
+          React.createElement('div', { key: 'qa', style: { position: 'absolute', bottom: 0, left: 0, right: 0, background: '#080808', color: '#C4A843', fontFamily: 'Montserrat,sans-serif', fontSize: 9, fontWeight: 700, letterSpacing: '0.16em', padding: '12px', textAlign: 'center', textTransform: 'uppercase', borderTop: '1px solid #1f1f1f', opacity: hover ? 1 : 0, transition: 'opacity 0.3s ease' } }, '+ Quick Add'),
+        ]),
+        React.createElement('div', { key: 'info' }, [
+          React.createElement('p', { key: 'mat', style: { fontFamily: 'Montserrat,sans-serif', fontSize: 9, color: '#C4A843', letterSpacing: '0.12em', marginBottom: 5, fontWeight: 700, textTransform: 'uppercase' } }, p.material),
+          React.createElement('h4', { key: 'nm', style: { fontFamily: 'Playfair Display,serif', fontSize: 16, color: '#f2ede1', marginBottom: 8, lineHeight: 1.3, fontWeight: 400 } }, p.name),
+          React.createElement('div', { key: 'stars', style: { marginBottom: 7 } }, React.createElement('span', { style: { color: '#C4A843', fontSize: 12, letterSpacing: 1 } }, '★'.repeat(p.rating) + '☆'.repeat(5 - p.rating))),
+          React.createElement('div', { key: 'price', style: { display: 'flex', gap: 10, alignItems: 'center' } }, [
+            React.createElement('span', { key: 'p', style: { fontFamily: 'Montserrat,sans-serif', fontSize: 15, color: '#f2ede1', fontWeight: 600 } }, p.price),
+            p.orig && React.createElement('span', { key: 'op', style: { fontFamily: 'Montserrat,sans-serif', fontSize: 13, color: 'rgba(242,237,225,0.35)', textDecoration: 'line-through' } }, p.orig),
+          ]),
+        ]),
+      ]);
+    };
+
+    const productCarousel = React.createElement('div', {
+      className: 'hh-products-grid',
+      style: { display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 28 },
+    }, visible.map((p, i) => React.createElement(ProductCard, { key: offset + i, p, bi: offset + i })));
+
+    // ── VIDEO CARDS ──
+    const videos = [
+      { label: 'Layered Chains · 18k Gold Vermeil', handle: '@olivia_hh', desc: 'wrist with bracelet\nclose-up, video' },
+      { label: 'Heart Pendant · Gold Vermeil', handle: '@lucia.styles', desc: 'model with necklace\noutdoor video' },
+      { label: 'Chandelier Hoop Earrings', handle: '@zoeysfan', desc: 'earrings close-up\nvideo, sunlit' },
+      { label: 'Stacked Ring Set', handle: '@emmaluxe', desc: 'ring stack video\ngolden hour' },
+      { label: 'Pearl Drop Earrings', handle: '@annajewels', desc: 'earring reveal\nstudio video' },
+    ];
+
+    const VideoCard = ({ v }) => {
+      const [playing, setPlaying] = React.useState(false);
+      return React.createElement('div', {
+        className: 'hh-video-card',
+        style: { flex: '0 0 216px', height: 400, position: 'relative', overflow: 'hidden', background: 'repeating-linear-gradient(135deg,#0d0d0d 0px,#0d0d0d 10px,#111 10px,#111 20px)', cursor: 'pointer', borderRadius: 2 },
+        onClick: () => setPlaying(p => !p),
+      }, [
+        React.createElement('span', { key: 'ph', style: { fontFamily: 'monospace', fontSize: 10, color: '#2e2e2e', position: 'absolute', top: '38%', left: '50%', transform: 'translate(-50%,-50%)', textAlign: 'center', lineHeight: 1.6 } }, `[ ${v.desc} ]`),
+        React.createElement('div', { key: 'play', style: { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 44, height: 44, background: playing ? 'rgba(196,168,67,0.5)' : 'rgba(196,168,67,0.9)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.3s ease' } },
+          playing
+            ? React.createElement('div', { style: { display: 'flex', gap: 5 } }, [React.createElement('div', { key: 'b1', style: { width: 4, height: 14, background: '#080808', borderRadius: 1 } }), React.createElement('div', { key: 'b2', style: { width: 4, height: 14, background: '#080808', borderRadius: 1 } })])
+            : React.createElement('div', { style: { width: 0, height: 0, borderTop: '9px solid transparent', borderBottom: '9px solid transparent', borderLeft: '15px solid #080808', marginLeft: 4 } })
+        ),
+        React.createElement('div', { key: 'vol', style: { position: 'absolute', bottom: 68, right: 12, fontSize: 13, opacity: 0.45, color: 'white' } }, playing ? '🔊' : '🔇'),
+        React.createElement('div', { key: 'grad', style: { position: 'absolute', inset: 0, background: 'linear-gradient(to top,rgba(8,8,8,0.92) 0%,transparent 52%)', pointerEvents: 'none' } }),
+        React.createElement('div', { key: 'info', style: { position: 'absolute', bottom: 0, left: 0, right: 0, padding: '14px 12px' } }, [
+          React.createElement('p', { key: 'lbl', style: { fontFamily: 'Montserrat,sans-serif', fontSize: 11, color: 'white', fontWeight: 600, marginBottom: 5, lineHeight: 1.35 } }, v.label),
+          React.createElement('div', { key: 'hrow', style: { display: 'flex', alignItems: 'center', gap: 7, marginBottom: 9 } }, [
+            React.createElement('div', { key: 'av', style: { width: 18, height: 18, borderRadius: '50%', background: '#C4A843', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, color: '#080808', fontWeight: 700, flexShrink: 0 } }, '♥'),
+            React.createElement('span', { key: 'h', style: { fontFamily: 'Montserrat,sans-serif', fontSize: 10, color: 'rgba(255,255,255,0.5)', fontWeight: 300 } }, v.handle),
+          ]),
+          React.createElement('div', { key: 'tag', style: { display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(196,168,67,0.12)', border: '1px solid rgba(196,168,67,0.35)', padding: '4px 9px' } }, [
+            React.createElement('div', { key: 'd', style: { width: 6, height: 6, background: '#C4A843', borderRadius: '50%' } }),
+            React.createElement('span', { key: 's', style: { fontFamily: 'Montserrat,sans-serif', fontSize: 9, color: '#C4A843', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' } }, 'Shop Now'),
+          ]),
+        ]),
+      ]);
+    };
+
+    return {
+      mobileMenu,
+      toggleMobileMenu: () => self.setState(s => ({ mobileMenuOpen: !s.mobileMenuOpen })),
+      lookCard0: React.createElement(LookCard, { item: lookItems[0] }),
+      lookCard1: React.createElement(LookCard, { item: lookItems[1] }),
+      lookCard2: React.createElement(LookCard, { item: lookItems[2] }),
+      productCarousel,
+      prevProduct: () => self.setState(s => ({ productOffset: Math.max(0, s.productOffset - 1) })),
+      nextProduct: () => self.setState(s => ({ productOffset: Math.min(products.length - 4, s.productOffset + 1) })),
+      videoCard0: React.createElement(VideoCard, { v: videos[0] }),
+      videoCard1: React.createElement(VideoCard, { v: videos[1] }),
+      videoCard2: React.createElement(VideoCard, { v: videos[2] }),
+      videoCard3: React.createElement(VideoCard, { v: videos[3] }),
+      videoCard4: React.createElement(VideoCard, { v: videos[4] }),
+    };
+  }
+}
+</script>
+</body>
+</html>

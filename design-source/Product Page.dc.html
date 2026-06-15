@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{background:#080808;color:#f2ede1;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
+    .hbg span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
+    .pg{display:grid;grid-template-columns:55% 1fr;gap:60px;max-width:1440px;margin:0 auto;padding:36px 48px 72px;align-items:start;}
+    .ymay{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+    .pcard{cursor:pointer;text-decoration:none;display:block;}
+    .pcard-img{position:relative;overflow:hidden;transition:transform 0.4s ease;aspect-ratio:1;}
+    .pcard:hover .pcard-img{transform:scale(1.02);}
+    .pcard-qa{opacity:0;transition:opacity 0.3s;position:absolute;bottom:0;left:0;right:0;background:#080808;color:#C4A843;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.15em;padding:11px;text-align:center;text-transform:uppercase;border-top:1px solid #1f1f1f;}
+    .pcard:hover .pcard-qa{opacity:1;}
+    @media(max-width:1024px){.pg{gap:36px;padding:28px 28px 60px;}.ymay{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:768px){
+      .hbg{display:flex!important;} .hn-l,.hn-r,.hn-ic{display:none!important;}
+      .hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}
+      .hn-logo img{height:46px!important;} .hn-logo{justify-self:center;}
+      .pg{grid-template-columns:1fr!important;gap:22px!important;padding:16px 18px 52px!important;}
+      .pg-sticky{position:static!important;} .ymay{grid-template-columns:repeat(2,1fr);gap:12px;}
+      .pg-sec{padding:0 18px 56px!important;}
+    }
+  </style>
+</helmet>
+{{ mobileMenu }}
+{{ searchOverlay }}
+<div style="background:#C4A843;overflow:hidden;height:36px;display:flex;align-items:center;">
+  <div style="display:flex;animation:marquee 36s linear infinite;white-space:nowrap;will-change:transform;">
+    <span style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;">Free Shipping On Orders $75+ &nbsp;✦&nbsp; Sign Up For 10% Off &nbsp;✦&nbsp; New: Summer Heart Collection &nbsp;✦&nbsp; 60-Day Returns &nbsp;✦&nbsp; 2-Year Warranty &nbsp;✦&nbsp; Free Shipping On Orders $75+ &nbsp;✦&nbsp; Sign Up For 10% Off &nbsp;✦&nbsp; New: Summer Heart Collection &nbsp;✦&nbsp; 60-Day Returns &nbsp;✦&nbsp; 2-Year Warranty &nbsp;✦&nbsp;</span>
+  </div>
+</div>
+<nav style="background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;">
+  <div class="hn" style="max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;">
+    <button class="hbg" onclick="{{ toggleMenu }}"><span></span><span></span><span></span></button>
+    <div class="hn-l" style="display:flex;gap:24px;align-items:center;">
+      <a href="Necklaces.dc.html" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;">Necklaces</a>
+      <a href="Rings.dc.html" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;">Rings</a>
+      <a href="Bracelets.dc.html" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;">Bracelets</a>
+      <a href="Earrings.dc.html" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;">Earrings</a>
+    </div>
+    <a class="hn-logo" href="Humble Hearted Homepage.dc.html" style="justify-self:center;line-height:0;"><img src="uploads/04dd1e1d-e3be-41b2-b1b4-c54df8c8a8af.png" alt="HH" style="height:62px;width:auto;display:block;"></a>
+    <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end;">
+      <div class="hn-r" style="display:flex;gap:18px;align-items:center;">
+        <a href="Collections.dc.html" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;">Collections</a>
+        <a href="New.dc.html" style="color:#C4A843;font-size:11px;font-weight:700;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;">New</a>
+        <a href="Gifts.dc.html" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;">Gifts</a>
+      </div>
+      <div class="hn-ic" style="display:flex;gap:14px;align-items:center;border-left:1px solid #1f1a14;padding-left:16px;margin-left:2px;">
+        <button onclick="{{ openSearch }}" style="background:none;border:none;cursor:pointer;padding:0;line-height:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></button>
+        <a href="Profile.dc.html" style="line-height:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+        <a href="Cart.dc.html" style="position:relative;line-height:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span style="position:absolute;top:-7px;right:-7px;background:#8B1818;color:white;font-size:9px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Montserrat',sans-serif;">{{ cartCount }}</span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div style="max-width:1440px;margin:0 auto;padding:14px 48px;">
+  <div style="display:flex;gap:8px;align-items:center;font-family:'Montserrat',sans-serif;font-size:11px;color:rgba(242,237,225,0.35);font-weight:300;">
+    <a href="Humble Hearted Homepage.dc.html" style="color:rgba(242,237,225,0.35);text-decoration:none;">Home</a>
+    <span>/</span><a href="Necklaces.dc.html" style="color:rgba(242,237,225,0.35);text-decoration:none;">Necklaces</a>
+    <span>/</span><span style="color:rgba(242,237,225,0.65);">Bliss Buddha Pendant Necklace</span>
+  </div>
+</div>
+<div class="pg">
+  <div class="pg-sticky" style="position:sticky;top:98px;">{{ imageCarousel }}</div>
+  <div>{{ productInfo }}</div>
+</div>
+<section class="pg-sec" style="padding:0 48px 72px;max-width:1440px;margin:0 auto;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
+    <div>
+      <p style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.28em;color:#C4A843;margin-bottom:8px;font-weight:700;text-transform:uppercase;">Complete The Look</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;font-weight:400;">You May Also Like</h2>
+    </div>
+    <a href="Necklaces.dc.html" style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.16em;font-weight:700;color:#C4A843;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #C4A843;padding-bottom:3px;">View All →</a>
+  </div>
+  <div class="ymay">
+    <a href="Product Page.dc.html" class="pcard"><div class="pcard-img" style="background:repeating-linear-gradient(135deg,#120e09 0,#120e09 11px,#1c1710 11px,#1c1710 22px);margin-bottom:14px;"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:monospace;font-size:9px;color:#3a3028;text-align:center;line-height:1.5;">[ heart pendant necklace ]</span><div class="pcard-qa">+ Quick Add</div></div><p style="font-family:'Montserrat',sans-serif;font-size:9px;color:#C4A843;letter-spacing:0.12em;margin-bottom:5px;font-weight:700;text-transform:uppercase;">18k Gold Vermeil</p><p style="font-family:'Playfair Display',serif;font-size:16px;color:#f2ede1;margin-bottom:6px;line-height:1.3;font-weight:400;">Heart Pendant Necklace</p><p style="font-family:'Montserrat',sans-serif;font-size:14px;color:#f2ede1;font-weight:600;">$95</p></a>
+    <a href="Product Page.dc.html" class="pcard"><div class="pcard-img" style="background:repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px);margin-bottom:14px;"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:monospace;font-size:9px;color:#2e3038;text-align:center;line-height:1.5;">[ layered chain set ]</span><div class="pcard-qa">+ Quick Add</div></div><p style="font-family:'Montserrat',sans-serif;font-size:9px;color:#C4A843;letter-spacing:0.12em;margin-bottom:5px;font-weight:700;text-transform:uppercase;">18k Gold Vermeil</p><p style="font-family:'Playfair Display',serif;font-size:16px;color:#f2ede1;margin-bottom:6px;line-height:1.3;font-weight:400;">Layered Chain Set</p><div style="display:flex;gap:8px;align-items:center;"><span style="font-family:'Montserrat',sans-serif;font-size:14px;color:#f2ede1;font-weight:600;">$129</span><span style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.35);text-decoration:line-through;">$159</span></div></a>
+    <a href="Product Page.dc.html" class="pcard"><div class="pcard-img" style="background:repeating-linear-gradient(135deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px);margin-bottom:14px;"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:monospace;font-size:9px;color:#38300a;text-align:center;line-height:1.5;">[ gold hoop earrings ]</span><div class="pcard-qa">+ Quick Add</div></div><p style="font-family:'Montserrat',sans-serif;font-size:9px;color:#C4A843;letter-spacing:0.12em;margin-bottom:5px;font-weight:700;text-transform:uppercase;">18k Gold Vermeil</p><p style="font-family:'Playfair Display',serif;font-size:16px;color:#f2ede1;margin-bottom:6px;line-height:1.3;font-weight:400;">Gold Hoop Earrings</p><p style="font-family:'Montserrat',sans-serif;font-size:14px;color:#f2ede1;font-weight:600;">$65</p></a>
+    <a href="Product Page.dc.html" class="pcard"><div class="pcard-img" style="background:repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px);margin-bottom:14px;"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:monospace;font-size:9px;color:#300a30;text-align:center;line-height:1.5;">[ stacked ring set ]</span><div class="pcard-qa">+ Quick Add</div></div><p style="font-family:'Montserrat',sans-serif;font-size:9px;color:#C4A843;letter-spacing:0.12em;margin-bottom:5px;font-weight:700;text-transform:uppercase;">18k Gold Vermeil</p><p style="font-family:'Playfair Display',serif;font-size:16px;color:#f2ede1;margin-bottom:6px;line-height:1.3;font-weight:400;">Stacked Ring Set</p><p style="font-family:'Montserrat',sans-serif;font-size:14px;color:#f2ede1;font-weight:600;">$95</p></a>
+  </div>
+</section>
+<footer style="background:#080808;padding:56px 48px 32px;border-top:1px solid #1a1510;">
+  <div style="max-width:1440px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid #1a1510;">
+      <div><img src="uploads/04dd1e1d-e3be-41b2-b1b4-c54df8c8a8af.png" alt="HH" style="height:56px;width:auto;display:block;margin-bottom:14px;"><p style="font-family:'Montserrat',sans-serif;font-size:11px;color:rgba(242,237,225,0.35);line-height:1.8;max-width:230px;font-weight:300;">Luxury for the real. Crafted for people with beautiful hearts.</p></div>
+      <div><h5 style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:16px;">Shop</h5><div style="display:flex;flex-direction:column;gap:10px;"><a href="Necklaces.dc.html" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Necklaces</a><a href="Rings.dc.html" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Rings</a><a href="Bracelets.dc.html" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Bracelets</a><a href="Earrings.dc.html" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Earrings</a></div></div>
+      <div><h5 style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:16px;">Help</h5><div style="display:flex;flex-direction:column;gap:10px;"><a href="#" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">FAQs</a><a href="#" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Shipping</a><a href="#" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Returns</a><a href="#" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Contact Us</a></div></div>
+      <div><h5 style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:16px;">About</h5><div style="display:flex;flex-direction:column;gap:10px;"><a href="#" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Our Story</a><a href="#" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Sustainability</a><a href="#" style="font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Privacy Policy</a></div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><p style="font-family:'Montserrat',sans-serif;font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;">© 2026 Humble Hearted Jewelry. All Rights Reserved.</p><span style="font-family:'Montserrat',sans-serif;font-size:10px;color:rgba(242,237,225,0.2);">Visa · Mastercard · Amex · Shop Pay · Apple Pay</span></div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { imgIdx: 0, color: 'Rose Quartz', length: '18"', openAcc: 'details', menuOpen: false, searchOpen: false, searchQ: '', cartAdded: false, cartCount: 0 };
+  componentDidMount() {
+    try { this.setState({ cartCount: JSON.parse(localStorage.getItem('hhCart') || '[]').length }); } catch(e) {}
+    this._k = e => { if (e.key === 'Escape') this.setState({ menuOpen: false, searchOpen: false }); };
+    window.addEventListener('keydown', this._k);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this._k); }
+  renderVals() {
+    const S = this;
+    const { imgIdx, color, length, openAcc, menuOpen, searchOpen, searchQ, cartAdded, cartCount } = this.state;
+    const imgs = [
+      { src: 'uploads/ChatGPT Image Jun 14, 2026, 01_16_45 PM.png', bg: '#f0ece5' },
+      { src: 'uploads/ChatGPT Image Jun 14, 2026, 01_16_51 PM.png', bg: '#e8e2dc' },
+      { bg: '#0e0c0a', ph: 'CZ halo detail\npendant close-up' },
+      { bg: '#0a0c0e', ph: 'twisted singapore chain\ntexture detail' },
+    ];
+    const colors = [{ name: 'Rose Quartz', hex: '#d4a0b0' }, { name: 'White Jade', hex: '#e0d8c8' }, { name: 'Sage Jade', hex: '#8fa888' }];
+    const accs = [
+      { key: 'details', label: 'Details & Dimensions', rows: [['Chain','925 Sterling Silver · 18k Gold Vermeil'],['Style','Twisted Singapore Link'],['Width','1.5mm'],['Pendant','28mm × 22mm × 8mm'],['Setting','AAA Cubic Zirconia Halo'],['Weight','8.2g'],['Clasp','Lobster Claw, Adjustable']] },
+      { key: 'materials', label: 'Materials & Care', items: ['18k gold vermeil over 925 sterling silver (2.5 micron plating)','Handcrafted pink resin Buddha charm with jade-effect finish','AAA cubic zirconia halo — nickel-free & hypoallergenic','Water-resistant tarnish-protective clear coat','Avoid prolonged exposure to water, perfume & chlorine'], prefix: '•' },
+      { key: 'sustainability', label: 'Sustainability', items: ['Recycled 925 sterling silver base metal','Water-based, low-VOC lacquer coating','RJC-certified manufacturing facility','Carbon-neutral shipping on every order','100% recycled & recyclable packaging'], prefix: '✓' },
+      { key: 'shipping', label: 'Shipping, Returns & Warranty', items: ['Free standard shipping on orders $75+','Standard: 3–5 business days · Expedited: 2–3 days ($12)','Express: 1–2 business days ($24)','60-day hassle-free returns on unworn items','2-year manufacturing warranty on all pieces','Import duties included · Gift wrap available at checkout'], prefix: '✦' },
+      { key: 'reviews', label: 'Customer Reviews (124)', reviews: [{name:'Olivia M.',r:5,date:'June 2026',body:"Absolutely obsessed. The Buddha pendant is gorgeous in person — the pink resin catches the light beautifully. Chain quality is incredible. Wearing it every single day."},{name:'Jasmine R.',r:5,date:'May 2026',body:"Got so many compliments! The rose quartz color is stunning and it layers perfectly with my other gold pieces. Packaging was also super pretty."},{name:'Taylor K.',r:4,date:'May 2026',body:"Great quality. Really good chain and the CZ halo is so sparkly. Shipping was fast. Pendant is a bit smaller than photos but still gorgeous."}] },
+    ];
+    const ci = imgs[imgIdx];
+    const imageCarousel = React.createElement('div', {}, [
+      React.createElement('div', { key: 'main', style: { position: 'relative', width: '100%', paddingBottom: '110%', background: ci.bg, overflow: 'hidden' } }, [
+        ci.src ? React.createElement('img', { key: 'i', src: ci.src, style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' } }) :
+          React.createElement('span', { key: 'p', style: { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', fontFamily: 'monospace', fontSize: 11, color: '#3a3028', textAlign: 'center', lineHeight: 1.6 } }, `[ ${ci.ph} ]`),
+        imgIdx > 0 && React.createElement('button', { key: 'prev', onClick: () => S.setState({ imgIdx: imgIdx - 1 }), style: { position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', width: 38, height: 38, background: 'rgba(8,8,8,0.75)', border: '1px solid rgba(196,168,67,0.4)', color: '#f2ede1', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, zIndex: 2 } }, '←'),
+        imgIdx < imgs.length - 1 && React.createElement('button', { key: 'next', onClick: () => S.setState({ imgIdx: imgIdx + 1 }), style: { position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', width: 38, height: 38, background: 'rgba(8,8,8,0.75)', border: '1px solid rgba(196,168,67,0.4)', color: '#f2ede1', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, zIndex: 2 } }, '→'),
+        React.createElement('div', { key: 'ctr', style: { position: 'absolute', bottom: 14, right: 14, background: 'rgba(8,8,8,0.7)', padding: '4px 10px', fontFamily: 'Montserrat, sans-serif', fontSize: 10, color: 'rgba(242,237,225,0.7)', fontWeight: 600 } }, `${imgIdx + 1} / ${imgs.length}`),
+      ]),
+      React.createElement('div', { key: 'thumbs', style: { display: 'flex', gap: 8, marginTop: 10 } },
+        imgs.map((img, i) => React.createElement('button', { key: i, onClick: () => S.setState({ imgIdx: i }), style: { flex: 1, aspectRatio: '1', background: img.bg, border: i === imgIdx ? '2px solid #C4A843' : '1px solid #1f1f1f', overflow: 'hidden', cursor: 'pointer', padding: 0, position: 'relative' } },
+          img.src ? React.createElement('img', { src: img.src, style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' } }) : null
+        ))
+      ),
+    ]);
+    const accEl = (acc) => {
+      const isOpen = openAcc === acc.key;
+      let body;
+      if (acc.rows) body = React.createElement('div', { style: { paddingBottom: 20 } }, acc.rows.map(([k,v]) => React.createElement('div', { key: k, style: { display: 'flex', justifyContent: 'space-between', padding: '9px 0', borderBottom: '1px solid #1a1512' } }, [React.createElement('span', { key: 'k', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(242,237,225,0.5)', fontWeight: 300 } }, k), React.createElement('span', { key: 'v', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: '#f2ede1', fontWeight: 500, textAlign: 'right', maxWidth: '58%' } }, v)])));
+      else if (acc.items) body = React.createElement('ul', { style: { listStyle: 'none', paddingBottom: 20, display: 'flex', flexDirection: 'column', gap: 9 } }, acc.items.map((item, i) => React.createElement('li', { key: i, style: { display: 'flex', gap: 10, fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(242,237,225,0.65)', fontWeight: 300, lineHeight: 1.6 } }, [React.createElement('span', { key: 'd', style: { color: '#C4A843', flexShrink: 0 } }, acc.prefix), React.createElement('span', { key: 't' }, item)])));
+      else if (acc.reviews) body = React.createElement('div', { style: { paddingBottom: 20 } }, [
+        React.createElement('div', { key: 'avg', style: { display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24, paddingBottom: 20, borderBottom: '1px solid #1a1512' } }, [React.createElement('span', { key: 'n', style: { fontFamily: 'Playfair Display, serif', fontSize: 40, color: '#f2ede1', fontWeight: 400, lineHeight: 1 } }, '4.8'), React.createElement('div', { key: 'r' }, [React.createElement('div', { key: 's', style: { color: '#C4A843', fontSize: 16, letterSpacing: 2, marginBottom: 3 } }, '★★★★★'), React.createElement('p', { key: 'c', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 11, color: 'rgba(242,237,225,0.4)', fontWeight: 300 } }, '124 verified reviews')])]),
+        ...acc.reviews.map((r, i) => React.createElement('div', { key: i, style: { padding: '16px 0', borderBottom: i < acc.reviews.length - 1 ? '1px solid #1a1512' : 'none' } }, [React.createElement('div', { key: 'top', style: { display: 'flex', justifyContent: 'space-between', marginBottom: 8 } }, [React.createElement('div', { key: 'l' }, [React.createElement('p', { key: 'n', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: '#f2ede1', fontWeight: 600, marginBottom: 3 } }, r.name), React.createElement('span', { key: 's', style: { color: '#C4A843', fontSize: 12, letterSpacing: 1 } }, '★'.repeat(r.r))]), React.createElement('span', { key: 'd', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 10, color: 'rgba(242,237,225,0.3)' } }, r.date)]), React.createElement('p', { key: 'b', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(242,237,225,0.6)', fontWeight: 300, lineHeight: 1.8 } }, r.body)]))
+      ]);
+      return React.createElement('div', { key: acc.key, style: { borderBottom: '1px solid #1a1512' } }, [
+        React.createElement('button', { key: 'h', onClick: () => S.setState({ openAcc: isOpen ? null : acc.key }), style: { width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0', background: 'none', border: 'none', cursor: 'pointer' } }, [
+          React.createElement('span', { key: 'l', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: '#f2ede1', fontWeight: 600, letterSpacing: '0.06em', textAlign: 'left' } }, acc.label),
+          React.createElement('span', { key: 'ic', style: { color: '#C4A843', fontSize: 18, transform: isOpen ? 'rotate(45deg)' : 'none', transition: 'transform 0.25s ease', flexShrink: 0, display: 'inline-block' } }, '+'),
+        ]),
+        isOpen ? body : null,
+      ]);
+    };
+    const productInfo = React.createElement('div', {}, [
+      React.createElement('span', { key: 'badge', style: { display: 'inline-block', fontFamily: 'Montserrat, sans-serif', fontSize: 9, letterSpacing: '0.18em', color: '#8B1818', fontWeight: 700, textTransform: 'uppercase', background: 'rgba(139,24,24,0.15)', padding: '4px 10px', border: '1px solid rgba(139,24,24,0.3)', marginBottom: 14 } }, 'New In'),
+      React.createElement('h1', { key: 'nm', style: { fontFamily: 'Playfair Display, serif', fontSize: 30, color: '#f2ede1', fontWeight: 400, lineHeight: 1.2, marginBottom: 10 } }, 'Bliss Buddha Pendant Necklace'),
+      React.createElement('p', { key: 'sub', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 11, color: '#C4A843', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 12 } }, `${color} · 18k Gold Vermeil`),
+      React.createElement('div', { key: 'rat', style: { display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, paddingBottom: 16, borderBottom: '1px solid #1a1512' } }, [React.createElement('span', { key: 's', style: { color: '#C4A843', fontSize: 14, letterSpacing: 1 } }, '★★★★★'), React.createElement('span', { key: 'c', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 12, color: 'rgba(242,237,225,0.45)', fontWeight: 300, cursor: 'pointer' } }, '4.8 (124 reviews)')]),
+      React.createElement('p', { key: 'price', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 28, color: '#f2ede1', fontWeight: 600, marginBottom: 14 } }, '$148'),
+      React.createElement('p', { key: 'desc', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 13, color: 'rgba(242,237,225,0.6)', fontWeight: 300, lineHeight: 1.85, marginBottom: 22 } }, 'A joyful talisman for the modern woman. Our Bliss Buddha Pendant pairs a hand-carved pink resin Laughing Buddha — symbol of abundance, joy, and good fortune — with a diamond-bright CZ halo and our signature twisted Singapore chain.'),
+      React.createElement('div', { key: 'colors', style: { marginBottom: 20 } }, [
+        React.createElement('p', { key: 'lbl', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.16em', color: 'rgba(242,237,225,0.5)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 10 } }, `Stone Color: ${color}`),
+        React.createElement('div', { key: 'sw', style: { display: 'flex', gap: 10 } }, colors.map(c => React.createElement('button', { key: c.name, onClick: () => S.setState({ color: c.name }), title: c.name, style: { width: 30, height: 30, borderRadius: '50%', background: c.hex, border: color === c.name ? '3px solid #C4A843' : '2px solid transparent', outline: color === c.name ? '2px solid #C4A843' : '2px solid transparent', outlineOffset: 2, cursor: 'pointer', padding: 0, flexShrink: 0 } }))),
+      ]),
+      React.createElement('div', { key: 'lengths', style: { marginBottom: 24 } }, [
+        React.createElement('p', { key: 'lbl', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.16em', color: 'rgba(242,237,225,0.5)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 10 } }, 'Chain Length'),
+        React.createElement('div', { key: 'btns', style: { display: 'flex', gap: 8 } }, ['16"','18"','20"'].map(l => React.createElement('button', { key: l, onClick: () => S.setState({ length: l }), style: { padding: '10px 20px', background: length === l ? '#C4A843' : 'transparent', border: `1px solid ${length === l ? '#C4A843' : 'rgba(242,237,225,0.25)'}`, color: length === l ? '#080808' : '#f2ede1', fontFamily: 'Montserrat, sans-serif', fontSize: 12, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s ease' } }, l))),
+      ]),
+      React.createElement('button', { key: 'atc', onClick: () => {
+        try { const cart = JSON.parse(localStorage.getItem('hhCart') || '[]'); localStorage.setItem('hhCart', JSON.stringify([...cart, { id: 'HH-NK-BLISS-001', name: 'Bliss Buddha Pendant Necklace', price: 148, color, length, img: 'uploads/ChatGPT Image Jun 14, 2026, 01_16_45 PM.png', qty: 1 }])); } catch(e) {}
+        S.setState(s => ({ cartAdded: true, cartCount: s.cartCount + 1 }));
+        setTimeout(() => S.setState({ cartAdded: false }), 2500);
+      }, style: { width: '100%', padding: '16px', background: cartAdded ? '#1a3a1a' : '#C4A843', color: cartAdded ? '#5dba5d' : '#080808', fontFamily: 'Montserrat, sans-serif', fontSize: 11, letterSpacing: '0.2em', fontWeight: 800, textTransform: 'uppercase', border: 'none', cursor: 'pointer', marginBottom: 10, transition: 'all 0.3s ease' } }, cartAdded ? '✓ Added to Cart!' : 'Add to Cart — $148'),
+      React.createElement('div', { key: 'trust', style: { display: 'flex', flexDirection: 'column', gap: 8, padding: '16px 0', borderTop: '1px solid #1a1512', borderBottom: '1px solid #1a1512', marginBottom: 20 } },
+        [['✦','Free shipping on orders $75+'],['✦','2-year manufacturing warranty'],['✦','60-day hassle-free returns'],['✦','Import duties included (US)'],['✦','Gift wrap available at checkout']].map(([ic,txt],i) => React.createElement('div', { key: i, style: { display: 'flex', gap: 10, alignItems: 'center' } }, [React.createElement('span', { key: 'i', style: { color: '#C4A843', fontSize: 9 } }, ic), React.createElement('span', { key: 't', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 11, color: 'rgba(242,237,225,0.55)', fontWeight: 300 } }, txt)]))
+      ),
+      ...accs.map(a => accEl(a)),
+    ]);
+    const mobileMenu = React.createElement('div', { style: { position: 'fixed', inset: 0, zIndex: 999, background: '#080808', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? 'auto' : 'none', transition: 'opacity 0.35s ease', padding: '40px 24px' } }, [
+      React.createElement('button', { key: 'x', onClick: () => S.setState({ menuOpen: false }), style: { position: 'absolute', top: 20, right: 20, background: 'none', border: 'none', cursor: 'pointer', color: '#f2ede1', fontSize: 32, padding: 8 } }, '×'),
+      React.createElement('img', { key: 'logo', src: 'uploads/04dd1e1d-e3be-41b2-b1b4-c54df8c8a8af.png', style: { height: 64, marginBottom: 32, display: 'block' } }),
+      ...['Necklaces','Rings','Bracelets','Earrings','Collections','New','Gifts'].map((link, i) => React.createElement('a', { key: link, href: `${link}.dc.html`, onClick: () => S.setState({ menuOpen: false }), style: { display: 'block', fontFamily: i < 4 ? 'Playfair Display, serif' : 'Montserrat, sans-serif', fontSize: i < 4 ? 26 : 13, color: link === 'New' ? '#C4A843' : '#f2ede1', textDecoration: 'none', marginBottom: i < 4 ? 16 : 11, textAlign: 'center', fontWeight: i < 4 ? 400 : 700, textTransform: i >= 4 ? 'uppercase' : 'none', letterSpacing: i >= 4 ? '0.18em' : '0.04em' } }, link)),
+    ]);
+    const searchOverlay = React.createElement('div', { style: { position: 'fixed', inset: 0, zIndex: 500, background: 'rgba(8,8,8,0.97)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', paddingTop: 160, opacity: searchOpen ? 1 : 0, pointerEvents: searchOpen ? 'auto' : 'none', transition: 'opacity 0.3s ease' } }, [
+      React.createElement('button', { key: 'x', onClick: () => S.setState({ searchOpen: false }), style: { position: 'absolute', top: 24, right: 32, background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(242,237,225,0.5)', fontSize: 28 } }, '×'),
+      React.createElement('p', { key: 'l', style: { fontFamily: 'Montserrat, sans-serif', fontSize: 10, letterSpacing: '0.3em', color: '#C4A843', fontWeight: 700, textTransform: 'uppercase', marginBottom: 24 } }, 'Search'),
+      React.createElement('div', { key: 'row', style: { width: '100%', maxWidth: 540, display: 'flex', borderBottom: '2px solid #C4A843', marginBottom: 32, padding: '0 24px' } }, [
+        React.createElement('input', { key: 'inp', type: 'text', placeholder: 'Search jewelry...', value: searchQ, onChange: e => S.setState({ searchQ: e.target.value }), style: { flex: 1, background: 'none', border: 'none', fontFamily: 'Playfair Display, serif', fontSize: 24, color: '#f2ede1', outline: 'none', padding: '8px 0' } }),
+        React.createElement('button', { key: 'go', style: { background: 'none', border: 'none', cursor: 'pointer', color: '#C4A843', fontSize: 20 } }, '→'),
+      ]),
+      React.createElement('div', { key: 'tags', style: { display: 'flex', gap: 9, flexWrap: 'wrap', justifyContent: 'center', padding: '0 24px' } }, ['Gold Necklaces','Heart Pendant','Stacked Rings','Huggie Hoops','Buddha Necklace'].map(t => React.createElement('button', { key: t, onClick: () => S.setState({ searchQ: t }), style: { padding: '7px 13px', background: 'transparent', border: '1px solid #2a2218', color: 'rgba(242,237,225,0.6)', fontFamily: 'Montserrat, sans-serif', fontSize: 11, cursor: 'pointer', fontWeight: 300 } }, t))),
+    ]);
+    return { imageCarousel, productInfo, mobileMenu, searchOverlay, toggleMenu: () => S.setState(s => ({ menuOpen: !s.menuOpen })), openSearch: () => S.setState({ searchOpen: true }), cartCount: String(cartCount) };
+  }
+}
+</script>
+</body>
+</html>

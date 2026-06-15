@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Earrings · Humble Hearted Jewelry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#080808;color:#f2ede1;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+  a{color:inherit;}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* Announcement bar */
+  .ann{background:#C4A843;overflow:hidden;height:36px;display:flex;align-items:center;}
+  .ann-track{display:flex;animation:marquee 36s linear infinite;white-space:nowrap;will-change:transform;}
+  .ann-track span{font-size:10px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;}
+
+  /* Nav */
+  nav{background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;}
+  .hn{max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;}
+  .hn-link{font-size:11px;font-weight:600;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;color:#f2ede1;}
+  .hn-link.active{color:#C4A843;font-weight:700;}
+  .hn-l{display:flex;gap:24px;align-items:center;}
+  .hn-r{display:flex;gap:18px;align-items:center;}
+  .hn-logo{justify-self:center;line-height:0;}
+  .hn-logo img{height:62px;width:auto;display:block;}
+  .hn-ic{display:flex;gap:14px;align-items:center;border-left:1px solid #1f1a14;padding-left:16px;margin-left:2px;}
+  .hn-ic button,.hn-ic a{background:none;border:none;cursor:pointer;padding:0;line-height:0;}
+  .hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
+  .hbg span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
+
+  /* Collection hero */
+  .col-hero{height:280px;position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#100a14 0,#100a14 18px,#180f1e 18px,#180f1e 36px);}
+  .col-hero-inner{position:absolute;inset:0;background:rgba(8,8,8,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
+  .col-hero-eyebrow{font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
+  .col-hero-title{font-family:'Playfair Display',serif;font-size:56px;color:#f2ede1;font-weight:400;margin-bottom:12px;}
+  .col-hero-sub{font-size:12px;color:rgba(242,237,225,0.45);font-weight:300;letter-spacing:0.08em;}
+
+  /* Filter bar */
+  .filter{border-bottom:1px solid #1a1510;padding:14px 48px;}
+  .filter-inner{max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .filter-chips{display:flex;gap:9px;flex-wrap:wrap;align-items:center;}
+  .chip{padding:7px 14px;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;}
+  .chip.active{background:#C4A843;color:#080808;font-weight:700;border:1px solid #C4A843;}
+  .chip.idle{background:transparent;color:rgba(242,237,225,0.5);font-weight:600;border:1px solid rgba(242,237,225,0.2);}
+  .sort{font-size:11px;color:rgba(242,237,225,0.45);font-weight:300;cursor:pointer;}
+
+  /* Product grid */
+  .cg{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:1440px;margin:0 auto;padding:40px 48px 16px;}
+  .pcard{cursor:pointer;text-decoration:none;display:block;}
+  .pcard-img{position:relative;overflow:hidden;transition:transform 0.4s ease;aspect-ratio:1;margin-bottom:14px;}
+  .pcard:hover .pcard-img{transform:scale(1.02);}
+  .pcard-badge{position:absolute;top:10px;left:10px;color:#fff;font-size:9px;font-weight:700;padding:4px 8px;letter-spacing:0.1em;text-transform:uppercase;}
+  .pcard-qa{opacity:0;transition:opacity 0.3s;position:absolute;bottom:0;left:0;right:0;background:#080808;color:#C4A843;font-size:9px;font-weight:700;letter-spacing:0.15em;padding:11px;text-align:center;text-transform:uppercase;border-top:1px solid #1f1f1f;}
+  .pcard:hover .pcard-qa{opacity:1;}
+  .pcard-mat{font-size:9px;color:#C4A843;letter-spacing:0.12em;margin-bottom:5px;font-weight:700;text-transform:uppercase;}
+  .pcard-name{font-family:'Playfair Display',serif;font-size:16px;color:#f2ede1;margin-bottom:7px;line-height:1.3;font-weight:400;}
+  .pcard-pr{display:flex;gap:8px;align-items:center;}
+  .pcard-price{font-size:14px;color:#f2ede1;font-weight:600;}
+  .pcard-orig{font-size:12px;color:rgba(242,237,225,0.35);text-decoration:line-through;}
+
+  /* Load more */
+  .loadmore-wrap{text-align:center;padding:16px 48px 64px;}
+  .loadmore{padding:14px 48px;background:transparent;border:1px solid rgba(196,168,67,0.4);color:#C4A843;font-size:10px;letter-spacing:0.2em;font-weight:700;text-transform:uppercase;cursor:pointer;}
+
+  /* Footer */
+  footer{background:#080808;padding:48px 48px 28px;border-top:1px solid #1a1510;}
+  .ft-inner{max-width:1440px;margin:0 auto;}
+  .ft-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid #1a1510;}
+  .ft-logo{height:52px;width:auto;display:block;margin-bottom:12px;}
+  .ft-tag{font-size:11px;color:rgba(242,237,225,0.35);line-height:1.8;max-width:220px;font-weight:300;}
+  .ft-h{font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:14px;}
+  .ft-list{display:flex;flex-direction:column;gap:9px;}
+  .ft-list a{font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;}
+  .ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .ft-copy{font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;}
+  .ft-pay{font-size:10px;color:rgba(242,237,225,0.2);}
+
+  /* Overlays */
+  .overlay{position:fixed;inset:0;opacity:0;pointer-events:none;}
+  .menu-overlay{z-index:999;background:#080808;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;transition:opacity 0.35s ease;}
+  .menu-overlay.open{opacity:1;pointer-events:auto;}
+  .menu-overlay img{height:64px;margin-bottom:32px;display:block;}
+  .menu-overlay a{display:block;text-decoration:none;text-align:center;}
+  .menu-overlay .lg{font-family:'Playfair Display',serif;font-size:26px;color:#f2ede1;margin-bottom:16px;font-weight:400;letter-spacing:0.04em;}
+  .menu-overlay .sm{font-size:13px;color:#f2ede1;margin-bottom:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;}
+  .menu-overlay a.gold{color:#C4A843;}
+  .ov-close{position:absolute;background:none;border:none;cursor:pointer;color:#f2ede1;padding:8px;}
+  .menu-close{top:20px;right:20px;font-size:32px;}
+  .search-overlay{z-index:500;background:rgba(8,8,8,0.97);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:160px;transition:opacity 0.3s ease;}
+  .search-overlay.open{opacity:1;pointer-events:auto;}
+  .search-close{top:24px;right:32px;color:rgba(242,237,225,0.5);font-size:28px;}
+  .search-row{width:100%;max-width:540px;display:flex;border-bottom:2px solid #C4A843;margin:0 0 32px;padding:0 24px;}
+  .search-row input{flex:1;background:none;border:none;font-family:'Playfair Display',serif;font-size:24px;color:#f2ede1;outline:none;padding:8px 0;}
+  .search-row button{background:none;border:none;cursor:pointer;color:#C4A843;font-size:20px;}
+
+  @media(max-width:1024px){
+    .cg{grid-template-columns:repeat(3,1fr);padding:32px 28px 12px;}
+    .ft-cols{grid-template-columns:repeat(3,1fr);}
+  }
+  @media(max-width:768px){
+    .hbg{display:flex!important;}
+    .hn-l,.hn-r,.hn-ic{display:none!important;}
+    .hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}
+    .hn-logo img{height:46px!important;}
+    .col-hero-title{font-size:40px;}
+    .cg{grid-template-columns:repeat(2,1fr);gap:14px;padding:24px 18px 8px;}
+    .ft-cols{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile menu overlay -->
+<div class="overlay menu-overlay" id="menuOverlay">
+  <button class="ov-close menu-close" aria-label="Close menu" onclick="closeMenu()">&times;</button>
+  <img src="assets/hh-logo.png" alt="Humble Hearted">
+  <a class="lg" href="necklaces.html">Necklaces</a>
+  <a class="lg" href="rings.html">Rings</a>
+  <a class="lg" href="bracelets.html">Bracelets</a>
+  <a class="lg" href="earrings.html">Earrings</a>
+  <a class="sm" href="collections.html">Collections</a>
+  <a class="sm gold" href="new.html">New</a>
+  <a class="sm" href="gifts.html">Gifts</a>
+</div>
+
+<!-- Search overlay -->
+<div class="overlay search-overlay" id="searchOverlay">
+  <button class="ov-close search-close" aria-label="Close search" onclick="closeSearch()">&times;</button>
+  <form class="search-row" onsubmit="return false;">
+    <input type="text" id="searchInput" placeholder="Search jewelry...">
+    <button type="submit" aria-label="Search">&rarr;</button>
+  </form>
+</div>
+
+<!-- Announcement bar -->
+<div class="ann">
+  <div class="ann-track">
+    <span>Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp;</span>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <div class="hn">
+    <button class="hbg" aria-label="Open menu" onclick="openMenu()"><span></span><span></span><span></span></button>
+    <div class="hn-l">
+      <a class="hn-link" href="necklaces.html">Necklaces</a>
+      <a class="hn-link" href="rings.html">Rings</a>
+      <a class="hn-link" href="bracelets.html">Bracelets</a>
+      <a class="hn-link active" href="earrings.html">Earrings</a>
+    </div>
+    <a class="hn-logo" href="index.html"><img src="assets/hh-logo.png" alt="Humble Hearted"></a>
+    <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end;">
+      <div class="hn-r">
+        <a class="hn-link" href="collections.html">Collections</a>
+        <a class="hn-link active" href="new.html">New</a>
+        <a class="hn-link" href="gifts.html">Gifts</a>
+      </div>
+      <div class="hn-ic">
+        <button aria-label="Search" onclick="openSearch()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></button>
+        <a href="profile.html" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+        <a href="cart.html" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Collection hero -->
+<section class="col-hero">
+  <div class="col-hero-inner">
+    <p class="col-hero-eyebrow">Explore</p>
+    <h1 class="col-hero-title">Earrings</h1>
+    <p class="col-hero-sub">12 Pieces &middot; 18k Gold Vermeil</p>
+  </div>
+</section>
+
+<!-- Filter bar -->
+<div class="filter">
+  <div class="filter-inner">
+    <div class="filter-chips">
+      <button class="chip active">All</button>
+      <button class="chip idle">New In</button>
+      <button class="chip idle">Best Sellers</button>
+    </div>
+    <span class="sort">Sort: Featured &#9662;</span>
+  </div>
+</div>
+
+<!-- Product grid -->
+<div class="cg" id="productGrid"></div>
+
+<!-- Load more -->
+<div class="loadmore-wrap">
+  <button class="loadmore">Load More</button>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-cols">
+      <div>
+        <img class="ft-logo" src="assets/hh-logo.png" alt="Humble Hearted">
+        <p class="ft-tag">Luxury for the real. Crafted for people with beautiful hearts.</p>
+      </div>
+      <div>
+        <h5 class="ft-h">Shop</h5>
+        <div class="ft-list">
+          <a href="necklaces.html">Necklaces</a>
+          <a href="rings.html">Rings</a>
+          <a href="bracelets.html">Bracelets</a>
+          <a href="earrings.html">Earrings</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="ft-h">Help</h5>
+        <div class="ft-list">
+          <a href="#">FAQs</a>
+          <a href="#">Shipping</a>
+          <a href="#">Returns</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="ft-h">About</h5>
+        <div class="ft-list">
+          <a href="#">Our Story</a>
+          <a href="#">Sustainability</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p class="ft-copy">&copy; 2026 Humble Hearted Jewelry.</p>
+      <span class="ft-pay">Visa &middot; Mastercard &middot; Shop Pay &middot; Apple Pay</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Product data — swap this array out to reuse the layout for any collection.
+  var PRODUCTS = [
+    { name: 'Gold Hoop Set', price: 65 },
+    { name: 'Pearl Drop Earrings', price: 75 },
+    { name: 'CZ Stud Set', price: 55, badge: 'New In' },
+    { name: 'Chain Drop Earrings', price: 88 },
+    { name: 'Huggie Hoop Set', price: 72 },
+    { name: 'Ear Cuff Set', price: 68, badge: 'New In' },
+    { name: 'Statement Drop Earrings', price: 98 },
+    { name: 'Heart Dangle Earrings', price: 78 },
+    { name: 'Twisted Gold Hoops', price: 85, orig: 105 },
+    { name: 'Pearl Stud Set', price: 65 },
+    { name: 'Angel Wing Drops', price: 92, badge: 'New In' },
+    { name: 'Sun Ray Studs', price: 68 }
+  ];
+
+  // Placeholder photography swatches — replace with real product imagery.
+  var BGS = [
+    'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 11px,#1c1610 11px,#1c1610 22px)',
+    'repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px)',
+    'repeating-linear-gradient(135deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px)',
+    'repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px)'
+  ];
+
+  function renderGrid() {
+    var grid = document.getElementById('productGrid');
+    grid.innerHTML = PRODUCTS.map(function (p, i) {
+      var bg = BGS[i % 4];
+      var badge = '';
+      if (p.orig) {
+        badge = '<span class="pcard-badge" style="background:#8B1818;">Sale</span>';
+      } else if (p.badge) {
+        badge = '<span class="pcard-badge" style="background:rgba(139,24,24,0.85);">' + p.badge + '</span>';
+      }
+      var orig = p.orig ? '<span class="pcard-orig">$' + p.orig + '</span>' : '';
+      return '' +
+        '<a class="pcard" href="product.html">' +
+          '<div class="pcard-img" style="background:' + bg + ';">' +
+            badge +
+            '<div class="pcard-qa">+ Quick Add</div>' +
+          '</div>' +
+          '<p class="pcard-mat">18k Gold Vermeil</p>' +
+          '<p class="pcard-name">' + p.name + '</p>' +
+          '<div class="pcard-pr">' +
+            '<span class="pcard-price">$' + p.price + '</span>' + orig +
+          '</div>' +
+        '</a>';
+    }).join('');
+  }
+  renderGrid();
+
+  // Overlays
+  function openMenu() { document.getElementById('menuOverlay').classList.add('open'); }
+  function closeMenu() { document.getElementById('menuOverlay').classList.remove('open'); }
+  function openSearch() {
+    var o = document.getElementById('searchOverlay');
+    o.classList.add('open');
+    document.getElementById('searchInput').focus();
+  }
+  function closeSearch() { document.getElementById('searchOverlay').classList.remove('open'); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeMenu(); closeSearch(); }
+  });
+</script>
+</body>
+</html>
