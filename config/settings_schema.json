@@ -1,0 +1,20 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "HH",
+    "theme_version": "1.0.1",
+    "theme_author": "Humble Hearted",
+    "theme_documentation_url": "https://github.com/marcusworld82/HH",
+    "theme_support_url": "https://github.com/marcusworld82/HH"
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      }
+    ]
+  }
+]
