@@ -1,0 +1,10 @@
+{
+  "layout": "hh-standalone",
+  "sections": {
+    "main": {
+      "type": "hh-search",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
