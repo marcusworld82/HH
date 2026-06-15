@@ -96,9 +96,9 @@
       </a>
       <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end;">
         <div class="hhc-r">
-          <a class="hhc-link" href="/collections">Collections</a>
-          <a class="hhc-link active" href="/collections/all?sort_by=created-descending">New</a>
-          <a class="hhc-link" href="/collections/all">Gifts</a>
+          <a class="hhc-link{% if collection.handle == 'pendants' %} active{% endif %}" href="/collections/pendants">Pendants</a>
+          <a class="hhc-link{% if collection.handle == 'all' %} active{% endif %}" href="/collections/all?sort_by=created-descending">New</a>
+          <a class="hhc-link{% if collection.handle == 'gifts' %} active{% endif %}" href="/collections/gifts">Gifts</a>
         </div>
         <div class="hhc-ic">
           <a href="/search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></a>
@@ -177,6 +177,7 @@
             <a href="/collections/rings">Rings</a>
             <a href="/collections/bracelets">Bracelets</a>
             <a href="/collections/earrings">Earrings</a>
+            <a href="/collections/pendants">Pendants</a>
           </div>
         </div>
         <div>
