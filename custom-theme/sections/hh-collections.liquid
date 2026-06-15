@@ -1,7 +1,7 @@
 {%- comment -%}
-  Humble Hearted — Collections landing page
-  Matches the exact design of hh-earrings-collection.liquid.
-  Displays all store collections as a 2×2 hero grid.
+  Humble Hearted — Collections Landing Page
+  Matches hh-earrings-collection.liquid structure exactly.
+  Used by list-collections.hh.liquid template at /collections.
 {%- endcomment -%}
 
 {%- style -%}
@@ -29,25 +29,22 @@
   .hhc-hero-eyebrow{font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
   .hhc-hero-title{font-family:'Playfair Display',serif;font-size:56px;color:#f2ede1;font-weight:400;margin-bottom:12px;}
   .hhc-hero-sub{font-size:12px;color:rgba(242,237,225,0.45);font-weight:300;letter-spacing:0.08em;}
-  .hhc-cl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;max-width:1440px;margin:0 auto;padding:40px 48px;}
-  .hhc-cl-card{position:relative;overflow:hidden;aspect-ratio:4/3;cursor:pointer;display:block;}
-  .hhc-cl-card-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s ease;}
-  .hhc-cl-card:hover .hhc-cl-card-bg{transform:scale(1.04);}
-  .hhc-cl-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.82) 0%,rgba(8,8,8,0.1) 55%,transparent 100%);}
-  .hhc-cl-body{position:absolute;bottom:0;left:0;right:0;padding:32px;}
-  .hhc-cl-eyebrow{font-size:9px;letter-spacing:0.3em;color:#C4A843;margin-bottom:8px;font-weight:700;text-transform:uppercase;}
-  .hhc-cl-name{font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;margin-bottom:10px;line-height:1.15;}
-  .hhc-cl-count{font-size:10px;color:rgba(242,237,225,0.5);letter-spacing:0.1em;margin-bottom:16px;}
-  .hhc-cl-cta{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#C4A843;}
-  .hhc-cl-cta-line{display:block;width:0;height:1px;background:#C4A843;transition:width 0.3s ease;}
-  .hhc-cl-card:hover .hhc-cl-cta-line{width:28px;}
-  .hhc-cl-cta-arrow{display:inline-block;transition:transform 0.3s ease;}
-  .hhc-cl-card:hover .hhc-cl-cta-arrow{transform:translateX(4px);}
-  .hhc-promise{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#1a1510;border-top:1px solid #1a1510;border-bottom:1px solid #1a1510;margin:0 48px 48px;}
-  .hhc-promise-item{background:#080808;padding:24px;text-align:center;}
-  .hhc-promise-icon{font-size:18px;margin-bottom:8px;color:#C4A843;}
-  .hhc-promise-title{font-size:10px;letter-spacing:0.14em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:4px;}
-  .hhc-promise-desc{font-size:10px;color:rgba(242,237,225,0.35);font-weight:300;}
+  .hhc-cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;max-width:1440px;margin:40px auto;padding:0 48px;}
+  .hhc-cat{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;display:block;}
+  .hhc-cat-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;}
+  .hhc-cat:hover .hhc-cat-img{transform:scale(1.04);}
+  .hhc-cat-bg{width:100%;height:100%;display:block;transition:transform 0.6s ease;}
+  .hhc-cat:hover .hhc-cat-bg{transform:scale(1.04);}
+  .hhc-cat-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.78) 0%,rgba(8,8,8,0.18) 55%,transparent 100%);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:32px;}
+  .hhc-cat-eyebrow{font-size:9px;letter-spacing:0.25em;color:#C4A843;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+  .hhc-cat-title{font-family:'Playfair Display',serif;font-size:32px;color:#f2ede1;font-weight:400;margin-bottom:10px;line-height:1.1;}
+  .hhc-cat-cta{font-size:10px;letter-spacing:0.2em;color:#C4A843;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .hhc-cat-cta::after{content:'→';transition:transform 0.3s ease;}
+  .hhc-cat:hover .hhc-cat-cta::after{transform:translateX(5px);}
+  .hhc-promise{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#1a1510;border-top:1px solid #1a1510;border-bottom:1px solid #1a1510;margin:0 0 0 0;}
+  .hhc-promise-item{background:#080808;padding:24px 32px;text-align:center;}
+  .hhc-promise-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#C4A843;font-weight:700;margin-bottom:5px;}
+  .hhc-promise-desc{font-size:11px;color:rgba(242,237,225,0.4);font-weight:300;}
   .hhc-ft{background:#080808;padding:48px 48px 28px;border-top:1px solid #1a1510;}
   .hhc-ft-inner{max-width:1440px;margin:0 auto;}
   .hhc-ft-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid #1a1510;}
@@ -60,16 +57,18 @@
   .hhc-ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
   .hhc-ft-copy{font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;}
   .hhc-ft-pay{font-size:10px;color:rgba(242,237,225,0.2);}
-  @media(max-width:1024px){.hhc-cl-grid{padding:28px;}.hhc-promise{margin:0 28px 40px;}.hhc-ft-cols{grid-template-columns:repeat(3,1fr);}}
-  @media(max-width:768px){.hhc-hbg{display:flex!important;}.hhc-l,.hhc-r,.hhc-ic{display:none!important;}.hhc-hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}.hhc-logo img{height:46px!important;}.hhc-hero-title{font-size:40px;}.hhc-cl-grid{grid-template-columns:1fr;padding:18px;gap:3px;}.hhc-cl-name{font-size:28px;}.hhc-promise{grid-template-columns:repeat(2,1fr);margin:0 18px 36px;}.hhc-ft-cols{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:1024px){.hhc-cat-grid{padding:28px;}.hhc-ft-cols{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:768px){.hhc-hbg{display:flex!important;}.hhc-l,.hhc-r,.hhc-ic{display:none!important;}.hhc-hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}.hhc-logo img{height:46px!important;}.hhc-hero-title{font-size:40px;}.hhc-cat-grid{grid-template-columns:1fr;gap:3px;padding:18px;}.hhc-cat{aspect-ratio:3/2;}.hhc-promise{grid-template-columns:repeat(2,1fr);}.hhc-ft-cols{grid-template-columns:repeat(2,1fr);}}
 {%- endstyle -%}
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 {%- assign logo_url = 'hh-logo.png' | asset_url -%}
-{%- assign fallback_bgs = 'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 11px,#1c1610 11px,#1c1610 22px)|repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px)|repeating-linear-gradient(135deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px)|repeating-linear-gradient(45deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px)' | split: '|' -%}
 
-{%- assign show_collections = 'necklaces,rings,bracelets,earrings' | split: ',' -%}
+{%- assign cat_necklaces = collections['necklaces'] -%}
+{%- assign cat_rings      = collections['rings'] -%}
+{%- assign cat_bracelets  = collections['bracelets'] -%}
+{%- assign cat_earrings   = collections['earrings'] -%}
 
 <div class="hhc">
 
@@ -113,54 +112,83 @@
   <section class="hhc-hero">
     <div class="hhc-hero-inner">
       <p class="hhc-hero-eyebrow">Humble Hearted</p>
-      <h1 class="hhc-hero-title">Our Collections</h1>
-      <p class="hhc-hero-sub">Handcrafted jewelry &middot; 18k Gold Vermeil &middot; Made with love</p>
+      <h1 class="hhc-hero-title">Collections</h1>
+      <p class="hhc-hero-sub">Handcrafted Fine Jewelry &middot; 18k Gold Vermeil</p>
     </div>
   </section>
 
-  <div class="hhc-cl-grid">
-    {%- for handle in show_collections -%}
-      {%- assign col = collections[handle] -%}
-      {%- assign bg_index = forloop.index0 | modulo: 4 -%}
-      {%- assign fallback_bg = fallback_bgs[bg_index] -%}
-      <a class="hhc-cl-card" href="{{ col.url | default: '/collections/' | append: handle }}">
-        <div class="hhc-cl-card-bg" style="{%- if col.image -%}background-image:url('{{ col.image | image_url: width: 1200 }}');{%- else -%}background:{{ fallback_bg }};{%- endif -%}"></div>
-        <div class="hhc-cl-overlay"></div>
-        <div class="hhc-cl-body">
-          <p class="hhc-cl-eyebrow">Explore</p>
-          <h2 class="hhc-cl-name">{{ col.title | default: handle | capitalize }}</h2>
-          {%- if col.products_count > 0 -%}
-            <p class="hhc-cl-count">{{ col.products_count }} Pieces</p>
-          {%- endif -%}
-          <span class="hhc-cl-cta">
-            <span class="hhc-cl-cta-line"></span>
-            Shop Now <span class="hhc-cl-cta-arrow">&#8594;</span>
-          </span>
-        </div>
-      </a>
-    {%- endfor -%}
+  <div class="hhc-cat-grid">
+
+    <a class="hhc-cat" href="/collections/necklaces">
+      {%- if cat_necklaces.image != blank -%}
+        <img class="hhc-cat-img" src="{{ cat_necklaces.image | image_url: width: 900 }}" alt="Necklaces" width="900" height="675" loading="lazy">
+      {%- else -%}
+        <div class="hhc-cat-bg" style="background:repeating-linear-gradient(135deg,#130f0a 0,#130f0a 11px,#1c1610 11px,#1c1610 22px);"></div>
+      {%- endif -%}
+      <div class="hhc-cat-overlay">
+        <p class="hhc-cat-eyebrow">{{ cat_necklaces.products_count | default: 0 }} Pieces</p>
+        <h2 class="hhc-cat-title">Necklaces</h2>
+        <span class="hhc-cat-cta">Shop Now</span>
+      </div>
+    </a>
+
+    <a class="hhc-cat" href="/collections/rings">
+      {%- if cat_rings.image != blank -%}
+        <img class="hhc-cat-img" src="{{ cat_rings.image | image_url: width: 900 }}" alt="Rings" width="900" height="675" loading="lazy">
+      {%- else -%}
+        <div class="hhc-cat-bg" style="background:repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px);"></div>
+      {%- endif -%}
+      <div class="hhc-cat-overlay">
+        <p class="hhc-cat-eyebrow">{{ cat_rings.products_count | default: 0 }} Pieces</p>
+        <h2 class="hhc-cat-title">Rings</h2>
+        <span class="hhc-cat-cta">Shop Now</span>
+      </div>
+    </a>
+
+    <a class="hhc-cat" href="/collections/bracelets">
+      {%- if cat_bracelets.image != blank -%}
+        <img class="hhc-cat-img" src="{{ cat_bracelets.image | image_url: width: 900 }}" alt="Bracelets" width="900" height="675" loading="lazy">
+      {%- else -%}
+        <div class="hhc-cat-bg" style="background:repeating-linear-gradient(135deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px);"></div>
+      {%- endif -%}
+      <div class="hhc-cat-overlay">
+        <p class="hhc-cat-eyebrow">{{ cat_bracelets.products_count | default: 0 }} Pieces</p>
+        <h2 class="hhc-cat-title">Bracelets</h2>
+        <span class="hhc-cat-cta">Shop Now</span>
+      </div>
+    </a>
+
+    <a class="hhc-cat" href="/collections/earrings">
+      {%- if cat_earrings.image != blank -%}
+        <img class="hhc-cat-img" src="{{ cat_earrings.image | image_url: width: 900 }}" alt="Earrings" width="900" height="675" loading="lazy">
+      {%- else -%}
+        <div class="hhc-cat-bg" style="background:repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px);"></div>
+      {%- endif -%}
+      <div class="hhc-cat-overlay">
+        <p class="hhc-cat-eyebrow">{{ cat_earrings.products_count | default: 0 }} Pieces</p>
+        <h2 class="hhc-cat-title">Earrings</h2>
+        <span class="hhc-cat-cta">Shop Now</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="hhc-promise">
     <div class="hhc-promise-item">
-      <div class="hhc-promise-icon">&#10022;</div>
-      <p class="hhc-promise-title">Free Shipping</p>
-      <p class="hhc-promise-desc">On all orders over $75</p>
+      <p class="hhc-promise-label">Free Shipping</p>
+      <p class="hhc-promise-desc">On all orders $75+</p>
     </div>
     <div class="hhc-promise-item">
-      <div class="hhc-promise-icon">&#10022;</div>
-      <p class="hhc-promise-title">Quality Crafted</p>
-      <p class="hhc-promise-desc">18k Gold Vermeil</p>
+      <p class="hhc-promise-label">Crafted Quality</p>
+      <p class="hhc-promise-desc">18k gold vermeil</p>
     </div>
     <div class="hhc-promise-item">
-      <div class="hhc-promise-icon">&#10022;</div>
-      <p class="hhc-promise-title">60-Day Returns</p>
+      <p class="hhc-promise-label">60-Day Returns</p>
       <p class="hhc-promise-desc">Hassle-free returns</p>
     </div>
     <div class="hhc-promise-item">
-      <div class="hhc-promise-icon">&#10022;</div>
-      <p class="hhc-promise-title">10% Off</p>
-      <p class="hhc-promise-desc">Sign up for our newsletter</p>
+      <p class="hhc-promise-label">10% Off</p>
+      <p class="hhc-promise-desc">Sign up & save today</p>
     </div>
   </div>
 
