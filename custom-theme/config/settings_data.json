@@ -1,0 +1,21 @@
+{
+  "current": {
+    "color_background": "#080808",
+    "color_text": "#f2ede1",
+    "color_accent": "#C4A843",
+    "color_nav_bg": "#080808",
+    "color_footer_bg": "#0d0d0d",
+    "font_heading": "playfair_display_n4",
+    "font_body": "montserrat_n4",
+    "logo_width": 62,
+    "logo_text": "HH",
+    "main_menu": "main-menu",
+    "announcement_enabled": true,
+    "announcement_text": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns",
+    "announcement_bg": "#C4A843",
+    "announcement_text_color": "#080808",
+    "footer_tagline": "Wear what your heart already knows.",
+    "footer_copyright": "© 2026 Humble Hearted. All rights reserved."
+  },
+  "presets": {}
+}

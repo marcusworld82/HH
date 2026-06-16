@@ -92,9 +92,11 @@
 </div>
 
 <!-- ANNOUNCEMENT BAR -->
-<div style="background:#C4A843;overflow:hidden;height:38px;display:flex;align-items:center;">
+{%- assign ann_bg = section.settings.ann_bg | default: '#C4A843' -%}
+{%- assign ann_color = section.settings.ann_text_color | default: '#080808' -%}
+<div style="background:{{ ann_bg }};overflow:hidden;height:38px;display:flex;align-items:center;">
   <div style="display:flex;animation:marquee 36s linear infinite;white-space:nowrap;will-change:transform;">
-    <span style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;">{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
+    <span style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:{{ ann_color }};padding:0 32px;text-transform:uppercase;">{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
   </div>
 </div>
 
@@ -134,7 +136,7 @@
   <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:0 24px;">
     <div style="text-align:center;width:100%;max-width:700px;">
       <p class="hh-hero-label" style="font-size:10px;letter-spacing:0.35em;color:#C4A843;margin-bottom:18px;font-weight:700;text-transform:uppercase;">{{ section.settings.hero_eyebrow }}</p>
-      <h1 class="hh-hero-h1" style="font-family:'Playfair Display',serif;font-size:76px;line-height:1.0;color:#f2ede1;margin-bottom:16px;font-weight:500;text-shadow:0 4px 32px rgba(0,0,0,0.8);">{{ section.settings.hero_line1 }}<br><em>{{ section.settings.hero_line2 }}</em> {{ section.settings.hero_line3 }}</h1>
+      <h1 class="hh-hero-h1" style="font-family:'Playfair Display',serif;font-size:{{ section.settings.hero_heading_size | default: 76 }}px;line-height:1.0;color:#f2ede1;margin-bottom:16px;font-weight:500;text-shadow:0 4px 32px rgba(0,0,0,0.8);">{{ section.settings.hero_line1 }}<br><em>{{ section.settings.hero_line2 }}</em> {{ section.settings.hero_line3 }}</h1>
       <p class="hh-hero-sub" style="font-size:14px;letter-spacing:0.06em;color:rgba(242,237,225,0.7);margin-bottom:36px;font-weight:300;">{{ section.settings.hero_sub }}</p>
       <div class="hh-hero-btns" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;">
         <a href="/collections/necklaces" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Necklaces</a>
@@ -143,7 +145,9 @@
         <a href="/collections/earrings" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Earrings</a>
         <a href="/collections/all" style="padding:9px 20px;background:transparent;border:1px solid rgba(242,237,225,0.55);color:#f2ede1;font-size:9px;letter-spacing:0.2em;font-weight:700;text-decoration:none;text-transform:uppercase;">Best Sellers</a>
       </div>
-      <a class="hh-hero-cta" href="{{ section.settings.hero_cta_link | default: '/collections/all' }}" style="display:inline-block;padding:16px 52px;background:#C4A843;color:#080808;font-size:11px;letter-spacing:0.22em;font-weight:800;text-decoration:none;text-transform:uppercase;">{{ section.settings.hero_cta_text }}</a>
+      {%- assign btn_bg = section.settings.hero_btn_bg | default: '#C4A843' -%}
+      {%- assign btn_color = section.settings.hero_btn_color | default: '#080808' -%}
+      <a class="hh-hero-cta" href="{{ section.settings.hero_cta_link | default: '/collections/all' }}" style="display:inline-block;padding:16px 52px;background:{{ btn_bg }};color:{{ btn_color }};font-size:11px;letter-spacing:0.22em;font-weight:800;text-decoration:none;text-transform:uppercase;">{{ section.settings.hero_cta_text }}</a>
     </div>
   </div>
 </section>
@@ -380,11 +384,11 @@
     <div class="hh-footer-grid" style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;gap:52px;margin-bottom:56px;padding-bottom:56px;border-bottom:1px solid #1a1510;">
       <div class="hh-footer-logo-col">
         <img src="{{ logo_src }}" alt="{{ shop.name }}" style="height:68px;width:auto;display:block;margin-bottom:18px;" onerror="this.outerHTML='<span style=&quot;font-family:Playfair Display,serif;font-size:24px;letter-spacing:0.15em;color:#f2ede1;&quot;>HUMBLE HEARTED</span>'">
-        <p style="font-size:12px;color:rgba(242,237,225,0.4);line-height:1.9;max-width:260px;font-weight:300;">Luxury for the real. Beautiful pieces crafted for people with beautiful hearts.</p>
+        <p style="font-size:12px;color:rgba(242,237,225,0.4);line-height:1.9;max-width:260px;font-weight:300;">{{ section.settings.footer_tagline | default: settings.footer_tagline | default: 'Luxury for the real. Beautiful pieces crafted for people with beautiful hearts.' }}</p>
         <div style="display:flex;gap:18px;margin-top:24px;flex-wrap:wrap;">
-          <a href="#" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">TikTok</a>
-          <a href="#" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">Instagram</a>
-          <a href="#" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">Pinterest</a>
+          {%- if section.settings.footer_tiktok != blank %}<a href="{{ section.settings.footer_tiktok }}" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">TikTok</a>{%- endif -%}
+          {%- if section.settings.footer_instagram != blank %}<a href="{{ section.settings.footer_instagram }}" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">Instagram</a>{%- endif -%}
+          {%- if section.settings.footer_pinterest != blank %}<a href="{{ section.settings.footer_pinterest }}" style="font-size:10px;letter-spacing:0.1em;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:600;text-transform:uppercase;">Pinterest</a>{%- endif -%}
         </div>
       </div>
       <div>
@@ -430,7 +434,7 @@
       </div>
     </div>
     <div class="hh-footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
-      <p style="font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
+      <p style="font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;">{%- if section.settings.footer_copyright != blank -%}{{ section.settings.footer_copyright }}{%- else -%}&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.{%- endif -%}</p>
       <span style="font-size:10px;color:rgba(242,237,225,0.2);letter-spacing:0.06em;">Visa · Mastercard · Amex · PayPal · Shop Pay · Apple Pay</span>
     </div>
   </div>
@@ -448,6 +452,8 @@
   "settings": [
     { "type": "header", "content": "Announcement Bar" },
     { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns" },
+    { "type": "color", "id": "ann_bg", "label": "Announcement background", "default": "#C4A843" },
+    { "type": "color", "id": "ann_text_color", "label": "Announcement text color", "default": "#080808" },
 
     { "type": "header", "content": "Hero" },
     { "type": "image_picker", "id": "hero_image_left", "label": "Hero image — left" },
@@ -459,6 +465,9 @@
     { "type": "text", "id": "hero_sub", "label": "Subheading", "default": "Wear what your heart already knows." },
     { "type": "text", "id": "hero_cta_text", "label": "Button text", "default": "Shop The Collection" },
     { "type": "url", "id": "hero_cta_link", "label": "Button link" },
+    { "type": "color", "id": "hero_btn_bg", "label": "Button background", "default": "#C4A843" },
+    { "type": "color", "id": "hero_btn_color", "label": "Button text color", "default": "#080808" },
+    { "type": "range", "id": "hero_heading_size", "label": "Heading font size", "min": 32, "max": 120, "step": 4, "unit": "px", "default": 76 },
 
     { "type": "header", "content": "Shop The Look (3 cards)" },
     { "type": "image_picker", "id": "look1_image", "label": "Card 1 image" },
@@ -557,7 +566,14 @@
     { "type": "text", "id": "email_eyebrow", "label": "Eyebrow", "default": "Join The Heart Club" },
     { "type": "text", "id": "email_line1", "label": "Heading line 1", "default": "Sign Up For" },
     { "type": "text", "id": "email_line2", "label": "Heading emphasized", "default": "10% Off" },
-    { "type": "text", "id": "email_body", "label": "Body", "default": "Be first to know about new drops, exclusive offers, and styling inspiration. Plus, 10% off your very first order." }
+    { "type": "text", "id": "email_body", "label": "Body", "default": "Be first to know about new drops, exclusive offers, and styling inspiration. Plus, 10% off your very first order." },
+
+    { "type": "header", "content": "Footer" },
+    { "type": "text", "id": "footer_tagline", "label": "Tagline", "default": "Luxury for the real. Beautiful pieces crafted for people with beautiful hearts." },
+    { "type": "text", "id": "footer_copyright", "label": "Copyright text", "default": "" },
+    { "type": "text", "id": "footer_instagram", "label": "Instagram URL", "default": "#" },
+    { "type": "text", "id": "footer_tiktok", "label": "TikTok URL", "default": "#" },
+    { "type": "text", "id": "footer_pinterest", "label": "Pinterest URL", "default": "#" }
   ]
 }
 {% endschema %}
