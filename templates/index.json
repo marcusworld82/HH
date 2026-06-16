@@ -1,10 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "layout": "hh-standalone",
   "sections": {
     "main": {
       "type": "hh-home",
-      "settings": {}
+      "settings": {
+        "announcement_text": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns",
+        "hero_eyebrow": "Summer 2026 — New Collection",
+        "hero_line1": "The Summer",
+        "hero_line2": "Heart",
+        "hero_line3": "Guide",
+        "hero_sub": "Wear what your heart already knows.",
+        "hero_cta_text": "Shop The Collection",
+        "hero_cta_link": "",
+        "look1_title": "The Layered Look",
+        "look1_link": "",
+        "look2_title": "Heart Pendants",
+        "look2_link": "",
+        "look3_title": "Stacked Rings",
+        "look3_link": "",
+        "brand_eyebrow": "Our Philosophy",
+        "brand_heading": "Jewelry You Can Live In",
+        "brand_body": "<p>For too long, fine jewelry was something you reached for. Something locked away in velvet boxes. Humble Hearted set out to change that.</p><p>We believe jewelry isn't for hiding. It's for living. For marking milestones. For owning your everyday.</p>",
+        "brand_link_text": "About Us",
+        "brand_link": "",
+        "cat1_title": "Necklaces",
+        "cat1_link": "",
+        "cat2_title": "Rings",
+        "cat2_link": "",
+        "cat3_title": "Bracelets",
+        "cat3_link": "",
+        "cat4_title": "Earrings",
+        "cat4_link": "",
+        "feat1_eyebrow": "Summer Edit",
+        "feat1_title": "Just Add Gold",
+        "feat1_cta": "Shop Solid Gold",
+        "feat1_link": "",
+        "feat2_eyebrow": "Signature Collection",
+        "feat2_title": "Hearts & Charms",
+        "feat2_cta": "Shop Now",
+        "feat2_link": "",
+        "bs_eyebrow": "Most Loved",
+        "bs_heading": "Best Sellers",
+        "bs_collection": "bracelets",
+        "video_eyebrow": "As Seen On",
+        "video_heading": "@HumbleHeartedJewelry",
+        "vid1_label": "Layered Chains · 18k Gold Vermeil",
+        "vid1_handle": "@olivia_hh",
+        "vid1_link": "",
+        "vid2_label": "Heart Pendant · Gold Vermeil",
+        "vid2_handle": "@lucia.styles",
+        "vid2_link": "",
+        "vid3_label": "Chandelier Hoop Earrings",
+        "vid3_handle": "@zoeysfan",
+        "vid3_link": "",
+        "vid4_label": "Stacked Ring Set",
+        "vid4_handle": "@emmaluxe",
+        "vid4_link": "",
+        "vid5_label": "Pearl Drop Earrings",
+        "vid5_handle": "@annajewels",
+        "vid5_link": "",
+        "blog_eyebrow": "Learn & Style",
+        "blog_heading": "From The Journal",
+        "blog1_category": "Styling Guide",
+        "blog1_title": "How To Layer Necklaces Like A Pro",
+        "blog1_link": "",
+        "blog2_category": "Care Guide",
+        "blog2_title": "What Is Gold Vermeil?",
+        "blog2_link": "",
+        "blog3_category": "Care",
+        "blog3_title": "How To Clean Your Gold Jewelry At Home",
+        "blog3_link": "",
+        "blog4_category": "Gift Guide",
+        "blog4_title": "Your Complete Guide To Meaningful Gift Giving",
+        "blog4_link": "",
+        "email_eyebrow": "Join The Heart Club",
+        "email_line1": "Sign Up For",
+        "email_line2": "10% Off",
+        "email_body": "Be first to know about new drops, exclusive offers, and styling inspiration. Plus, 10% off your very first order."
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
