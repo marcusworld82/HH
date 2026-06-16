@@ -1,143 +1,111 @@
 {%- comment -%}
-  Humble Hearted — Collections landing page
-  Rebuilt to exactly match the individual collection page design (hh-earrings-collection.liquid).
-  Shows the four core categories as large portrait cards: Necklaces, Rings, Bracelets, Earrings.
-  Template: list-collections.hh.liquid
+  Humble Hearted — Collections Landing Page
+  Matches the dark/gold design of all HH collection pages.
+  Assign template "list-collections.hh" to the /collections URL in Shopify.
 {%- endcomment -%}
 
 {%- style -%}
-  .hhl *,.hhl *::before,.hhl *::after{margin:0;padding:0;box-sizing:border-box;}
-  .hhl{background:#080808;color:#f2ede1;font-family:'Montserrat',sans-serif;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;}
-  .hhl a{color:inherit;text-decoration:none;}
-
-  /* ── Announcement bar ── */
-  @keyframes hhl-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  .hhl-ann{background:#C4A843;overflow:hidden;height:36px;display:flex;align-items:center;}
-  .hhl-ann-track{display:flex;animation:hhl-marquee 36s linear infinite;white-space:nowrap;will-change:transform;}
-  .hhl-ann-track span{font-size:10px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;}
-
-  /* ── Nav ── */
-  .hhl-nav{background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;}
-  .hhl-hn{max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;}
-  .hhl-link{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#f2ede1;}
-  .hhl-link.active{color:#C4A843;font-weight:700;}
-  .hhl-l{display:flex;gap:24px;align-items:center;}
-  .hhl-r{display:flex;gap:18px;align-items:center;}
-  .hhl-logo{justify-self:center;line-height:0;}
-  .hhl-logo img{height:62px;width:auto;display:block;}
-  .hhl-logo span{font-family:'Playfair Display',serif;font-size:26px;color:#f2ede1;letter-spacing:0.15em;}
-  .hhl-ic{display:flex;gap:14px;align-items:center;border-left:1px solid #1f1a14;padding-left:16px;margin-left:2px;}
-  .hhl-hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
-  .hhl-hbg span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
-
-  /* ── Hero banner ── */
-  .hhl-hero{height:280px;position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#100a14 0,#100a14 18px,#180f1e 18px,#180f1e 36px);}
-  .hhl-hero-inner{position:absolute;inset:0;background:rgba(8,8,8,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
-  .hhl-eyebrow{font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
-  .hhl-h1{font-family:'Playfair Display',serif;font-size:56px;color:#f2ede1;font-weight:400;margin-bottom:12px;}
-  .hhl-sub{font-size:12px;color:rgba(242,237,225,0.45);font-weight:300;letter-spacing:0.08em;}
-
-  /* ── Collections grid ── */
-  .hhl-body{flex:1;max-width:1440px;margin:0 auto;width:100%;padding:48px 48px 80px;}
-  .hhl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-
-  /* ── Category card ── */
-  .hhl-card{position:relative;aspect-ratio:3/4;overflow:hidden;display:block;background:#0e0c0a;}
-  .hhl-card-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.5s ease;}
-  .hhl-card:hover .hhl-card-bg{transform:scale(1.04);}
-  .hhl-card-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.92) 0%,rgba(8,8,8,0.15) 55%,rgba(8,8,8,0.35) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:32px;}
-  .hhl-count{font-size:9px;letter-spacing:0.2em;color:#C4A843;font-weight:700;text-transform:uppercase;margin-bottom:8px;}
-  .hhl-title{font-family:'Playfair Display',serif;font-size:32px;color:#f2ede1;font-weight:400;line-height:1.1;margin-bottom:12px;}
-  .hhl-cta{font-size:10px;letter-spacing:0.22em;color:#f2ede1;text-transform:uppercase;font-weight:700;display:inline-flex;align-items:center;gap:6px;}
-  .hhl-cta::after{content:'→';transition:transform 0.3s ease;}
-  .hhl-card:hover .hhl-cta::after{transform:translateX(4px);}
-  .hhl-cta-line{display:block;height:1px;background:rgba(242,237,225,0.5);margin-top:5px;transform-origin:left;transition:transform 0.3s ease;transform:scaleX(1);}
-  .hhl-card:hover .hhl-cta-line{transform:scaleX(1.08);}
-
-  /* ── Promise strip ── */
-  .hhl-promise{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #1a1510;border-bottom:1px solid #1a1510;}
-  .hhl-promise-item{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;text-align:center;border-right:1px solid #1a1510;}
-  .hhl-promise-item:last-child{border-right:none;}
-  .hhl-promise-label{font-size:10px;letter-spacing:0.18em;color:#C4A843;font-weight:700;text-transform:uppercase;margin-bottom:4px;}
-  .hhl-promise-sub{font-size:11px;color:rgba(242,237,225,0.4);font-weight:300;}
-
-  /* ── Footer ── */
-  .hhl-ft{background:#080808;padding:48px 48px 28px;border-top:1px solid #1a1510;}
-  .hhl-ft-inner{max-width:1440px;margin:0 auto;}
-  .hhl-ft-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid #1a1510;}
-  .hhl-ft-tag{font-size:11px;color:rgba(242,237,225,0.35);line-height:1.8;max-width:220px;font-weight:300;}
-  .hhl-ft-h{font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:14px;}
-  .hhl-ft-list{display:flex;flex-direction:column;gap:9px;}
-  .hhl-ft-list a{font-size:12px;color:rgba(242,237,225,0.4);font-weight:300;}
-  .hhl-ft-logo{height:52px;width:auto;display:block;margin-bottom:12px;}
-  .hhl-ft-logo span{font-family:'Playfair Display',serif;font-size:22px;color:#f2ede1;letter-spacing:0.15em;}
-  .hhl-ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
-  .hhl-ft-copy{font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;}
-  .hhl-ft-pay{font-size:10px;color:rgba(242,237,225,0.2);}
-
-  /* ── Mobile menu ── */
-  .hhl-mob-menu{position:fixed;inset:0;z-index:999;background:#080808;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease;padding:40px 24px;}
-  .hhl-mob-menu.open{opacity:1;pointer-events:auto;}
-  .hhl-mob-close{position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;color:#f2ede1;font-size:32px;line-height:1;}
-  .hhl-mob-link{font-family:'Playfair Display',serif;font-size:26px;color:#f2ede1;margin-bottom:18px;}
-  .hhl-mob-link-sm{font-size:13px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:12px;}
-
-  /* ── Responsive ── */
-  @media(max-width:1024px){
-    .hhl-ft-cols{grid-template-columns:repeat(2,1fr);}
-    .hhl-promise{grid-template-columns:repeat(2,1fr);}
-    .hhl-promise-item:nth-child(2){border-right:none;}
-    .hhl-promise-item:nth-child(3){border-top:1px solid #1a1510;border-right:1px solid #1a1510;}
-    .hhl-promise-item:nth-child(4){border-top:1px solid #1a1510;}
-  }
+  .hhcl *,.hhcl *::before,.hhcl *::after{margin:0;padding:0;box-sizing:border-box;}
+  .hhcl{background:#080808;color:#f2ede1;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+  .hhcl a{color:inherit;text-decoration:none;}
+  @keyframes hh-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .hhcl-ann{background:#C4A843;overflow:hidden;height:36px;display:flex;align-items:center;}
+  .hhcl-ann-track{display:flex;animation:hh-marquee 36s linear infinite;white-space:nowrap;will-change:transform;}
+  .hhcl-ann-track span{font-size:10px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;}
+  .hhcl-nav{background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;}
+  .hhcl-hn{max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;}
+  .hhcl-link{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#f2ede1;}
+  .hhcl-link.active{color:#C4A843;font-weight:700;}
+  .hhcl-l{display:flex;gap:24px;align-items:center;}
+  .hhcl-r{display:flex;gap:18px;align-items:center;}
+  .hhcl-logo{justify-self:center;line-height:0;}
+  .hhcl-logo img{height:62px;width:auto;display:block;}
+  .hhcl-logo span{font-family:'Playfair Display',serif;font-size:26px;color:#f2ede1;letter-spacing:0.15em;}
+  .hhcl-ic{display:flex;gap:14px;align-items:center;border-left:1px solid #1f1a14;padding-left:16px;margin-left:2px;}
+  .hhcl-hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
+  .hhcl-hbg span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
+  .hhcl-hero{height:280px;position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#100a14 0,#100a14 18px,#180f1e 18px,#180f1e 36px);}
+  .hhcl-hero-inner{position:absolute;inset:0;background:rgba(8,8,8,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
+  .hhcl-hero-eyebrow{font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
+  .hhcl-hero-title{font-family:'Playfair Display',serif;font-size:56px;color:#f2ede1;font-weight:400;margin-bottom:12px;}
+  .hhcl-hero-sub{font-size:12px;color:rgba(242,237,225,0.45);font-weight:300;letter-spacing:0.08em;}
+  .hhcl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;max-width:1440px;margin:48px auto;padding:0 48px;gap:20px;}
+  .hhcl-cat{position:relative;overflow:hidden;display:block;cursor:pointer;aspect-ratio:4/5;background:#111;}
+  .hhcl-cat-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);}
+  .hhcl-cat:hover .hhcl-cat-bg{transform:scale(1.06);}
+  .hhcl-cat-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.82) 0%,rgba(8,8,8,0.18) 55%,rgba(8,8,8,0) 100%);}
+  .hhcl-cat-body{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 32px;}
+  .hhcl-cat-eyebrow{font-size:9px;letter-spacing:0.25em;color:#C4A843;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+  .hhcl-cat-title{font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;margin-bottom:14px;line-height:1.15;}
+  .hhcl-cat-cta{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C4A843;position:relative;}
+  .hhcl-cat-cta::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#C4A843;transition:width 0.35s ease;}
+  .hhcl-cat:hover .hhcl-cat-cta::after{width:100%;}
+  .hhcl-cat-cta svg{transition:transform 0.3s ease;}
+  .hhcl-cat:hover .hhcl-cat-cta svg{transform:translateX(4px);}
+  .hhcl-cat-count{position:absolute;top:18px;right:18px;font-size:9px;font-weight:700;letter-spacing:0.14em;color:#f2ede1;background:rgba(8,8,8,0.6);border:1px solid rgba(196,168,67,0.3);padding:5px 10px;text-transform:uppercase;}
+  .hhcl-promise{border-top:1px solid #1a1510;border-bottom:1px solid #1a1510;padding:28px 48px;margin-bottom:0;}
+  .hhcl-promise-inner{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .hhcl-promise-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;}
+  .hhcl-promise-icon{color:#C4A843;}
+  .hhcl-promise-label{font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;}
+  .hhcl-promise-sub{font-size:11px;color:rgba(242,237,225,0.4);font-weight:300;}
+  .hhcl-ft{background:#080808;padding:48px 48px 28px;border-top:1px solid #1a1510;}
+  .hhcl-ft-inner{max-width:1440px;margin:0 auto;}
+  .hhcl-ft-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid #1a1510;}
+  .hhcl-ft-tag{font-size:11px;color:rgba(242,237,225,0.35);line-height:1.8;max-width:220px;font-weight:300;}
+  .hhcl-ft-h{font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:14px;}
+  .hhcl-ft-list{display:flex;flex-direction:column;gap:9px;}
+  .hhcl-ft-list a{font-size:12px;color:rgba(242,237,225,0.4);font-weight:300;}
+  .hhcl-ft-logo{height:52px;width:auto;display:block;margin-bottom:12px;}
+  .hhcl-ft-logo span{font-family:'Playfair Display',serif;font-size:22px;color:#f2ede1;letter-spacing:0.15em;}
+  .hhcl-ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .hhcl-ft-copy{font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;}
+  .hhcl-ft-pay{font-size:10px;color:rgba(242,237,225,0.2);}
+  @media(max-width:1024px){.hhcl-grid{padding:0 28px;gap:16px;}.hhcl-ft-cols{grid-template-columns:repeat(3,1fr);}}
   @media(max-width:768px){
-    .hhl-hbg{display:flex!important;}
-    .hhl-l,.hhl-r,.hhl-ic{display:none!important;}
-    .hhl-hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}
-    .hhl-logo img{height:46px!important;}
-    .hhl-h1{font-size:40px;}
-    .hhl-body{padding:24px 18px 60px;}
-    .hhl-grid{grid-template-columns:1fr 1fr;gap:12px;}
-    .hhl-card-ov{padding:18px;}
-    .hhl-title{font-size:22px;}
-    .hhl-ft-cols{grid-template-columns:repeat(2,1fr);}
-    .hhl-promise{grid-template-columns:repeat(2,1fr);}
-  }
-  @media(max-width:480px){
-    .hhl-grid{grid-template-columns:1fr;}
+    .hhcl-hbg{display:flex!important;}
+    .hhcl-l,.hhcl-r,.hhcl-ic{display:none!important;}
+    .hhcl-hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}
+    .hhcl-logo img{height:46px!important;}
+    .hhcl-hero-title{font-size:40px;}
+    .hhcl-grid{grid-template-columns:1fr;padding:0 18px;gap:14px;margin:32px auto;}
+    .hhcl-cat{aspect-ratio:3/4;}
+    .hhcl-cat-title{font-size:28px;}
+    .hhcl-promise-inner{grid-template-columns:repeat(2,1fr);}
+    .hhcl-promise{padding:24px 18px;}
+    .hhcl-ft-cols{grid-template-columns:repeat(2,1fr);}
+    .hhcl-ft{padding:36px 18px 24px;}
   }
 {%- endstyle -%}
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 {%- assign logo_url = 'hh-logo.png' | asset_url -%}
-{%- assign bgs = 'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 13px,#1c1610 13px,#1c1610 26px)|repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 13px,#0f121a 13px,#0f121a 26px)|repeating-linear-gradient(135deg,#110e07 0,#110e07 13px,#19140a 13px,#19140a 26px)|repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 13px,#160f1a 13px,#160f1a 26px)' | split: '|' -%}
 
+{%- comment -%} Map each of the 4 featured categories {%- endcomment -%}
 {%- assign cat_handles = 'necklaces,rings,bracelets,earrings' | split: ',' -%}
-{%- assign cat_labels  = 'Necklaces,Rings,Bracelets,Earrings'   | split: ',' -%}
+{%- assign cat_labels = 'Necklaces,Rings,Bracelets,Earrings' | split: ',' -%}
+{%- assign cat_eyebrows = 'Layering Pieces,Stack & Shine,Wrist Candy,Ear Art' | split: ',' -%}
+{%- assign cat_fallbacks = 'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 11px,#1c1610 11px,#1c1610 22px)|repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px)|repeating-linear-gradient(45deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px)|repeating-linear-gradient(135deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px)' | split: '|' -%}
 
-<div class="hhl">
+<div class="hhcl">
 
-  <!-- Announcement Bar -->
-  <div class="hhl-ann">
-    <div class="hhl-ann-track">
+  <div class="hhcl-ann">
+    <div class="hhcl-ann-track">
       <span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
     </div>
   </div>
 
-  <!-- Nav -->
-  <nav class="hhl-nav">
-    <div class="hhl-hn">
-      <button class="hhl-hbg" aria-label="Menu" onclick="document.getElementById('hhlMobMenu').classList.add('open')">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="hhl-l">
-        <a class="hhl-link" href="/collections/necklaces">Necklaces</a>
-        <a class="hhl-link" href="/collections/rings">Rings</a>
-        <a class="hhl-link" href="/collections/bracelets">Bracelets</a>
-        <a class="hhl-link" href="/collections/earrings">Earrings</a>
+  <nav class="hhcl-nav">
+    <div class="hhcl-hn">
+      <button class="hhcl-hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="hhcl-l">
+        <a class="hhcl-link" href="/collections/necklaces">Necklaces</a>
+        <a class="hhcl-link" href="/collections/rings">Rings</a>
+        <a class="hhcl-link" href="/collections/bracelets">Bracelets</a>
+        <a class="hhcl-link" href="/collections/earrings">Earrings</a>
       </div>
-      <a class="hhl-logo" href="/">
+      <a class="hhcl-logo" href="/">
         {%- if settings.logo != blank -%}
           <img src="{{ settings.logo | image_url: height: 124 }}" alt="{{ shop.name }}">
         {%- else -%}
@@ -145,12 +113,12 @@
         {%- endif -%}
       </a>
       <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end;">
-        <div class="hhl-r">
-          <a class="hhl-link active" href="/collections">Collections</a>
-          <a class="hhl-link" href="/collections/all?sort_by=created-descending">New</a>
-          <a class="hhl-link" href="/collections/gifts">Gifts</a>
+        <div class="hhcl-r">
+          <a class="hhcl-link active" href="/collections">Collections</a>
+          <a class="hhcl-link" href="/collections/all?sort_by=created-descending">New</a>
+          <a class="hhcl-link" href="/collections/gifts">Gifts</a>
         </div>
-        <div class="hhl-ic">
+        <div class="hhcl-ic">
           <a href="/search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></a>
           <a href="/account" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
           <a href="/cart" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></a>
@@ -159,86 +127,75 @@
     </div>
   </nav>
 
-  <!-- Hero Banner -->
-  <section class="hhl-hero" style="{% if section.settings.hero_image != blank %}background-image:url('{{ section.settings.hero_image | image_url: width: 1600 }}');background-size:cover;background-position:center;{% endif %}">
-    <div class="hhl-hero-inner">
-      <p class="hhl-eyebrow">{{ section.settings.hero_eyebrow | default: 'Explore' }}</p>
-      <h1 class="hhl-h1">{{ section.settings.hero_heading | default: 'Collections' }}</h1>
-      <p class="hhl-sub">{{ section.settings.hero_sub | default: 'Shop every Humble Hearted collection' }}</p>
+  <section class="hhcl-hero" style="{% if section.settings.hero_image != blank %}background-image:url('{{ section.settings.hero_image | image_url: width: 1600 }}');background-size:cover;background-position:center;{% endif %}">
+    <div class="hhcl-hero-inner">
+      <p class="hhcl-hero-eyebrow">{{ section.settings.hero_eyebrow | default: 'Shop By Category' }}</p>
+      <h1 class="hhcl-hero-title">{{ section.settings.hero_title | default: 'Collections' }}</h1>
+      <p class="hhcl-hero-sub">{{ section.settings.hero_subtitle | default: 'Crafted for people with beautiful hearts' }}</p>
     </div>
   </section>
 
-  <!-- 2×2 Collections Grid -->
-  <div class="hhl-body">
-    <div class="hhl-grid">
-      {%- for i in (0..3) -%}
-        {%- assign handle = cat_handles[i] -%}
-        {%- assign label  = cat_labels[i] -%}
-        {%- assign col    = collections[handle] -%}
-        {%- assign bi     = i | modulo: 4 -%}
+  <div class="hhcl-grid">
+    {%- for i in (0..3) -%}
+      {%- assign handle = cat_handles[i] -%}
+      {%- assign label = cat_labels[i] -%}
+      {%- assign eyebrow = cat_eyebrows[i] -%}
+      {%- assign fallback_bg = cat_fallbacks[i] -%}
+      {%- assign col = collections[handle] -%}
+      <a class="hhcl-cat" href="/collections/{{ handle }}">
+        <div class="hhcl-cat-bg" style="{% if col.image %}background-image:url('{{ col.image | image_url: width: 900 }}');{% else %}background:{{ fallback_bg }};{% endif %}"></div>
+        <div class="hhcl-cat-overlay"></div>
+        {%- if col.products_count > 0 -%}
+          <span class="hhcl-cat-count">{{ col.products_count }} Pieces</span>
+        {%- endif -%}
+        <div class="hhcl-cat-body">
+          <p class="hhcl-cat-eyebrow">{{ eyebrow }}</p>
+          <h2 class="hhcl-cat-title">{{ label }}</h2>
+          <span class="hhcl-cat-cta">Shop Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
 
-        <a href="/collections/{{ handle }}" class="hhl-card">
-          <div class="hhl-card-bg" style="
-            {%- if col.image -%}
-              background-image:url('{{ col.image | image_url: width: 800 }}');
-            {%- elsif col.products.first.featured_image -%}
-              background-image:url('{{ col.products.first.featured_image | image_url: width: 800 }}');
-            {%- else -%}
-              background:{{ bgs[bi] }};
-            {%- endif -%}
-          "></div>
-          <div class="hhl-card-ov">
-            <p class="hhl-count">
-              {%- if col.products_count > 0 -%}
-                {{ col.products_count }} Piece{% if col.products_count != 1 %}s{% endif %}
-              {%- else -%}
-                Shop the Collection
-              {%- endif -%}
-            </p>
-            <p class="hhl-title">{{ label }}</p>
-            <span class="hhl-cta">Shop Now</span>
-            <span class="hhl-cta-line"></span>
-          </div>
-        </a>
-      {%- endfor -%}
+  <div class="hhcl-promise">
+    <div class="hhcl-promise-inner">
+      <div class="hhcl-promise-item">
+        <svg class="hhcl-promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span class="hhcl-promise-label">Free Shipping</span>
+        <span class="hhcl-promise-sub">On orders $75+</span>
+      </div>
+      <div class="hhcl-promise-item">
+        <svg class="hhcl-promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="hhcl-promise-label">Quality Crafted</span>
+        <span class="hhcl-promise-sub">18k Gold Vermeil</span>
+      </div>
+      <div class="hhcl-promise-item">
+        <svg class="hhcl-promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="hhcl-promise-label">Easy Returns</span>
+        <span class="hhcl-promise-sub">60-day policy</span>
+      </div>
+      <div class="hhcl-promise-item">
+        <svg class="hhcl-promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="hhcl-promise-label">10% Off</span>
+        <span class="hhcl-promise-sub">Sign up to save</span>
+      </div>
     </div>
   </div>
 
-  <!-- Promise Strip -->
-  <div class="hhl-promise">
-    <div class="hhl-promise-item">
-      <p class="hhl-promise-label">Free Shipping</p>
-      <p class="hhl-promise-sub">On orders $75+</p>
-    </div>
-    <div class="hhl-promise-item">
-      <p class="hhl-promise-label">Quality</p>
-      <p class="hhl-promise-sub">18k Gold Vermeil</p>
-    </div>
-    <div class="hhl-promise-item">
-      <p class="hhl-promise-label">Returns</p>
-      <p class="hhl-promise-sub">60-Day Policy</p>
-    </div>
-    <div class="hhl-promise-item">
-      <p class="hhl-promise-label">10% Off</p>
-      <p class="hhl-promise-sub">Sign up for savings</p>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="hhl-ft">
-    <div class="hhl-ft-inner">
-      <div class="hhl-ft-cols">
+  <footer class="hhcl-ft">
+    <div class="hhcl-ft-inner">
+      <div class="hhcl-ft-cols">
         <div>
           {%- if settings.logo != blank -%}
-            <img class="hhl-ft-logo" src="{{ settings.logo | image_url: height: 104 }}" alt="{{ shop.name }}">
+            <img class="hhcl-ft-logo" src="{{ settings.logo | image_url: height: 104 }}" alt="{{ shop.name }}">
           {%- else -%}
-            <div class="hhl-ft-logo"><span>HH</span></div>
+            <div class="hhcl-ft-logo"><span>HH</span></div>
           {%- endif -%}
-          <p class="hhl-ft-tag">Luxury for the real. Crafted for people with beautiful hearts.</p>
+          <p class="hhcl-ft-tag">Luxury for the real. Crafted for people with beautiful hearts.</p>
         </div>
         <div>
-          <h5 class="hhl-ft-h">Shop</h5>
-          <div class="hhl-ft-list">
+          <h5 class="hhcl-ft-h">Shop</h5>
+          <div class="hhcl-ft-list">
             <a href="/collections/necklaces">Necklaces</a>
             <a href="/collections/rings">Rings</a>
             <a href="/collections/bracelets">Bracelets</a>
@@ -247,52 +204,42 @@
           </div>
         </div>
         <div>
-          <h5 class="hhl-ft-h">Help</h5>
-          <div class="hhl-ft-list">
+          <h5 class="hhcl-ft-h">Help</h5>
+          <div class="hhcl-ft-list">
             <a href="/pages/faqs">FAQs</a>
             <a href="/pages/shipping">Shipping</a>
             <a href="/pages/returns">Returns</a>
           </div>
         </div>
         <div>
-          <h5 class="hhl-ft-h">About</h5>
-          <div class="hhl-ft-list">
+          <h5 class="hhcl-ft-h">About</h5>
+          <div class="hhcl-ft-list">
             <a href="/pages/our-story">Our Story</a>
             <a href="/pages/sustainability">Sustainability</a>
           </div>
         </div>
       </div>
-      <div class="hhl-ft-bottom">
-        <p class="hhl-ft-copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
-        <span class="hhl-ft-pay">Visa &middot; Mastercard &middot; Shop Pay &middot; Apple Pay</span>
+      <div class="hhcl-ft-bottom">
+        <p class="hhcl-ft-copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.</p>
+        <span class="hhcl-ft-pay">Visa &middot; Mastercard &middot; Shop Pay &middot; Apple Pay</span>
       </div>
     </div>
   </footer>
-</div>
 
-<!-- Mobile Menu Overlay -->
-<div id="hhlMobMenu" class="hhl-mob-menu">
-  <button class="hhl-mob-close" onclick="document.getElementById('hhlMobMenu').classList.remove('open')" aria-label="Close menu">&times;</button>
-  <a class="hhl-mob-link" href="/collections/necklaces">Necklaces</a>
-  <a class="hhl-mob-link" href="/collections/rings">Rings</a>
-  <a class="hhl-mob-link" href="/collections/bracelets">Bracelets</a>
-  <a class="hhl-mob-link" href="/collections/earrings">Earrings</a>
-  <a class="hhl-mob-link-sm" style="color:#C4A843;" href="/collections">Collections</a>
-  <a class="hhl-mob-link-sm" style="color:#f2ede1;" href="/collections/all?sort_by=created-descending">New</a>
-  <a class="hhl-mob-link-sm" style="color:#f2ede1;" href="/collections/gifts">Gifts</a>
 </div>
 
 {% schema %}
 {
-  "name": "HH Collections List",
+  "name": "HH Collections Landing",
   "settings": [
     { "type": "header", "content": "Announcement Bar" },
     { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns" },
-    { "type": "header", "content": "Page Header" },
-    { "type": "image_picker", "id": "hero_image", "label": "Header background image", "info": "Optional. Falls back to the dark stripe pattern." },
-    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Explore" },
-    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "Collections" },
-    { "type": "text", "id": "hero_sub", "label": "Subheading", "default": "Shop every Humble Hearted collection" }
-  ]
+    { "type": "header", "content": "Hero Banner" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero background image", "info": "Optional — falls back to dark stripe pattern." },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow text", "default": "Shop By Category" },
+    { "type": "text", "id": "hero_title", "label": "Hero title", "default": "Collections" },
+    { "type": "text", "id": "hero_subtitle", "label": "Hero subtitle", "default": "Crafted for people with beautiful hearts" }
+  ],
+  "presets": [{ "name": "HH Collections Landing" }]
 }
 {% endschema %}
