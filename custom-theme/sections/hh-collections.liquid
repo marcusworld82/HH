@@ -1,7 +1,7 @@
 {%- comment -%}
   Humble Hearted — Collections Landing Page
-  Matches the exact design system of hh-earrings-collection.liquid.
-  Assign this section to the list-collections.hh template.
+  v2: schema-driven, live images, dynamic collection objects
+  Template: list-collections.hh
 {%- endcomment -%}
 
 {%- style -%}
@@ -26,8 +26,10 @@
   .hhc-hbg span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
 
   /* Hero */
-  .hhc-hero{height:280px;position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#100a14 0,#100a14 18px,#180f1e 18px,#180f1e 36px);}
-  .hhc-hero-inner{position:absolute;inset:0;background:rgba(8,8,8,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
+  .hhc-hero{height:280px;position:relative;overflow:hidden;}
+  .hhc-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;}
+  .hhc-hero-overlay{position:absolute;inset:0;background:rgba(8,8,8,0.6);}
+  .hhc-hero-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
   .hhc-hero-eyebrow{font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
   .hhc-hero-title{font-family:'Playfair Display',serif;font-size:56px;color:#f2ede1;font-weight:400;margin-bottom:12px;}
   .hhc-hero-sub{font-size:12px;color:rgba(242,237,225,0.45);font-weight:300;letter-spacing:0.08em;}
@@ -90,21 +92,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 {%- assign logo_url = 'hh-logo.png' | asset_url -%}
-{%- assign bgs = 'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 11px,#1c1610 11px,#1c1610 22px)|repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px)|repeating-linear-gradient(135deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px)|repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px)' | split: '|' -%}
 
-{%- assign cl_necklaces = collections['necklaces'] -%}
-{%- assign cl_rings = collections['rings'] -%}
-{%- assign cl_bracelets = collections['bracelets'] -%}
-{%- assign cl_earrings = collections['earrings'] -%}
-
-{%- assign collection_list = cl_necklaces, cl_rings, cl_bracelets, cl_earrings -%}
+{%- comment -%} Fallback stripe patterns for cards with no cover image {%- endcomment -%}
+{%- assign fallback_bgs = 'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 11px,#1c1610 11px,#1c1610 22px)|repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px)|repeating-linear-gradient(135deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px)|repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px)' | split: '|' -%}
 
 <div class="hhc">
 
   <!-- Announcement Bar -->
   <div class="hhc-ann">
     <div class="hhc-ann-track">
-      <span>Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; New: Summer Heart Collection &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ &nbsp;&#10022;&nbsp; Sign Up For 10% Off &nbsp;&#10022;&nbsp; 60-Day Returns &nbsp;&#10022;&nbsp;</span>
+      <span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
+      <span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
     </div>
   </div>
 
@@ -142,96 +140,88 @@
 
   <!-- Hero -->
   <section class="hhc-hero">
+    {%- if section.settings.hero_image != blank -%}
+      <div class="hhc-hero-img" style="background-image:url('{{ section.settings.hero_image | image_url: width: 1440 }}');"></div>
+    {%- else -%}
+      <div class="hhc-hero-img" style="background:repeating-linear-gradient(45deg,#100a14 0,#100a14 18px,#180f1e 18px,#180f1e 36px);"></div>
+    {%- endif -%}
+    <div class="hhc-hero-overlay"></div>
     <div class="hhc-hero-inner">
-      <p class="hhc-hero-eyebrow">Humble Hearted</p>
-      <h1 class="hhc-hero-title">Our Collections</h1>
-      <p class="hhc-hero-sub">Curated Jewelry &middot; 18k Gold Vermeil &middot; Sterling Silver</p>
+      <p class="hhc-hero-eyebrow">{{ section.settings.hero_eyebrow }}</p>
+      <h1 class="hhc-hero-title">{{ section.settings.hero_title }}</h1>
+      <p class="hhc-hero-sub">{{ section.settings.hero_subtitle }}</p>
     </div>
   </section>
 
-  <!-- Collections Grid -->
+  <!-- Collections Grid — built from blocks -->
   <div class="hhc-cl-grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'collection_card' -%}
+        {%- assign the_collection = collections[block.settings.collection_handle] -%}
+        {%- assign fallback_bg = fallback_bgs[forloop.index0 | modulo: 4] -%}
 
-    {%- comment -%} Necklaces {%- endcomment -%}
-    {%- assign bg0 = bgs[0] -%}
-    <a class="hhc-cl-card" href="/collections/necklaces">
-      <div class="hhc-cl-card-bg" style="{% if cl_necklaces.image %}background-image:url('{{ cl_necklaces.image | image_url: width: 900 }}');{% else %}background:{{ bg0 }};{% endif %}"></div>
-      <div class="hhc-cl-overlay"></div>
-      <div class="hhc-cl-body">
-        <p class="hhc-cl-eyebrow">Shop the Collection</p>
-        <h2 class="hhc-cl-name">Necklaces</h2>
-        <p class="hhc-cl-count">
-          {%- if cl_necklaces != blank -%}{{ cl_necklaces.products_count }} Pieces{%- else -%}Explore the Collection{%- endif -%}
-        </p>
-        <span class="hhc-cl-cta">Shop Now <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-      </div>
-    </a>
+        <a class="hhc-cl-card" href="/collections/{{ block.settings.collection_handle }}" {{ block.shopify_attributes }}>
 
-    {%- comment -%} Rings {%- endcomment -%}
-    {%- assign bg1 = bgs[1] -%}
-    <a class="hhc-cl-card" href="/collections/rings">
-      <div class="hhc-cl-card-bg" style="{% if cl_rings.image %}background-image:url('{{ cl_rings.image | image_url: width: 900 }}');{% else %}background:{{ bg1 }};{% endif %}"></div>
-      <div class="hhc-cl-overlay"></div>
-      <div class="hhc-cl-body">
-        <p class="hhc-cl-eyebrow">Shop the Collection</p>
-        <h2 class="hhc-cl-name">Rings</h2>
-        <p class="hhc-cl-count">
-          {%- if cl_rings != blank -%}{{ cl_rings.products_count }} Pieces{%- else -%}Explore the Collection{%- endif -%}
-        </p>
-        <span class="hhc-cl-cta">Shop Now <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-      </div>
-    </a>
+          {%- comment -%}
+            Image priority:
+            1. Editor-uploaded override image on the block
+            2. Collection cover image set in Shopify admin (collections > image)
+            3. First product's featured image in the collection
+            4. Geometric stripe fallback
+          {%- endcomment -%}
 
-    {%- comment -%} Bracelets {%- endcomment -%}
-    {%- assign bg2 = bgs[2] -%}
-    <a class="hhc-cl-card" href="/collections/bracelets">
-      <div class="hhc-cl-card-bg" style="{% if cl_bracelets.image %}background-image:url('{{ cl_bracelets.image | image_url: width: 900 }}');{% else %}background:{{ bg2 }};{% endif %}"></div>
-      <div class="hhc-cl-overlay"></div>
-      <div class="hhc-cl-body">
-        <p class="hhc-cl-eyebrow">Shop the Collection</p>
-        <h2 class="hhc-cl-name">Bracelets</h2>
-        <p class="hhc-cl-count">
-          {%- if cl_bracelets != blank -%}{{ cl_bracelets.products_count }} Pieces{%- else -%}Explore the Collection{%- endif -%}
-        </p>
-        <span class="hhc-cl-cta">Shop Now <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-      </div>
-    </a>
+          {%- if block.settings.card_image != blank -%}
+            <div class="hhc-cl-card-bg" style="background-image:url('{{ block.settings.card_image | image_url: width: 900 }}');"></div>
 
-    {%- comment -%} Earrings {%- endcomment -%}
-    {%- assign bg3 = bgs[3] -%}
-    <a class="hhc-cl-card" href="/collections/earrings">
-      <div class="hhc-cl-card-bg" style="{% if cl_earrings.image %}background-image:url('{{ cl_earrings.image | image_url: width: 900 }}');{% else %}background:{{ bg3 }};{% endif %}"></div>
-      <div class="hhc-cl-overlay"></div>
-      <div class="hhc-cl-body">
-        <p class="hhc-cl-eyebrow">Shop the Collection</p>
-        <h2 class="hhc-cl-name">Earrings</h2>
-        <p class="hhc-cl-count">
-          {%- if cl_earrings != blank -%}{{ cl_earrings.products_count }} Pieces{%- else -%}Explore the Collection{%- endif -%}
-        </p>
-        <span class="hhc-cl-cta">Shop Now <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-      </div>
-    </a>
+          {%- elsif the_collection != blank and the_collection.image != blank -%}
+            <div class="hhc-cl-card-bg" style="background-image:url('{{ the_collection.image | image_url: width: 900 }}');"></div>
 
+          {%- elsif the_collection != blank and the_collection.products.first != blank and the_collection.products.first.featured_image != blank -%}
+            <div class="hhc-cl-card-bg" style="background-image:url('{{ the_collection.products.first.featured_image | image_url: width: 900 }}');"></div>
+
+          {%- else -%}
+            <div class="hhc-cl-card-bg" style="background:{{ fallback_bg }};"></div>
+          {%- endif -%}
+
+          <div class="hhc-cl-overlay"></div>
+          <div class="hhc-cl-body">
+            <p class="hhc-cl-eyebrow">{{ block.settings.eyebrow }}</p>
+            <h2 class="hhc-cl-name">{{ block.settings.card_title | default: the_collection.title }}</h2>
+            <p class="hhc-cl-count">
+              {%- if the_collection != blank and the_collection.products_count > 0 -%}
+                {{ the_collection.products_count }} Pieces
+              {%- else -%}
+                Explore the Collection
+              {%- endif -%}
+            </p>
+            <span class="hhc-cl-cta">
+              {{ block.settings.cta_text }}
+              <svg class="hhc-cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
   </div>
 
   <!-- Promise Strip -->
   <div class="hhc-promise">
     <div class="hhc-promise-inner">
       <div class="hhc-promise-item">
-        <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-        <span class="hhc-promise-label">Free Shipping<br>On Orders $75+</span>
+        <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+        <span class="hhc-promise-label">{{ section.settings.promise_1 }}</span>
       </div>
       <div class="hhc-promise-item">
         <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <span class="hhc-promise-label">Verified Quality<br>18k Gold Vermeil</span>
+        <span class="hhc-promise-label">{{ section.settings.promise_2 }}</span>
       </div>
       <div class="hhc-promise-item">
-        <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span class="hhc-promise-label">60-Day Returns<br>Hassle Free</span>
+        <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+        <span class="hhc-promise-label">{{ section.settings.promise_3 }}</span>
       </div>
       <div class="hhc-promise-item">
         <svg class="hhc-promise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <span class="hhc-promise-label">Sign Up & Save<br>10% Off First Order</span>
+        <span class="hhc-promise-label">{{ section.settings.promise_4 }}</span>
       </div>
     </div>
   </div>
@@ -246,7 +236,7 @@
           {%- else -%}
             <div class="hhc-ft-logo"><span>HH</span></div>
           {%- endif -%}
-          <p class="hhc-ft-tag">Luxury for the real. Crafted for people with beautiful hearts.</p>
+          <p class="hhc-ft-tag">{{ section.settings.footer_tagline }}</p>
         </div>
         <div>
           <h5 class="hhc-ft-h">Shop</h5>
@@ -286,7 +276,165 @@
 {% schema %}
 {
   "name": "HH Collections",
-  "settings": [],
-  "presets": [{ "name": "HH Collections" }]
+  "settings": [
+    {
+      "type": "header",
+      "content": "Announcement Bar"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Free Shipping On Orders $75+  ✦  Sign Up For 10% Off  ✦  New: Summer Heart Collection  ✦  60-Day Returns"
+    },
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Humble Hearted"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Our Collections"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Curated Jewelry · 18k Gold Vermeil · Sterling Silver"
+    },
+    {
+      "type": "header",
+      "content": "Promise Strip"
+    },
+    {
+      "type": "text",
+      "id": "promise_1",
+      "label": "Promise 1",
+      "default": "Free Shipping\nOn Orders $75+"
+    },
+    {
+      "type": "text",
+      "id": "promise_2",
+      "label": "Promise 2",
+      "default": "Verified Quality\n18k Gold Vermeil"
+    },
+    {
+      "type": "text",
+      "id": "promise_3",
+      "label": "Promise 3",
+      "default": "60-Day Returns\nHassle Free"
+    },
+    {
+      "type": "text",
+      "id": "promise_4",
+      "label": "Promise 4",
+      "default": "Sign Up & Save\n10% Off First Order"
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "text",
+      "id": "footer_tagline",
+      "label": "Footer Tagline",
+      "default": "Luxury for the real. Crafted for people with beautiful hearts."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "collection_handle",
+          "label": "Collection Handle",
+          "info": "Exact handle from your Shopify admin (e.g. necklaces, rings, bracelets, earrings)",
+          "default": "necklaces"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "info": "Leave blank to use the collection's title from Shopify",
+          "default": ""
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image Override",
+          "info": "Optional. Overrides the collection cover image. Leave blank to pull from the collection automatically."
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow Text",
+          "default": "Shop the Collection"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Button Text",
+          "default": "Shop Now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HH Collections",
+      "blocks": [
+        {
+          "type": "collection_card",
+          "settings": {
+            "collection_handle": "necklaces",
+            "card_title": "Necklaces",
+            "eyebrow": "Shop the Collection",
+            "cta_text": "Shop Now"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "collection_handle": "rings",
+            "card_title": "Rings",
+            "eyebrow": "Shop the Collection",
+            "cta_text": "Shop Now"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "collection_handle": "bracelets",
+            "card_title": "Bracelets",
+            "eyebrow": "Shop the Collection",
+            "cta_text": "Shop Now"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "collection_handle": "earrings",
+            "card_title": "Earrings",
+            "eyebrow": "Shop the Collection",
+            "cta_text": "Shop Now"
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
