@@ -1,10 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "layout": "hh-standalone",
   "sections": {
     "main": {
       "type": "hh-earrings-collection",
-      "settings": {}
+      "settings": {
+        "announcement_text": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns",
+        "hero_image": "shopify://shop_images/Put_the_woman_in_image_202606162256.jpg",
+        "hero_eyebrow": "Explore",
+        "hero_material": "18k Gold Vermeil"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
