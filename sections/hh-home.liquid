@@ -58,7 +58,6 @@
       .hh-bs-card { flex-basis: calc((100% - 14px) / 2); }
       .hh-perks-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
       .hh-perks-mid { border-left: none !important; border-right: none !important; border-top: 1px solid rgba(8,8,8,0.15) !important; border-bottom: 1px solid rgba(8,8,8,0.15) !important; padding: 32px 0 !important; }
-      .hh-blog-grid { grid-template-columns: 1fr 1fr !important; gap: 18px !important; }
       .hh-email-h2 { font-size: 38px !important; }
       .hh-email-row { flex-direction: column !important; }
       .hh-email-input { border-right: 1px solid #2a2218 !important; border-bottom: none; }
@@ -82,7 +81,7 @@
   <a href="/collections/earrings" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Earrings</a>
   <a href="/collections/pendants" style="font-size:14px;letter-spacing:0.2em;color:#f2ede1;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">Pendants</a>
   <a href="/collections/all?sort_by=created-descending" style="font-size:14px;letter-spacing:0.2em;color:#C4A843;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">New In</a>
-  <a href="/collections/gifts" style="font-size:14px;letter-spacing:0.2em;color:#f2ede1;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">Gifts</a>
+  <a href="/collections" style="font-size:14px;letter-spacing:0.2em;color:#f2ede1;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">Collections</a>
   <div style="width:40px;height:1px;background:#C4A843;margin:20px 0 24px;"></div>
   <div style="display:flex;gap:28px;">
     <a href="#" style="font-size:10px;letter-spacing:0.15em;color:rgba(242,237,225,0.45);text-decoration:none;text-transform:uppercase;font-weight:600;">TikTok</a>
@@ -103,7 +102,7 @@
   <div class="hh-nav-inner" style="max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;">
     <button class="hh-hamburger" onclick="hhMenu(true)" aria-label="Open menu"><span></span><span></span><span></span></button>
     <div class="hh-nav-left" style="display:flex;gap:32px;align-items:center;">
-      <a href="/collections/necklaces" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Necklaces</a>
+      <a href="/collections/pendants" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Pendants</a>
       <a href="/collections/rings" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Rings</a>
       <a href="/collections/bracelets" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Bracelets</a>
       <a href="/collections/earrings" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Earrings</a>
@@ -113,7 +112,7 @@
     </a>
     <div class="hh-nav-right" style="display:flex;gap:28px;align-items:center;justify-content:flex-end;">
       <div class="hh-nav-right-links" style="display:flex;gap:28px;align-items:center;">
-        <a href="/collections/pendants" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Pendants</a>
+        <a href="/collections" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Collections</a>
         <a href="/collections/all?sort_by=created-descending" style="color:#C4A843;font-size:11px;font-weight:700;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">New In</a>
         <a href="/collections/gifts" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">Gifts</a>
       </div>
@@ -330,30 +329,6 @@
   </div>
 </section>
 
-<!-- BLOG -->
-<section class="hh-blog-section" style="padding:88px 48px;max-width:1440px;margin:0 auto;">
-  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:12px;">
-    <div>
-      <p style="font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:10px;font-weight:700;text-transform:uppercase;">{{ section.settings.blog_eyebrow }}</p>
-      <h2 class="hh-blog-h2" style="font-family:'Playfair Display',serif;font-size:36px;color:#f2ede1;font-weight:400;">{{ section.settings.blog_heading }}</h2>
-    </div>
-    <a href="#" style="font-size:10px;letter-spacing:0.18em;font-weight:700;color:rgba(242,237,225,0.5);text-decoration:none;text-transform:uppercase;">All Articles &rarr;</a>
-  </div>
-  <div class="hh-blog-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;">
-    {%- assign blog_bg = 'repeating-linear-gradient(135deg,#120e09 0px,#120e09 11px,#1c1710 11px,#1c1710 22px)|repeating-linear-gradient(45deg,#0a0d12 0px,#0a0d12 11px,#0f1218 11px,#0f1218 22px)|repeating-linear-gradient(135deg,#110e07 0px,#110e07 11px,#19140a 11px,#19140a 22px)|repeating-linear-gradient(45deg,#0f0a12 0px,#0f0a12 11px,#160f1a 11px,#160f1a 22px)' | split: '|' -%}
-    {%- for i in (1..4) -%}
-      {%- capture ik -%}blog{{ i }}_image{%- endcapture -%}{%- capture ck -%}blog{{ i }}_category{%- endcapture -%}{%- capture tk -%}blog{{ i }}_title{%- endcapture -%}{%- capture lk -%}blog{{ i }}_link{%- endcapture -%}
-      {%- assign bimg = section.settings[ik] -%}
-      <a href="{{ section.settings[lk] | default: '#' }}" style="cursor:pointer;display:block;text-decoration:none;">
-        <div style="aspect-ratio:4/3;margin-bottom:16px;position:relative;overflow:hidden;{% if bimg != blank %}background-image:url('{{ bimg | image_url: width: 500 }}');background-size:cover;background-position:center;{% else %}background:{{ blog_bg[forloop.index0] }};{% endif %}"></div>
-        <p style="font-size:9px;letter-spacing:0.18em;color:#C4A843;margin-bottom:9px;font-weight:700;text-transform:uppercase;">{{ section.settings[ck] }}</p>
-        <h4 class="hh-blog-h4" style="font-family:'Playfair Display',serif;font-size:17px;color:#f2ede1;margin-bottom:10px;line-height:1.45;font-weight:400;">{{ section.settings[tk] }}</h4>
-        <span style="font-size:9px;letter-spacing:0.14em;color:rgba(242,237,225,0.4);font-weight:600;text-transform:uppercase;">Read More &rarr;</span>
-      </a>
-    {%- endfor -%}
-  </div>
-</section>
-
 <!-- EMAIL SIGNUP -->
 <section class="hh-email-section" style="background:#0d0a06;border-top:1px solid #1f1a10;border-bottom:1px solid #1f1a10;padding:88px 48px;">
   <div style="max-width:560px;margin:0 auto;text-align:center;">
@@ -374,7 +349,7 @@
 <!-- FOOTER -->
 <footer class="hh-footer" style="background:#080808;padding:72px 48px 40px;">
   <div style="max-width:1440px;margin:0 auto;">
-    <div class="hh-footer-grid" style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;gap:52px;margin-bottom:56px;padding-bottom:56px;border-bottom:1px solid #1a1510;">
+    <div class="hh-footer-grid" style="display:grid;grid-template-columns:2.2fr 1fr 1fr;gap:52px;margin-bottom:56px;padding-bottom:56px;border-bottom:1px solid #1a1510;">
       <div class="hh-footer-logo-col">
         <img src="{{ logo_src }}" alt="{{ shop.name }}" style="height:68px;width:auto;display:block;margin-bottom:18px;" onerror="this.outerHTML='<span style=&quot;font-family:Playfair Display,serif;font-size:24px;letter-spacing:0.15em;color:#f2ede1;&quot;>HUMBLE HEARTED</span>'">
         <p style="font-size:12px;color:rgba(242,237,225,0.4);line-height:1.9;max-width:260px;font-weight:300;">Luxury for the real. Beautiful pieces crafted for people with beautiful hearts.</p>
@@ -387,12 +362,12 @@
       <div>
         <h5 style="font-size:10px;letter-spacing:0.18em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:20px;">Help</h5>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">FAQs</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Shipping Info</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Returns</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Materials &amp; Care</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Size Guides</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Contact Us</a>
+          <a href="/pages/faqs" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">FAQs</a>
+          <a href="/pages/shipping-info" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Shipping Info</a>
+          <a href="/pages/returns" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Returns</a>
+          <a href="/pages/materials-and-care" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Materials &amp; Care</a>
+          <a href="/pages/size-guide" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Size Guide</a>
+          <a href="/pages/contact" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Contact Us</a>
         </div>
       </div>
       <div>
@@ -406,29 +381,10 @@
           <a href="/collections/gifts" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Gifts</a>
         </div>
       </div>
-      <div>
-        <h5 style="font-size:10px;letter-spacing:0.18em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:20px;">About Us</h5>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Our Story</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Craftsmanship</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Sustainability</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Blog / Journal</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Careers</a>
-        </div>
-      </div>
-      <div>
-        <h5 style="font-size:10px;letter-spacing:0.18em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:20px;">More</h5>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Privacy Policy</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Terms &amp; Conditions</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Accessibility</a>
-          <a href="#" style="font-size:12px;color:rgba(242,237,225,0.4);text-decoration:none;font-weight:300;">Stockists</a>
-        </div>
-      </div>
     </div>
     <div class="hh-footer-bottom" style="display:flex;justify-content:space-between;align-items:center;">
       <p style="font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
-      <span style="font-size:10px;color:rgba(242,237,225,0.2);letter-spacing:0.06em;">Visa · Mastercard · Amex · PayPal · Shop Pay · Apple Pay</span>
+      <span style="font-size:10px;color:rgba(242,237,225,0.2);letter-spacing:0.06em;">Visa &middot; Mastercard &middot; Amex &middot; PayPal &middot; Shop Pay &middot; Apple Pay</span>
     </div>
   </div>
 </footer>
@@ -529,26 +485,6 @@
     { "type": "text", "id": "vid5_label", "label": "Card 5 label", "default": "Pearl Drop Earrings" },
     { "type": "text", "id": "vid5_handle", "label": "Card 5 handle", "default": "@annajewels" },
     { "type": "url", "id": "vid5_link", "label": "Card 5 link" },
-
-    { "type": "header", "content": "From The Journal (4 cards)" },
-    { "type": "text", "id": "blog_eyebrow", "label": "Eyebrow", "default": "Learn & Style" },
-    { "type": "text", "id": "blog_heading", "label": "Heading", "default": "From The Journal" },
-    { "type": "image_picker", "id": "blog1_image", "label": "Card 1 image" },
-    { "type": "text", "id": "blog1_category", "label": "Card 1 category", "default": "Styling Guide" },
-    { "type": "text", "id": "blog1_title", "label": "Card 1 title", "default": "How To Layer Necklaces Like A Pro" },
-    { "type": "url", "id": "blog1_link", "label": "Card 1 link" },
-    { "type": "image_picker", "id": "blog2_image", "label": "Card 2 image" },
-    { "type": "text", "id": "blog2_category", "label": "Card 2 category", "default": "Care Guide" },
-    { "type": "text", "id": "blog2_title", "label": "Card 2 title", "default": "What Is Gold Vermeil?" },
-    { "type": "url", "id": "blog2_link", "label": "Card 2 link" },
-    { "type": "image_picker", "id": "blog3_image", "label": "Card 3 image" },
-    { "type": "text", "id": "blog3_category", "label": "Card 3 category", "default": "Care" },
-    { "type": "text", "id": "blog3_title", "label": "Card 3 title", "default": "How To Clean Your Gold Jewelry At Home" },
-    { "type": "url", "id": "blog3_link", "label": "Card 3 link" },
-    { "type": "image_picker", "id": "blog4_image", "label": "Card 4 image" },
-    { "type": "text", "id": "blog4_category", "label": "Card 4 category", "default": "Gift Guide" },
-    { "type": "text", "id": "blog4_title", "label": "Card 4 title", "default": "Your Complete Guide To Meaningful Gift Giving" },
-    { "type": "url", "id": "blog4_link", "label": "Card 4 link" },
 
     { "type": "header", "content": "Email Signup" },
     { "type": "text", "id": "email_eyebrow", "label": "Eyebrow", "default": "Join The Heart Club" },

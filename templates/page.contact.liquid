@@ -1,0 +1,74 @@
+{% layout 'theme' %}
+
+<style>
+  .hh-page { background:#080808; color:#f2ede1; font-family:'Montserrat',sans-serif; min-height:60vh; }
+  .hh-page-inner { max-width:780px; margin:0 auto; padding:80px 48px; }
+  .hh-page h1 { font-family:'Playfair Display',serif; font-size:42px; font-weight:400; color:#f2ede1; margin-bottom:12px; }
+  .hh-page-rule { width:48px; height:1px; background:#C4A843; margin-bottom:48px; }
+  .hh-page p { font-size:13px; color:rgba(242,237,225,0.55); line-height:1.9; font-weight:300; margin-bottom:16px; }
+  .hh-contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-bottom:56px; }
+  .hh-contact-item h3 { font-size:10px; letter-spacing:0.2em; color:#C4A843; text-transform:uppercase; font-weight:700; margin-bottom:10px; }
+  .hh-contact-item p { font-size:13px; color:rgba(242,237,225,0.55); line-height:1.8; font-weight:300; margin:0; }
+  .hh-form-group { margin-bottom:24px; }
+  .hh-form-group label { display:block; font-size:10px; letter-spacing:0.15em; color:rgba(242,237,225,0.55); text-transform:uppercase; font-weight:700; margin-bottom:10px; }
+  .hh-form-group input, .hh-form-group select, .hh-form-group textarea { width:100%; background:#111; border:1px solid #2a2218; color:#f2ede1; font-family:'Montserrat',sans-serif; font-size:13px; font-weight:300; padding:14px 16px; outline:none; resize:none; }
+  .hh-form-group textarea { min-height:140px; }
+  .hh-form-btn { padding:16px 48px; background:#C4A843; color:#080808; font-size:10px; letter-spacing:0.2em; font-weight:800; text-transform:uppercase; border:none; cursor:pointer; }
+  @media(max-width:768px){ .hh-page-inner{ padding:56px 24px; } .hh-page h1{ font-size:32px; } .hh-contact-grid{ grid-template-columns:1fr; gap:28px; } }
+</style>
+
+<div class="hh-page">
+  <div class="hh-page-inner">
+    <h1>Contact Us</h1>
+    <div class="hh-page-rule"></div>
+
+    <div class="hh-contact-grid">
+      <div class="hh-contact-item">
+        <h3>Email</h3>
+        <p>hello@humblehearted.com<br>We respond within 1&ndash;2 business days.</p>
+      </div>
+      <div class="hh-contact-item">
+        <h3>Hours</h3>
+        <p>Monday &ndash; Friday<br>9:00 AM &ndash; 5:00 PM EST</p>
+      </div>
+      <div class="hh-contact-item">
+        <h3>Returns &amp; Orders</h3>
+        <p>For order inquiries, please have your order number ready when reaching out.</p>
+      </div>
+      <div class="hh-contact-item">
+        <h3>Social</h3>
+        <p>DM us on Instagram or TikTok<br>@HumbleHeartedJewelry</p>
+      </div>
+    </div>
+
+    {% form 'contact' %}
+      {% if form.posted_successfully? %}
+        <p style="color:#C4A843;font-size:13px;font-weight:600;margin-bottom:24px;">Thank you for reaching out. We will get back to you within 1&ndash;2 business days.</p>
+      {% endif %}
+      <div class="hh-form-group">
+        <label for="contact_name">Your Name</label>
+        <input type="text" id="contact_name" name="contact[name]" placeholder="Your full name" required>
+      </div>
+      <div class="hh-form-group">
+        <label for="contact_email">Email Address</label>
+        <input type="email" id="contact_email" name="contact[email]" placeholder="your@email.com" required>
+      </div>
+      <div class="hh-form-group">
+        <label for="contact_subject">Subject</label>
+        <select id="contact_subject" name="contact[subject]">
+          <option value="">Select a topic</option>
+          <option value="Order Inquiry">Order Inquiry</option>
+          <option value="Return Request">Return Request</option>
+          <option value="Shipping Question">Shipping Question</option>
+          <option value="Product Question">Product Question</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="hh-form-group">
+        <label for="contact_message">Message</label>
+        <textarea id="contact_message" name="contact[body]" placeholder="Tell us how we can help..." required></textarea>
+      </div>
+      <button class="hh-form-btn" type="submit">Send Message &rarr;</button>
+    {% endform %}
+  </div>
+</div>

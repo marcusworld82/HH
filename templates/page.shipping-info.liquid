@@ -1,0 +1,59 @@
+{% layout 'theme' %}
+
+<style>
+  .hh-page { background:#080808; color:#f2ede1; font-family:'Montserrat',sans-serif; min-height:60vh; }
+  .hh-page-inner { max-width:780px; margin:0 auto; padding:80px 48px; }
+  .hh-page h1 { font-family:'Playfair Display',serif; font-size:42px; font-weight:400; color:#f2ede1; margin-bottom:12px; }
+  .hh-page-rule { width:48px; height:1px; background:#C4A843; margin-bottom:48px; }
+  .hh-page h2 { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; color:#f2ede1; margin:40px 0 16px; }
+  .hh-page p { font-size:13px; color:rgba(242,237,225,0.55); line-height:1.9; font-weight:300; margin-bottom:16px; }
+  .hh-ship-table { width:100%; border-collapse:collapse; margin-bottom:32px; }
+  .hh-ship-table th { font-size:10px; letter-spacing:0.15em; color:#C4A843; text-transform:uppercase; font-weight:700; padding:12px 0; border-bottom:1px solid #2a2218; text-align:left; }
+  .hh-ship-table td { font-size:13px; color:rgba(242,237,225,0.55); font-weight:300; padding:14px 0; border-bottom:1px solid #1a1510; }
+  @media(max-width:768px){ .hh-page-inner{ padding:56px 24px; } .hh-page h1{ font-size:32px; } }
+</style>
+
+<div class="hh-page">
+  <div class="hh-page-inner">
+    <h1>Shipping Info</h1>
+    <div class="hh-page-rule"></div>
+
+    <p>We want your order to arrive quickly and safely. All orders are processed within 1&ndash;2 business days. You will receive a shipping confirmation email with tracking information once your order ships.</p>
+
+    <h2>Domestic Shipping (US)</h2>
+    <table class="hh-ship-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Estimated Delivery</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Standard Shipping</td><td>5&ndash;7 Business Days</td><td>$5.99 (Free over $75)</td></tr>
+        <tr><td>Expedited Shipping</td><td>2&ndash;3 Business Days</td><td>$12.99</td></tr>
+        <tr><td>Overnight Shipping</td><td>Next Business Day</td><td>$24.99</td></tr>
+      </tbody>
+    </table>
+
+    <h2>International Shipping</h2>
+    <table class="hh-ship-table">
+      <thead>
+        <tr>
+          <th>Region</th>
+          <th>Estimated Delivery</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Canada</td><td>7&ndash;14 Business Days</td><td>$14.99</td></tr>
+        <tr><td>Europe</td><td>10&ndash;18 Business Days</td><td>$19.99</td></tr>
+        <tr><td>Rest of World</td><td>14&ndash;21 Business Days</td><td>$24.99</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Important Notes</h2>
+    <p>Delivery times are estimates and not guaranteed. Delays may occur during peak seasons or due to customs processing for international orders. Humble Hearted is not responsible for duties, taxes, or customs fees imposed by the destination country.</p>
+    <p>If your tracking shows your package as delivered but you have not received it, please contact your local carrier and then reach out to us within 5 business days of the delivery date.</p>
+  </div>
+</div>
