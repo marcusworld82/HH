@@ -1,10 +1,27 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "layout": "hh-standalone",
   "sections": {
     "main": {
       "type": "hh-collections-list",
-      "settings": {}
+      "settings": {
+        "announcement_text": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns",
+        "hero_image": "shopify://shop_images/Replace_the_key_pendant_with_202606162236.jpg",
+        "hero_eyebrow": "Shop By Category",
+        "hero_title": "Collections",
+        "hero_subtitle": "Crafted for people with beautiful hearts"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
