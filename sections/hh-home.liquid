@@ -112,6 +112,7 @@
     </a>
     <div class="hh-nav-right" style="display:flex;gap:28px;align-items:center;justify-content:flex-end;">
       <div class="hh-nav-right-links" style="display:flex;gap:28px;align-items:center;">
+        <a href="{{ section.settings.nav5_link | default: '/collections/pendants' }}" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">{{ section.settings.nav5_label | default: 'Pendants' }}</a>
         <a href="{{ section.settings.nav7_link | default: '/collections' }}" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">{{ section.settings.nav7_label | default: 'Collections' }}</a>
         <a href="{{ section.settings.nav6_link | default: '/collections/all?sort_by=created-descending' }}" style="color:#C4A843;font-size:11px;font-weight:700;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">{{ section.settings.nav6_label | default: 'New In' }}</a>
         <a href="{{ section.settings.nav8_link | default: '/collections/gifts' }}" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-decoration:none;text-transform:uppercase;">{{ section.settings.nav8_label | default: 'Gifts' }}</a>
