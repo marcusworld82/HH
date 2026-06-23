@@ -8,22 +8,6 @@
   .hhc *,.hhc *::before,.hhc *::after{margin:0;padding:0;box-sizing:border-box;}
   .hhc{background:#080808;color:#f2ede1;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
   .hhc a{color:inherit;text-decoration:none;}
-  @keyframes hh-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  .hhc-ann{background:#C4A843;overflow:hidden;height:36px;display:flex;align-items:center;}
-  .hhc-ann-track{display:flex;animation:hh-marquee 36s linear infinite;white-space:nowrap;will-change:transform;}
-  .hhc-ann-track span{font-size:10px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;}
-  .hhc-nav{background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;}
-  .hhc-hn{max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;}
-  .hhc-link{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#f2ede1;}
-  .hhc-link.active{color:#C4A843;font-weight:700;}
-  .hhc-l{display:flex;gap:24px;align-items:center;}
-  .hhc-r{display:flex;gap:18px;align-items:center;}
-  .hhc-logo{justify-self:center;line-height:0;}
-  .hhc-logo img{height:62px;width:auto;display:block;}
-  .hhc-logo span{font-family:'Playfair Display',serif;font-size:26px;color:#f2ede1;letter-spacing:0.15em;}
-  .hhc-ic{display:flex;gap:14px;align-items:center;border-left:1px solid #1f1a14;padding-left:16px;margin-left:2px;}
-  .hhc-hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
-  .hhc-hbg span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
   .hhc-hero{height:280px;position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#100a14 0,#100a14 18px,#180f1e 18px,#180f1e 36px);}
   .hhc-hero-inner{position:absolute;inset:0;background:rgba(8,8,8,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
   .hhc-hero-eyebrow{font-size:10px;letter-spacing:0.3em;color:#C4A843;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
@@ -63,51 +47,15 @@
   .hhc-ft-copy{font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;}
   .hhc-ft-pay{font-size:10px;color:rgba(242,237,225,0.2);}
   @media(max-width:1024px){.hhc-grid{grid-template-columns:repeat(3,1fr);padding:32px 28px 12px;}.hhc-ft-cols{grid-template-columns:repeat(3,1fr);}}
-  @media(max-width:768px){.hhc-hbg{display:flex!important;}.hhc-l,.hhc-r,.hhc-ic{display:none!important;}.hhc-hn{grid-template-columns:auto 1fr auto!important;padding:0 18px!important;height:60px!important;}.hhc-logo img{height:46px!important;}.hhc-hero-title{font-size:40px;}.hhc-grid{grid-template-columns:repeat(2,1fr);gap:14px;padding:24px 18px 8px;}.hhc-ft-cols{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:768px){.hhc-hero-title{font-size:40px;}.hhc-grid{grid-template-columns:repeat(2,1fr);gap:14px;padding:24px 18px 8px;}.hhc-ft-cols{grid-template-columns:repeat(2,1fr);}}
 {%- endstyle -%}
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-{%- assign logo_url = 'hh-logo.png' | asset_url -%}
 {%- assign bgs = 'repeating-linear-gradient(135deg,#130f0a 0,#130f0a 11px,#1c1610 11px,#1c1610 22px)|repeating-linear-gradient(45deg,#0a0d12 0,#0a0d12 11px,#0f121a 11px,#0f121a 22px)|repeating-linear-gradient(135deg,#110e07 0,#110e07 11px,#19140a 11px,#19140a 22px)|repeating-linear-gradient(45deg,#0f0a12 0,#0f0a12 11px,#160f1a 11px,#160f1a 22px)' | split: '|' -%}
 
 <div class="hhc">
-  <div class="hhc-ann">
-    <div class="hhc-ann-track">
-      <span>{{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp; {{ section.settings.announcement_text }} &nbsp;&#10022;&nbsp;</span>
-    </div>
-  </div>
-
-  <nav class="hhc-nav">
-    <div class="hhc-hn">
-      <button class="hhc-hbg" aria-label="Menu"><span></span><span></span><span></span></button>
-      <div class="hhc-l">
-        <a class="hhc-link{% if collection.handle == 'necklaces' %} active{% endif %}" href="/collections/necklaces">Necklaces</a>
-        <a class="hhc-link{% if collection.handle == 'rings' %} active{% endif %}" href="/collections/rings">Rings</a>
-        <a class="hhc-link{% if collection.handle == 'bracelets' %} active{% endif %}" href="/collections/bracelets">Bracelets</a>
-        <a class="hhc-link{% if collection.handle == 'earrings' %} active{% endif %}" href="/collections/earrings">Earrings</a>
-      </div>
-      <a class="hhc-logo" href="/">
-        {%- if settings.logo != blank -%}
-          <img src="{{ settings.logo | image_url: height: 124 }}" alt="{{ shop.name }}">
-        {%- else -%}
-          <img src="{{ logo_url }}" alt="{{ shop.name }}" onerror="this.outerHTML='<span>HH</span>'">
-        {%- endif -%}
-      </a>
-      <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end;">
-        <div class="hhc-r">
-          <a class="hhc-link{% if collection.handle == 'pendants' %} active{% endif %}" href="/collections/pendants">Pendants</a>
-          <a class="hhc-link{% if collection.handle == 'all' %} active{% endif %}" href="/collections/all?sort_by=created-descending">New</a>
-          <a class="hhc-link{% if collection.handle == 'gifts' %} active{% endif %}" href="/collections/gifts">Gifts</a>
-        </div>
-        <div class="hhc-ic">
-          <a href="/search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></a>
-          <a href="/account" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
-          <a href="/cart" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></a>
-        </div>
-      </div>
-    </div>
-  </nav>
+  {% render 'hh-nav' %}
 
   <section class="hhc-hero" style="{% if section.settings.hero_image != blank %}background-image:url('{{ section.settings.hero_image | image_url: width: 1600 }}');background-size:cover;background-position:center;{% endif %}">
     <div class="hhc-hero-inner">
