@@ -13,7 +13,6 @@
     "main": {
       "type": "hh-home",
       "settings": {
-        "announcement_text": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns",
         "nav1_label": "Pendants",
         "nav1_link": "shopify://collections/pendants",
         "nav2_label": "Rings",
@@ -26,10 +25,11 @@
         "nav5_link": "shopify://collections/necklace",
         "nav6_label": "Collections",
         "nav6_link": "shopify://collections",
-        "nav7_label": "Necklaces",
+        "nav7_label": "",
         "nav7_link": "shopify://collections/necklace",
         "nav8_label": "Gifts",
         "nav8_link": "",
+        "announcement_text": "Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns",
         "social_tiktok_url": "",
         "social_instagram_url": "",
         "social_pinterest_url": "",
