@@ -1,52 +1,154 @@
-{% layout 'theme' %}
+{%- assign logo_url = 'hh-logo.png' | asset_url -%}
+{%- if settings.logo != blank -%}
+  {%- assign logo_src = settings.logo | image_url: height: 124 -%}
+{%- else -%}
+  {%- assign logo_src = logo_url -%}
+{%- endif -%}
 
-<style>
-  .hh-page { background:#080808; color:#f2ede1; font-family:'Montserrat',sans-serif; min-height:60vh; }
-  .hh-page-inner { max-width:780px; margin:0 auto; padding:80px 48px; }
-  .hh-page h1 { font-family:'Playfair Display',serif; font-size:42px; font-weight:400; color:#f2ede1; margin-bottom:12px; }
-  .hh-page-rule { width:48px; height:1px; background:#C4A843; margin-bottom:48px; }
-  .hh-faq-item { border-bottom:1px solid #1f1a14; padding:24px 0; }
-  .hh-faq-q { font-size:14px; font-weight:700; letter-spacing:0.04em; color:#f2ede1; margin-bottom:12px; }
-  .hh-faq-a { font-size:13px; color:rgba(242,237,225,0.55); line-height:1.9; font-weight:300; }
-  @media(max-width:768px){ .hh-page-inner{ padding:56px 24px; } .hh-page h1{ font-size:32px; } }
-</style>
+{% layout none %}
 
-<div class="hh-page">
-  <div class="hh-page-inner">
-    <h1>Frequently Asked Questions</h1>
-    <div class="hh-page-rule"></div>
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080808">
+  <title>{{ page_title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  {{ content_for_header }}
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html,body{margin:0;padding:0;background:#080808;overflow-x:hidden;color:#f2ede1;font-family:'Montserrat',sans-serif;}
+    a{color:inherit;text-decoration:none;}
+    @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+    .hh-nav-inner{max-width:1440px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:80px;}
+    .hh-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
+    .hh-hamburger span{display:block;width:22px;height:2px;background:#f2ede1;border-radius:1px;}
+    .hh-page{background:#080808;min-height:60vh;padding:80px 48px;max-width:780px;margin:0 auto;}
+    .hh-page h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:400;color:#f2ede1;margin-bottom:12px;}
+    .hh-page-rule{width:48px;height:1px;background:#C4A843;margin-bottom:48px;}
+    .hh-faq-item{border-bottom:1px solid #1f1a14;padding:24px 0;}
+    .hh-faq-q{font-size:14px;font-weight:700;letter-spacing:0.04em;color:#f2ede1;margin-bottom:12px;}
+    .hh-faq-a{font-size:13px;color:rgba(242,237,225,0.55);line-height:1.9;font-weight:300;}
+    .hh-ft{background:#080808;padding:48px 48px 28px;border-top:1px solid #1a1510;margin-top:80px;}
+    .hh-ft-inner{max-width:1440px;margin:0 auto;}
+    .hh-ft-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid #1a1510;}
+    .hh-ft-tag{font-size:11px;color:rgba(242,237,225,0.35);line-height:1.8;max-width:220px;font-weight:300;}
+    .hh-ft-h{font-size:10px;letter-spacing:0.16em;color:#f2ede1;text-transform:uppercase;font-weight:700;margin-bottom:14px;}
+    .hh-ft-list{display:flex;flex-direction:column;gap:9px;}
+    .hh-ft-list a{font-size:12px;color:rgba(242,237,225,0.4);font-weight:300;}
+    .hh-ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+    .hh-ft-copy{font-size:11px;color:rgba(242,237,225,0.2);font-weight:300;}
+    .hh-ft-pay{font-size:10px;color:rgba(242,237,225,0.2);}
+    @media(max-width:768px){
+      .hh-nav-inner{grid-template-columns:auto 1fr auto !important;padding:0 20px !important;height:60px !important;}
+      .hh-nav-left,.hh-nav-right-links,.hh-nav-divider-text{display:none !important;}
+      .hh-hamburger{display:flex !important;}
+      .hh-page{padding:56px 24px;}
+      .hh-page h1{font-size:32px;}
+      .hh-ft-cols{grid-template-columns:repeat(2,1fr);}
+    }
+    @media(max-width:1024px){
+      .hh-nav-inner{padding:0 28px !important;}
+      .hh-nav-left{gap:18px !important;}
+    }
+  </style>
+</head>
+<body>
 
-    <div class="hh-faq-item">
-      <p class="hh-faq-q">What materials are your pieces made from?</p>
-      <p class="hh-faq-a">All Humble Hearted jewelry is crafted from 18k gold vermeil over sterling silver. Our pieces are nickel-free, hypoallergenic, and built to last with proper care.</p>
-    </div>
-    <div class="hh-faq-item">
-      <p class="hh-faq-q">How long does shipping take?</p>
-      <p class="hh-faq-a">Standard shipping within the US takes 5&ndash;7 business days. Expedited options are available at checkout. Orders over $75 qualify for free standard shipping.</p>
-    </div>
-    <div class="hh-faq-item">
-      <p class="hh-faq-q">Do you ship internationally?</p>
-      <p class="hh-faq-a">Yes, we ship to most countries worldwide. International shipping times vary by destination and typically range from 10&ndash;21 business days. Duties and taxes may apply.</p>
-    </div>
-    <div class="hh-faq-item">
-      <p class="hh-faq-q">What is your return policy?</p>
-      <p class="hh-faq-a">We accept returns within 60 days of purchase on unworn items in original condition. Please visit our Returns page for full details and to initiate a return.</p>
-    </div>
-    <div class="hh-faq-item">
-      <p class="hh-faq-q">How do I care for my jewelry?</p>
-      <p class="hh-faq-a">To preserve the finish, avoid exposure to water, perfume, lotions, and harsh chemicals. Store pieces in a cool, dry place. See our Materials &amp; Care page for detailed guidance.</p>
-    </div>
-    <div class="hh-faq-item">
-      <p class="hh-faq-q">Do you offer gift wrapping?</p>
-      <p class="hh-faq-a">Every Humble Hearted order arrives in our signature packaging, ready to gift. A complimentary gift message card can be added at checkout.</p>
-    </div>
-    <div class="hh-faq-item">
-      <p class="hh-faq-q">How do I find my ring or bracelet size?</p>
-      <p class="hh-faq-a">Visit our Size Guide page for printable sizing tools and measuring instructions to find your perfect fit.</p>
-    </div>
-    <div class="hh-faq-item">
-      <p class="hh-faq-q">Can I make changes to my order after placing it?</p>
-      <p class="hh-faq-a">Order changes can be requested within 2 hours of purchase. Please contact us immediately via our Contact page and we will do our best to accommodate your request before the order ships.</p>
-    </div>
+<!-- MOBILE MENU -->
+<div id="hhSharedMobileMenu" style="position:fixed;inset:0;z-index:999;background:#080808;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease;padding:40px 24px;">
+  <button onclick="hhSharedMenu(false)" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;color:#f2ede1;font-size:32px;line-height:1;padding:8px;">&times;</button>
+  <img src="{{ logo_src }}" alt="{{ shop.name }}" style="height:72px;margin-bottom:40px;" onerror="this.style.display='none'">
+  <a href="/collections/pendants" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Pendants</a>
+  <a href="/collections/rings" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Rings</a>
+  <a href="/collections/bracelets" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Bracelets</a>
+  <a href="/collections/earrings" style="font-family:'Playfair Display',serif;font-size:28px;color:#f2ede1;text-decoration:none;margin-bottom:18px;">Earrings</a>
+  <a href="/collections/necklace" style="font-size:14px;letter-spacing:0.2em;color:#f2ede1;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">Necklace</a>
+  <a href="/collections/all" style="font-size:14px;letter-spacing:0.2em;color:#C4A843;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">All</a>
+  <a href="/collections" style="font-size:14px;letter-spacing:0.2em;color:#f2ede1;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">Collections</a>
+  <a href="/pages/faq" style="font-size:14px;letter-spacing:0.2em;color:#f2ede1;text-decoration:none;margin-bottom:12px;font-weight:700;text-transform:uppercase;">FAQ</a>
+  <div style="width:40px;height:1px;background:#C4A843;margin:20px 0 24px;"></div>
+</div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div style="background:#C4A843;overflow:hidden;height:38px;display:flex;align-items:center;">
+  <div style="display:flex;animation:marquee 36s linear infinite;white-space:nowrap;will-change:transform;">
+    <span style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:#080808;padding:0 32px;text-transform:uppercase;">Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns &nbsp;&#10022;&nbsp; Free Shipping On Orders $75+ ✦ Sign Up For 10% Off ✦ New: Summer Heart Collection ✦ 60-Day Returns &nbsp;&#10022;&nbsp;</span>
   </div>
 </div>
+
+<!-- NAV -->
+<nav style="background:#080808;border-bottom:1px solid #1a1510;position:sticky;top:0;z-index:200;">
+  <div class="hh-nav-inner">
+    <button class="hh-hamburger" onclick="hhSharedMenu(true)" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div style="display:flex;gap:32px;align-items:center;" class="hh-nav-left">
+      <a href="/collections/pendants" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Pendants</a>
+      <a href="/collections/rings" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Rings</a>
+      <a href="/collections/bracelets" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Bracelets</a>
+      <a href="/collections/earrings" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Earrings</a>
+    </div>
+    <a href="/" style="display:block;line-height:0;justify-self:center;">
+      <img src="{{ logo_src }}" alt="{{ shop.name }}" style="height:62px;width:auto;display:block;" onerror="this.outerHTML='<span style=&quot;font-family:Playfair Display,serif;font-size:26px;letter-spacing:0.15em;color:#f2ede1;&quot;>HUMBLE HEARTED</span>'">
+    </a>
+    <div style="display:flex;gap:28px;align-items:center;justify-content:flex-end;">
+      <div style="display:flex;gap:28px;align-items:center;" class="hh-nav-right-links">
+        <a href="/collections/necklace" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Necklace</a>
+        <a href="/collections/all" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">All</a>
+        <a href="/collections" style="color:#f2ede1;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Collections</a>
+        <a href="/pages/faq" style="color:#f2ede1;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">FAQ</a>
+      </div>
+      <div style="display:flex;gap:18px;align-items:center;border-left:1px solid #1f1a14;padding-left:24px;margin-left:4px;" class="hh-nav-divider-text">
+        <a href="/search" style="color:#f2ede1;line-height:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></a>
+        <a href="/account" style="color:#f2ede1;line-height:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+        <a href="/cart" style="color:#f2ede1;line-height:0;position:relative;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2ede1" stroke-width="1.5" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span style="position:absolute;top:-7px;right:-7px;background:#8B1818;color:white;font-size:9px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;">{{ cart.item_count }}</span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- FAQ CONTENT -->
+<div class="hh-page">
+  <h1>Frequently Asked Questions</h1>
+  <div class="hh-page-rule"></div>
+  <div class="hh-faq-item"><p class="hh-faq-q">What materials are your pieces made from?</p><p class="hh-faq-a">All Humble Hearted jewelry is crafted from 18k gold vermeil over sterling silver. Our pieces are nickel-free, hypoallergenic, and built to last with proper care.</p></div>
+  <div class="hh-faq-item"><p class="hh-faq-q">How long does shipping take?</p><p class="hh-faq-a">Standard shipping within the US takes 5–7 business days. Expedited options are available at checkout. Orders over $75 qualify for free standard shipping.</p></div>
+  <div class="hh-faq-item"><p class="hh-faq-q">Do you ship internationally?</p><p class="hh-faq-a">Yes, we ship to most countries worldwide. International shipping times vary by destination and typically range from 10–21 business days. Duties and taxes may apply.</p></div>
+  <div class="hh-faq-item"><p class="hh-faq-q">What is your return policy?</p><p class="hh-faq-a">We accept returns within 60 days of purchase on unworn items in original condition. Please visit our Returns page for full details and to initiate a return.</p></div>
+  <div class="hh-faq-item"><p class="hh-faq-q">How do I care for my jewelry?</p><p class="hh-faq-a">To preserve the finish, avoid exposure to water, perfume, lotions, and harsh chemicals. Store pieces in a cool, dry place.</p></div>
+  <div class="hh-faq-item"><p class="hh-faq-q">Do you offer gift wrapping?</p><p class="hh-faq-a">Every Humble Hearted order arrives in our signature packaging, ready to gift. A complimentary gift message card can be added at checkout.</p></div>
+  <div class="hh-faq-item"><p class="hh-faq-q">How do I find my ring or bracelet size?</p><p class="hh-faq-a">Visit our Size Guide page for printable sizing tools and measuring instructions to find your perfect fit.</p></div>
+  <div class="hh-faq-item"><p class="hh-faq-q">Can I make changes to my order after placing it?</p><p class="hh-faq-a">Order changes can be requested within 2 hours of purchase. Please contact us immediately via our Contact page and we will do our best to accommodate your request before the order ships.</p></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="hh-ft">
+  <div class="hh-ft-inner">
+    <div class="hh-ft-cols">
+      <div>
+        {%- if settings.logo != blank -%}<img src="{{ settings.logo | image_url: height: 104 }}" alt="{{ shop.name }}" style="height:52px;width:auto;display:block;margin-bottom:12px;">{%- else -%}<span style="font-family:'Playfair Display',serif;font-size:22px;color:#f2ede1;letter-spacing:0.15em;display:block;margin-bottom:12px;">HUMBLE HEARTED</span>{%- endif -%}
+        <p class="hh-ft-tag">Luxury for the real. Crafted for people with beautiful hearts.</p>
+      </div>
+      <div><h5 class="hh-ft-h">Shop</h5><div class="hh-ft-list"><a href="/collections/pendants">Pendants</a><a href="/collections/rings">Rings</a><a href="/collections/bracelets">Bracelets</a><a href="/collections/earrings">Earrings</a><a href="/collections/necklace">Necklace</a></div></div>
+      <div><h5 class="hh-ft-h">Help</h5><div class="hh-ft-list"><a href="/pages/faq">FAQ</a><a href="/pages/shipping">Shipping</a><a href="/pages/returns">Returns</a><a href="/pages/contact">Contact Us</a></div></div>
+      <div><h5 class="hh-ft-h">Collections</h5><div class="hh-ft-list"><a href="/collections">All Collections</a><a href="/collections/all">All Products</a></div></div>
+    </div>
+    <div class="hh-ft-bottom">
+      <p class="hh-ft-copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved.</p>
+      <span class="hh-ft-pay">Visa &middot; Mastercard &middot; Shop Pay &middot; Apple Pay</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function hhSharedMenu(open){
+    var m=document.getElementById('hhSharedMobileMenu');
+    m.style.opacity=open?'1':'0';
+    m.style.pointerEvents=open?'auto':'none';
+  }
+</script>
+
+</body>
+</html>
